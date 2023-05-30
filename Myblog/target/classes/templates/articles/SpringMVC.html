@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>SpringMVC</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog Template">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
+	<!--显示小图标，目前显不出来，bug！！-->
+<!--    <link rel="shortcut icon" href="favicon.ico">-->
+    
+    <!-- 字体 JS-->
+	<script defer th:src="@{/fontawesome/js/all.js/all.min.js}"></script>
+    
+    <!-- 插件 CSS -->
+    <link rel="stylesheet" th:href="@{/plugins/highlight/styles/monokai-sublime.css}">
+    
+    <!-- 主题 CSS -->
+    <link id="theme-style" rel="stylesheet" th:href="@{/css/theme-4.css}">
+
+</head> 
+
+<body>
+    
+    <!--左侧部分-->
+	<div th:replace="~{/commons/commons::header_bar(active='blog-post')}"></div>
+    
+    <div class="main-wrapper">
+
+        <div>
+            <div style='width:25%;'>
+                <ul id="tree" class="ztree" style='width:100%'>
+
+                </ul>
+            </div>
+            <div id='readme' style='width:70%;margin-left:20%;'>
+                <article class='markdown-body'>
+                    <h2 id="springmvc">SpringMVC</h2>
+                    <p>ssm: mybatis + Spring + SpringMVC  <strong>MVC三层架构</strong></p>
+                    <p>SSM = javaWeb做项目</p>
+                    <p>Spring: IOC 和 AOP</p>
+                    <p>SpringMVC: SpringMVC的执行流程，SSM框架整合</p>
+                    <p>MVC: 模型（dao，service） 视图（jsp） 控制器（Servlet）</p>
+                    <p>dao: 连接数据库</p>
+                    <p>service: 调用dao层，并且执行具体的业务</p>
+                    <p>servlet: 接收前端的数据，如果数据要处理就交给service层进行处理，接收service返回的数据，并跳转</p>
+                    <p>转发和重定向（注意区别）</p>
+                    <p><img src="https://img-blog.csdnimg.cn/20200623191748796.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ1ODk5MDEz,size_16,color_FFFFFF,t_70" alt="img"></p>
+                    <p><img src="https://img-blog.csdnimg.cn/20200623191249380.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzQ1ODk5MDEz,size_16,color_FFFFFF,t_70" alt="img"></p>
+                    <p>Model（模型）：数据模型，提供要展示的数据，可以认为是领域模型或JavaBean组件</p>
+                    <p>View（视图）：负责进行模型的展示，一般就是我们见到的用户界面</p>
+                    <p>Controller（控制器）：接收用户请求，进行处理，处理完毕后把返回的模型数据返回给视图，由视图负责展示</p>
+                    <p><strong>回顾servlet</strong></p>
+                    <p>在pom.xml中，配置所需要的依赖</p>
+                    <pre><code class="lang-xml">&lt;dependency&gt;
+    &lt;groupId&gt;junit&lt;/groupId&gt;
+    &lt;artifactId&gt;junit&lt;/artifactId&gt;
+    &lt;version&gt;3.8.1&lt;/version&gt;
+    &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;
+    &lt;version&gt;5.1.10.RELEASE&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+    &lt;artifactId&gt;servlet-api&lt;/artifactId&gt;
+    &lt;version&gt;2.5&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;javax.servlet.jsp&lt;/groupId&gt;
+    &lt;artifactId&gt;jsp-api&lt;/artifactId&gt;
+    &lt;version&gt;2.2&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+    &lt;artifactId&gt;jstl&lt;/artifactId&gt;
+    &lt;version&gt;1.2&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+                    <p>Spring MVC初识</p>
+                    <h2 id="1-spring-mvc-"><strong>1、Spring MVC的特点：</strong></h2>
+                    <ul>
+                        <li>轻量级，简单易学</li>
+                        <li>高效，基于请求响应的MVC框架</li>
+                        <li>与Spring兼容性好</li>
+                        <li>约定优于配置</li>
+                    </ul>
+                    <h2 id="2-spring-mvc-"><strong>2、Spring MVC的原理</strong></h2>
+                    <p>（官方原理图）</p>
+                    <p><img src="C:\Users\dell\AppData\Roaming\Typora\typora-user-images\image-20230413143620677.png" alt="image-20230413143620677"></p>
+                    <p>这是狂神做的原理图</p>
+                    <p><img src="C:\Users\dell\AppData\Roaming\Typora\typora-user-images\image-20230413153753740.png" alt="image-20230413153753740"></p>
+                    <p><strong>SpringMVC流程</strong></p>
+                    <p>1、 用户发送请求至前端控制器DispatcherServlet。</p>
+                    <p>2、 DispatcherServlet收到请求调用HandlerMapping处理器映射器。</p>
+                    <p>3、 处理器映射器找到具体的处理器(可以根据xml配置、注解进行查找)，生成处理器对象及处理器拦截器(如果有则生成)一并返回给DispatcherServlet。</p>
+                    <p>4、 DispatcherServlet调用HandlerAdapter处理器适配器。</p>
+                    <p>5、 HandlerAdapter经过适配调用具体的处理器(Controller，也叫后端控制器)。</p>
+                    <p>6、 Controller执行完成返回ModelAndView。</p>
+                    <p>7、 HandlerAdapter将controller执行结果ModelAndView返回给DispatcherServlet。</p>
+                    <p>8、 DispatcherServlet将ModelAndView传给ViewReslover视图解析器。</p>
+                    <p>9、 ViewReslover解析后返回具体View。</p>
+                    <p>10、DispatcherServlet根据View进行渲染视图（即将模型数据填充至视图中）。</p>
+                    <p>11、 DispatcherServlet响应用户。</p>
+                    <h2 id="3-spring-mvc"><strong>3、使用注解开发Spring MVC</strong></h2>
+                    <p>为了防止maven出现资源过滤的问题，需要在maven的pom.xml文件中，进行如下配置</p>
+                    <pre><code class="lang-xml">&lt;build&gt;
+    &lt;resources&gt;
+        &lt;resource&gt;
+            &lt;directory&gt;src/main/java&lt;/directory&gt;
+            &lt;includes&gt;
+                &lt;include&gt;**/*.properties&lt;/include&gt;
+                &lt;include&gt;**/*.xml&lt;/include&gt;
+            &lt;/includes&gt;
+            &lt;filtering&gt;true&lt;/filtering&gt;
+        &lt;/resource&gt;
+        &lt;resource&gt;
+            &lt;directory&gt;src/main/resources&lt;/directory&gt;
+            &lt;includes&gt;
+                &lt;include&gt;**/*.properties&lt;/include&gt;
+                &lt;include&gt;**/*.xml&lt;/include&gt;
+            &lt;/includes&gt;
+            &lt;filtering&gt;true&lt;/filtering&gt;
+        &lt;/resource&gt;
+    &lt;/resources&gt;
+&lt;/build&gt;
+</code></pre>
+                    <p>小结：实现步骤如下：</p>
+                    <ul>
+                        <li>新建一个web项目</li>
+                        <li>导入相关jar包</li>
+                        <li>编写web.xml，注册DispatcherServlet</li>
+                        <li>编写springmvc配置文件</li>
+                        <li>接下来就是去创建对应的控制类，controller</li>
+                        <li>最后完善前端视图和controller之间的对应</li>
+                        <li>测试运行调试</li>
+                    </ul>
+                    <p>使用springMVC必须配置的三大件：处理器映射器、处理器适配器、视图解析器</p>
+                    <h2 id="4-controller-">4、Controller配置总结</h2>
+                    <p>首先配置DispatcherServlet</p>
+                    <pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;web-app xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;
+         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd&quot;
+         version=&quot;4.0&quot;&gt;
+
+    &lt;!--1.配置DispatcherServlet--&gt;
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;
+        &lt;init-param&gt;
+            &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+            &lt;param-value&gt;classpath:springmvc-servlet.xml&lt;/param-value&gt;
+        &lt;/init-param&gt;
+        &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+    &lt;/servlet&gt;
+
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;
+        &lt;url-pattern&gt;/&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+
+&lt;/web-app&gt;
+</code></pre>
+                    <p>然后在resources下建立一个springmvc-servlet.xml文件</p>
+                    <pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+       xmlns:mvc=&quot;http://www.springframework.org/schema/mvc&quot;
+       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       https://www.springframework.org/schema/mvc/spring-mvc.xsd&quot;&gt;
+    &lt;!-- 处理器映射器和适配器，固定不变 --&gt;
+    &lt;context:component-scan base-package=&quot;com.yin.controller&quot;/&gt;
+    &lt;mvc:default-servlet-handler/&gt;
+    &lt;mvc:annotation-driven/&gt;
+
+    &lt;!-- 视图解析器 --&gt;
+    &lt;bean class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;
+          id=&quot;internalResourceViewResolver&quot;&gt;
+        &lt;!-- 前缀 --&gt;
+        &lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/jsp/&quot; /&gt;
+        &lt;!-- 后缀 --&gt;
+        &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot; /&gt;
+    &lt;/bean&gt;
+
+&lt;!--    &lt;bean name=&quot;/t1&quot; class=&quot;com.yin.controller.ControllerTest2&quot;/&gt;--&gt;
+
+&lt;/beans&gt;
+</code></pre>
+                    <p>在com.yin.controller包下建立实体类ControllerTest2</p>
+                    <pre><code class="lang-java">package com.yin.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller //代表这个类会被Spring接管
+//被这个注解的类，中的所有方法，如果返回值是String，并且有具体页面可以跳转，那么就会被视图解析器解析
+public class ControllerTest2 {
+    @RequestMapping(&quot;/ttt&quot;)
+    public String test1(Model model) {
+        //用于往前台传数据
+        model.addAttribute(&quot;msg&quot;,&quot;ControllerTest2&quot;);
+        return &quot;test&quot;;
+    }
+}
+</code></pre>
+                    <p>启动之后，在url最后输入/ttt即可成功访问到msg</p>
+                    <h2 id="5-restful-">5、RESTful风格</h2>
+                    <p>Restful就是一个资源定位及资源操作的风格。不是标准也不是协议，只是一种风格。</p>
+                    <p><strong>传统方式操作资源</strong>：通过不用的参数来实现不同的效果（只能用post和get）</p>
+                    <ul>
+                        <li><a href="http://127.0.0.1/item/queryitem.action?id=1">http://127.0.0.1/item/queryitem.action?id=1</a> 查询，GET</li>
+                        <li><a href="http://127.0.0.1/item/saveitem.action">http://127.0.0.1/item/saveitem.action</a> 新增，POST</li>
+                    </ul>
+                    <p><strong>使用RESTful操作资源</strong>：可以通过不同的请求方式来实现不同的效果</p>
+                    <p>如下，请求地址一样，但是功能可以不同</p>
+                    <ul>
+                        <li><a href="http://127.0.0.1/item/1">http://127.0.0.1/item/1</a> 查询，GET</li>
+                        <li><a href="http://127.0.0.1/item">http://127.0.0.1/item</a> 新增，POST</li>
+                        <li><a href="http://127.0.0.1/item">http://127.0.0.1/item</a> 更新，PUT</li>
+                    </ul>
+                    <p><strong>练习</strong></p>
+                    <p>新建一个类RESTfulController</p>
+                    <p>在Spring MVC中可以使用@PathVariable注解，让方法参数的值对应绑定到一个URL模板变量</p>
+                    <pre><code class="lang-java">@Controller
+public class RESTfulController {
+
+    //原来的方式
+    //http://localhost:8080/springmvc_04_controller_war_exploded/add?a=1&amp;b=2
+    //RESTful方式
+    //http://localhost:8080/add/a/b
+    //@RequestMapping(name = &quot;/add/{a}/{b}&quot;,method = RequestMethod.GET)
+    //@GetMapping(&quot;/add/{a}/{b}&quot;)
+    //@RequestMapping(name = &quot;/add/{a}/{b}&quot;,method = RequestMethod.DELETE)
+    //@DeleteMapping(&quot;/add/{a}/{b}&quot;)
+    @RequestMapping(&quot;/add/{a}/{b}&quot;)
+    public String test1(@PathVariable int a,@PathVariable int b, Model model) {
+        int res = a + b;
+
+        model.addAttribute(&quot;msg&quot;,&quot;结果为：&quot; + res);
+
+        return &quot;test&quot;;
+    }
+
+}
+</code></pre>
+                    <p>一共有如下几种注解，这样就可以做到，url相同，但是由于访问方式不同，而进行不同的操作</p>
+                    <pre><code class="lang-java">@GetMapping
+@PostMapping
+@PutMapping
+@DeleteMapping
+@PatchMapping
+</code></pre>
+                    <h2 id="6-">6、重定向和转发</h2>
+                    <p>通过SpringMVC来实现转发和重定向（无需视图解析器）</p>
+                    <p>测试前，需要将xml中的视图解析器注释掉</p>
+                    <pre><code class="lang-java">@Controller
+public class ModelTest1 {
+
+    @RequestMapping(&quot;/m1/t1&quot;)
+    public String test1(Model model) {
+        //重定向
+        model.addAttribute(&quot;msg&quot;,&quot;ModelTest1&quot;);
+        return &quot;redirect:/index.jsp&quot;;
+    }
+}
+
+@Controller
+public class ModelTest1 {
+
+    @RequestMapping(&quot;/m1/t1&quot;)
+    public String test1(Model model) {
+        //转发
+        model.addAttribute(&quot;msg&quot;,&quot;ModelTest1&quot;);
+        return &quot;forward:/index.jsp&quot;;
+    }
+}
+</code></pre>
+                    <p>有视图解析器</p>
+                    <pre><code class="lang-java">@Controller
+public class ModelTest1 {
+
+    @RequestMapping(&quot;/m1/t1&quot;)
+    public String test1(Model model) {
+        //转发
+        model.addAttribute(&quot;msg&quot;,&quot;ModelTest1&quot;);
+        //只写jsp的名，其他部分都由视图解析器拼接完成
+        return &quot;index&quot;;
+    }
+}
+
+@Controller
+public class ModelTest1 {
+
+    @RequestMapping(&quot;/m1/t1&quot;)
+    public String test1(Model model) {
+        //重定向
+        model.addAttribute(&quot;msg&quot;,&quot;ModelTest1&quot;);
+        return &quot;redirect:/index.jsp&quot;;
+    }
+}
+</code></pre>
+                    <h2 id="7-">7、数据处理和数据回显</h2>
+                    <p><strong>SpringMVC：数据处理</strong></p>
+                    <p>1、提交的域名称和处理方法的参数名一致</p>
+                    <p>提交数据：<a href="http://localhost:8080/hello?name=xiaomeng">http://localhost:8080/hello?name=xiaomeng</a></p>
+                    <p>处理方法：</p>
+                    <pre><code class="lang-java">@RequestMapping(&quot;/hello&quot;)
+public String hello(String name) {
+    System.out.println(name);
+    return &quot;hello&quot;;
+}
+</code></pre>
+                    <p>2、提交的域名称和处理方法的参数名不一致</p>
+                    <p>提交数据：<a href="http://localhost:8080/hello?username=xiaomeng">http://localhost:8080/hello?username=xiaomeng</a></p>
+                    <p>处理方法：</p>
+                    <pre><code class="lang-java">@RequestMapping(&quot;/hello&quot;)
+public String hello(@RequestParam(&quot;username&quot;) String name) {
+    System.out.println(name);
+    return &quot;hello&quot;;
+}
+</code></pre>
+                    <p>3、提交的是一个对象</p>
+                    <p>只要保证有一个该对象的实体类，名称类型均一致，便可以直接用对象当参数</p>
+                    <p>User实体类</p>
+                    <pre><code class="lang-java">@Data  //get和set方法
+@AllArgsConstructor //有参构造
+@NoArgsConstructor  //无参构造
+public class User {
+    private int id;
+    private String name;
+    private int age;
+}
+</code></pre>
+                    <p>处理方法</p>
+                    <pre><code class="lang-java">@GetMapping(&quot;/user/t2&quot;)
+public String test2(User user) {
+    System.out.println(user);
+    return &quot;test&quot;;
+}
+</code></pre>
+                    <p>如果使用对象的话，前端传递的参数名和对象名必须一致，否则就是null</p>
+                    <p><strong>数据显示到前端</strong></p>
+                    <p>1、通过Model</p>
+                    <pre><code class="lang-java">@GetMapping(&quot;/user/t1&quot;)
+public String test1(@RequestParam(&quot;username&quot;) String name, Model model) {
+    //接收前端参数
+    System.out.println(&quot;接收到前端的参数为：&quot; + name);
+    //将返回的结果传输给前端
+    model.addAttribute(&quot;msg&quot;,name);
+    //视图跳转
+    return &quot;test&quot;;
+}
+</code></pre>
+                    <p>2、通过ModelAndView</p>
+                    <pre><code class="lang-java">public ModelAndView handleRequest(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
+    ModelAndView mv = new ModelAndView();
+
+    mv.addObject(&quot;msg&quot;,&quot;ControllerTest1&quot;);
+    mv.setViewName(&quot;test&quot;);
+
+    return mv;
+}
+</code></pre>
+                    <h2 id="8-">8、解决乱码问题</h2>
+                    <p>在SpringMVC中，给我们提供了一个过滤器，可以在web.xml中进行配置</p>
+                    <pre><code class="lang-xml">&lt;!--配置SpringMVC的乱码过滤器，解决乱码问题--&gt;
+&lt;filter&gt;
+    &lt;filter-name&gt;encoding&lt;/filter-name&gt;
+    &lt;filter-class&gt;org.springframework.web.filter.CharacterEncodingFilter&lt;/filter-class&gt;
+    &lt;init-param&gt;
+        &lt;param-name&gt;encoding&lt;/param-name&gt;
+        &lt;param-value&gt;utf-8&lt;/param-value&gt;
+    &lt;/init-param&gt;
+&lt;/filter&gt;
+&lt;filter-mapping&gt;
+    &lt;filter-name&gt;encoding&lt;/filter-name&gt;
+    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+&lt;/filter-mapping&gt;
+</code></pre>
+                    <h2 id="9-json-">9、JSON学习</h2>
+                    <p>前后端分离：</p>
+                    <p>后端部署后端，提供接口，提供数据</p>
+                    <p>​                    json</p>
+                    <p>前端独立部署，负责渲染后端的数据</p>
+                    <p><strong>什么是JSON？</strong>（相当于Java的一个字符串对象）</p>
+                    <p>JSON是一种轻量级的数据交换格式，目前使用特别广泛</p>
+                    <p>采用完全独立于编程语言的文本格式来存储和表示数据</p>
+                    <ul>
+                        <li>JSON是JavaScript对象的字符串表示法，它使用文本表示一个JS对象的信息，本质是一个字符串</li>
+                        <li>要实现从JSON字符串转换为JavaScript对象，使用JSON.parse()方法</li>
+                        <li>要实现从JavaScript对象转换为JSON字符串，使用JSON.stringify()方法</li>
+                    </ul>
+                    <h2 id="10-controller-json-">10、Controller返回JSON对象</h2>
+                    <p>Jackson是目前比较好的json解析工具</p>
+                    <p>使用它需要导入它的jar包</p>
+                    <pre><code class="lang-xml">&lt;!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+    &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
+    &lt;version&gt;2.14.1&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+                    <p>在web.xml文件中，进行配置</p>
+                    <pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;web-app xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;
+         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd&quot;
+         version=&quot;4.0&quot;&gt;
+
+    &lt;!--1.配置DispatcherServlet--&gt;
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;
+        &lt;init-param&gt;
+            &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+            &lt;param-value&gt;classpath:springmvc-servlet.xml&lt;/param-value&gt;
+        &lt;/init-param&gt;
+        &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+    &lt;/servlet&gt;
+
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;
+        &lt;url-pattern&gt;/&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+
+    &lt;!--配置SpringMVC的乱码过滤器，解决乱码问题--&gt;
+    &lt;filter&gt;
+        &lt;filter-name&gt;encoding&lt;/filter-name&gt;
+        &lt;filter-class&gt;org.springframework.web.filter.CharacterEncodingFilter&lt;/filter-class&gt;
+        &lt;init-param&gt;
+            &lt;param-name&gt;encoding&lt;/param-name&gt;
+            &lt;param-value&gt;utf-8&lt;/param-value&gt;
+        &lt;/init-param&gt;
+    &lt;/filter&gt;
+    &lt;filter-mapping&gt;
+        &lt;filter-name&gt;encoding&lt;/filter-name&gt;
+        &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+    &lt;/filter-mapping&gt;
+
+&lt;/web-app&gt;
+</code></pre>
+                    <p>在springmvc-servlet.xml中进行配置</p>
+                    <pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+       xmlns:mvc=&quot;http://www.springframework.org/schema/mvc&quot;
+       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       https://www.springframework.org/schema/mvc/spring-mvc.xsd&quot;&gt;
+
+    &lt;!--自动扫描指定的包，下面所有注解类都交给IOC容器管理--&gt;
+    &lt;context:component-scan base-package=&quot;com.yin.controller&quot;/&gt;
+    &lt;mvc:default-servlet-handler/&gt;
+    &lt;mvc:annotation-driven/&gt;
+
+    &lt;!--JSON乱码问题配置--&gt;
+    &lt;mvc:annotation-driven&gt;
+        &lt;mvc:message-converters register-defaults=&quot;true&quot;&gt;
+            &lt;bean class=&quot;org.springframework.http.converter.StringHttpMessageConverter&quot;&gt;
+                &lt;constructor-arg value=&quot;UTF-8&quot;/&gt;
+            &lt;/bean&gt;
+            &lt;bean class=&quot;org.springframework.http.converter.json.MappingJackson2HttpMessageConverter&quot;&gt;
+                &lt;property name=&quot;objectMapper&quot;&gt;
+                    &lt;bean class=&quot;org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean&quot;&gt;
+                        &lt;property name=&quot;failOnEmptyBeans&quot; value=&quot;false&quot;/&gt;
+                    &lt;/bean&gt;
+                &lt;/property&gt;
+            &lt;/bean&gt;
+        &lt;/mvc:message-converters&gt;
+    &lt;/mvc:annotation-driven&gt;
+
+    &lt;!-- 视图解析器 --&gt;
+    &lt;bean class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;
+          id=&quot;internalResourceViewResolver&quot;&gt;
+        &lt;!-- 前缀 --&gt;
+        &lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/jsp/&quot; /&gt;
+        &lt;!-- 后缀 --&gt;
+        &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot; /&gt;
+    &lt;/bean&gt;
+
+&lt;/beans&gt;
+</code></pre>
+                    <p>在实体类UserController中，进行返回JSON对象的操作</p>
+                    <pre><code class="lang-java">@RestController //他就不会走视图解析器，会直接返回一个字符串
+public class UserController {
+
+    @RequestMapping(&quot;/j1&quot;)
+    public String json1() throws JsonProcessingException {
+        //jackson ObjectMapper
+        ObjectMapper mapper = new ObjectMapper();
+
+        //创建一个对象
+        User user = new User(&quot;尹天豪&quot;,22,&quot;男&quot;);
+
+        String str = mapper.writeValueAsString(user);
+
+        return str;
+    }
+}
+</code></pre>
+                    <p><strong>fastjson的使用</strong></p>
+                    <p>fastjson三个主要的类</p>
+                    <ul>
+                        <li>JSONObject 代表 json 对象</li>
+                        <li>JSONArray 代表 json 对象数组</li>
+                        <li>JSON 代表 JSONObject和JSONArray的转化</li>
+                    </ul>
+                    <p>在pom.xml文件中，加入依赖</p>
+                    <pre><code class="lang-xml">&lt;!-- https://mvnrepository.com/artifact/com.alibaba/fastjson --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;com.alibaba&lt;/groupId&gt;
+    &lt;artifactId&gt;fastjson&lt;/artifactId&gt;
+    &lt;version&gt;1.2.83&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+                    <p>在实体类中调用</p>
+                    <pre><code class="lang-java">@RestController //他就不会走视图解析器，会直接返回一个字符串
+public class UserController {
+
+    @RequestMapping(&quot;/j4&quot;)
+    public String json4() throws JsonProcessingException {
+        List&lt;User&gt; list = new ArrayList&lt;User&gt;();
+
+        //创建一个对象
+        User user1 = new User(&quot;尹天豪&quot;,22,&quot;男&quot;);
+        User user2 = new User(&quot;尹天豪&quot;,22,&quot;男&quot;);
+        User user3 = new User(&quot;尹天豪&quot;,22,&quot;男&quot;);
+        User user4 = new User(&quot;尹天豪&quot;,22,&quot;男&quot;);
+
+        list.add(user1);
+        list.add(user2);
+        list.add(user3);
+        list.add(user4);
+
+        //返回JSON对象
+        return JSON.toJSONString(list);
+    }
+}
+</code></pre>
+                    <h2 id="11-ssm-">11、SSM项目整合</h2>
+                    <p><strong>整合Mybatis层</strong></p>
+                    <p>在新建的工程的pom.xml文件中，导入需要的依赖</p>
+                    <pre><code class="lang-xml">&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;junit&lt;/groupId&gt;
+        &lt;artifactId&gt;junit&lt;/artifactId&gt;
+        &lt;version&gt;3.8.1&lt;/version&gt;
+        &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;!--Junit--&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;junit&lt;/groupId&gt;
+        &lt;artifactId&gt;junit&lt;/artifactId&gt;
+        &lt;version&gt;4.12&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!--数据库驱动--&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;mysql&lt;/groupId&gt;
+        &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+        &lt;version&gt;5.1.47&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!-- 数据库连接池 --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.mchange&lt;/groupId&gt;
+        &lt;artifactId&gt;c3p0&lt;/artifactId&gt;
+        &lt;version&gt;0.9.5.2&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!--Servlet - JSP --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+        &lt;artifactId&gt;servlet-api&lt;/artifactId&gt;
+        &lt;version&gt;2.5&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;javax.servlet.jsp&lt;/groupId&gt;
+        &lt;artifactId&gt;jsp-api&lt;/artifactId&gt;
+        &lt;version&gt;2.2&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+        &lt;artifactId&gt;jstl&lt;/artifactId&gt;
+        &lt;version&gt;1.2&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!--Mybatis--&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+        &lt;artifactId&gt;mybatis&lt;/artifactId&gt;
+        &lt;version&gt;3.5.2&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+        &lt;artifactId&gt;mybatis-spring&lt;/artifactId&gt;
+        &lt;version&gt;2.0.2&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!--Spring--&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;
+        &lt;version&gt;5.1.9.RELEASE&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-jdbc&lt;/artifactId&gt;
+        &lt;version&gt;5.1.9.RELEASE&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+</code></pre>
+                    <p>再配置上，防止静态资源导出问题的配置</p>
+                    <pre><code class="lang-xml">&lt;build&gt;
+    &lt;resources&gt;
+        &lt;resource&gt;
+            &lt;directory&gt;src/main/java&lt;/directory&gt;
+            &lt;includes&gt;
+                &lt;include&gt;**/*.properties&lt;/include&gt;
+                &lt;include&gt;**/*.xml&lt;/include&gt;
+            &lt;/includes&gt;
+            &lt;filtering&gt;false&lt;/filtering&gt;
+        &lt;/resource&gt;
+        &lt;resource&gt;
+            &lt;directory&gt;src/main/resources&lt;/directory&gt;
+            &lt;includes&gt;
+                &lt;include&gt;**/*.properties&lt;/include&gt;
+                &lt;include&gt;**/*.xml&lt;/include&gt;
+            &lt;/includes&gt;
+            &lt;filtering&gt;false&lt;/filtering&gt;
+        &lt;/resource&gt;
+    &lt;/resources&gt;
+&lt;/build&gt;
+</code></pre>
+                    <p>配置databsse.propereties文件，用于链接数据库</p>
+                    <pre><code class="lang-properties">jdbc.driver=com.mysql.jdbc.Driver
+# MySQL8.0+ requires a time zone setting
+jdbc.url=jdbc:mysql://localhost:3306/books?useSSL=true&amp;useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=Asia/Shanghai
+jdbc.username=root
+jdbc.password=101266
+</code></pre>
+                    <p>在pojo包下创建实体类Books，属性与数据库表中属性保持一致，名称也尽量保持一致</p>
+                    <p>在dao包下创建BookMapper接口和BookMapper.xml配置文件</p>
+                    <p>在service包下创建BookService接口和BookServiceImpl实体类调用dao的BookMapper接口中的方法</p>
+                    <p><strong>整合Spring层</strong></p>
+                    <p>创建spring-dao.xml用于整合dao层</p>
+                    <pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;
+
+    &lt;!--关联数据库配置文件--&gt;
+    &lt;context:property-placeholder location=&quot;classpath:database.properties&quot;/&gt;
+
+    &lt;!--连接池
+        dbcp: 平自动化操作 , 不能自动连接
+        c3p0: 自动化操作（自动化的加载配置文件，并且可以自动设置到对象中）
+        druid: hikari
+    --&gt;
+    &lt;bean id=&quot;dataSource&quot; class=&quot;com.mchange.v2.c3p0.ComboPooledDataSource&quot;&gt;
+        &lt;property name=&quot;driverClass&quot; value=&quot;${jdbc.driver}&quot;/&gt;
+        &lt;property name=&quot;jdbcUrl&quot; value=&quot;${jdbc.url}&quot;/&gt;
+        &lt;property name=&quot;user&quot; value=&quot;${jdbc.username}&quot;/&gt;
+        &lt;property name=&quot;password&quot; value=&quot;${jdbc.password}&quot;/&gt;
+
+        &lt;!-- c3p0连接池的私有属性 --&gt;
+        &lt;property name=&quot;maxPoolSize&quot; value=&quot;30&quot;/&gt;
+        &lt;property name=&quot;minPoolSize&quot; value=&quot;10&quot;/&gt;
+        &lt;!-- 关闭连接后不自动commit --&gt;
+        &lt;property name=&quot;autoCommitOnClose&quot; value=&quot;false&quot;/&gt;
+        &lt;!-- 获取连接超时时间 --&gt;
+        &lt;property name=&quot;checkoutTimeout&quot; value=&quot;10000&quot;/&gt;
+        &lt;!-- 当获取连接失败重试次数 --&gt;
+        &lt;property name=&quot;acquireRetryAttempts&quot; value=&quot;2&quot;/&gt;
+    &lt;/bean&gt;
+
+    &lt;!--sqlSessionFactory--&gt;
+    &lt;bean id=&quot;sqlSessionFactory&quot; class=&quot;org.mybatis.spring.SqlSessionFactoryBean&quot;&gt;
+        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;
+        &lt;!--绑定Mybatis的配置文件--&gt;
+        &lt;property name=&quot;configLocation&quot; value=&quot;classpath:mybatis-config.xml&quot;/&gt;
+    &lt;/bean&gt;
+
+    &lt;!--配置dao接口扫描包，动态的实现Dao接口可以注入到Spring容器中--&gt;
+    &lt;bean class=&quot;org.mybatis.spring.mapper.MapperScannerConfigurer&quot;&gt;
+        &lt;!--注入sqlSessionFactory--&gt;
+        &lt;property name=&quot;sqlSessionFactoryBeanName&quot; value=&quot;sqlSessionFactory&quot;/&gt;
+        &lt;!--要扫描的dao包--&gt;
+        &lt;property name=&quot;basePackage&quot; value=&quot;com.yin.dao&quot;/&gt;
+    &lt;/bean&gt;
+
+&lt;/beans&gt;
+</code></pre>
+                    <p>创建spring-service.xml用于整合service层</p>
+                    <pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;
+
+    &lt;!--扫描service下的包--&gt;
+    &lt;context:component-scan base-package=&quot;com.yin.service&quot;/&gt;
+
+    &lt;!--将我们的所有业务类，注入到Spring，可以通过配置或者注解实现--&gt;
+    &lt;bean id=&quot;BookServiceImpl&quot; class=&quot;com.yin.service.BookServiceImpl&quot;&gt;
+        &lt;property name=&quot;bookMapper&quot; ref=&quot;bookMapper&quot;/&gt;
+    &lt;/bean&gt;
+
+    &lt;!--声明式事务配置--&gt;
+    &lt;bean id=&quot;transactionManager&quot; class=&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;
+        &lt;!--注入数据源--&gt;
+        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;
+    &lt;/bean&gt;
+
+    &lt;!--aop事务支持--&gt;
+&lt;/beans&gt;
+</code></pre>
+                    <p><strong>整合springMVC层</strong></p>
+                    <p>首先，给该maven项目添加web配置，在web.xml进行配置</p>
+                    <pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;web-app xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;
+         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd&quot;
+         version=&quot;4.0&quot;&gt;
+
+    &lt;!--DispatcherServlet--&gt;
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;
+        &lt;init-param&gt;
+            &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+            &lt;param-value&gt;classpath:spring-mvc.xml&lt;/param-value&gt;
+        &lt;/init-param&gt;
+        &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+    &lt;/servlet&gt;
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;
+        &lt;url-pattern&gt;/&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+
+    &lt;!--配置SpringMVC的乱码过滤器，解决乱码问题--&gt;
+    &lt;filter&gt;
+        &lt;filter-name&gt;encoding&lt;/filter-name&gt;
+        &lt;filter-class&gt;org.springframework.web.filter.CharacterEncodingFilter&lt;/filter-class&gt;
+        &lt;init-param&gt;
+            &lt;param-name&gt;encoding&lt;/param-name&gt;
+            &lt;param-value&gt;utf-8&lt;/param-value&gt;
+        &lt;/init-param&gt;
+    &lt;/filter&gt;
+    &lt;filter-mapping&gt;
+        &lt;filter-name&gt;encoding&lt;/filter-name&gt;
+        &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+    &lt;/filter-mapping&gt;
+
+    &lt;!--Session--&gt;
+    &lt;session-config&gt;
+        &lt;session-timeout&gt;15&lt;/session-timeout&gt;
+    &lt;/session-config&gt;
+
+&lt;/web-app&gt;
+</code></pre>
+                    <p>创建spring-mvc.xml文件，进行配置</p>
+                    <pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xmlns:mvc=&quot;http://www.springframework.org/schema/mvc&quot;
+       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/mvc
+       https://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;
+
+    &lt;!--注解驱动--&gt;
+    &lt;mvc:annotation-driven/&gt;
+    &lt;!--静态资源过滤--&gt;
+    &lt;mvc:default-servlet-handler/&gt;
+    &lt;!--扫描包: controller--&gt;
+    &lt;context:component-scan base-package=&quot;com.yin.controller&quot;/&gt;
+    &lt;!--视图解析器--&gt;
+    &lt;bean class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;
+          id=&quot;internalResourceViewResolver&quot;&gt;
+        &lt;!-- 前缀 --&gt;
+        &lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/jsp/&quot; /&gt;
+        &lt;!-- 后缀 --&gt;
+        &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot; /&gt;
+    &lt;/bean&gt;
+
+&lt;/beans&gt;
+</code></pre>
+                    <p>将上述三个配置文件，整合到applicationContext.xml配置文件中</p>
+                    <pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;
+
+    &lt;import resource=&quot;classpath:spring-dao.xml&quot;/&gt;
+    &lt;import resource=&quot;classpath:spring-service.xml&quot;/&gt;
+    &lt;import resource=&quot;classpath:spring-mvc.xml&quot;/&gt;
+
+&lt;/beans&gt;
+</code></pre>
+                    <h2 id="12-">12、添加查询书籍功能</h2>
+                    <p>首先，创建BookController这个实体类</p>
+                    <pre><code class="lang-java">@Controller
+@RequestMapping(&quot;/book&quot;)
+public class BookController {
+    //controller 调用 service 层
+    @Autowired
+    @Qualifier(&quot;BookServiceImpl&quot;) //作用是排除掉不匹配的Bean，qualifier 是限制，是约束，是把范围变小
+    private BookService bookService;
+
+    //查询全部的书籍，并且返回到一个书籍展示页面
+    @RequestMapping(&quot;/allBook&quot;)
+    public String list(Model model) {
+        List&lt;Books&gt; list = bookService.queryAllBook();
+
+        model.addAttribute(&quot;list&quot;,list);
+
+        return &quot;allBook&quot;;
+    }
+}
+</code></pre>
+                    <p>在WEB-INF的jsp包下创建对应的allBook.jsp</p>
+                    <pre><code class="lang-jsp">&lt;%@ taglib prefix=&quot;c&quot; uri=&quot;http://java.sun.com/jsp/jstl/core&quot; %&gt;
+&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;书籍展示页面&lt;/title&gt;
+
+    &lt;!--BootStrap美化界面--&gt;
+    &lt;!-- 新 Bootstrap 核心 CSS 文件 --&gt;
+
+    &lt;link href=&quot;https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+
+    &lt;!-- jQuery文件。务必在bootstrap.min.js 之前引入 --&gt;
+&lt;%--    &lt;script src=&quot;https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js&quot;&gt;&lt;/script&gt;--%&gt;
+    &lt;!-- 最新的 Bootstrap 核心 JavaScript 文件 --&gt;
+&lt;%--    &lt;script src=&quot;https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;--%&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div class=&quot;container&quot;&gt;
+
+    &lt;div class=&quot;row clearfix&quot;&gt;
+        &lt;div class=&quot;col-md-12 column&quot;&gt;
+            &lt;div class=&quot;page-header&quot;&gt;
+                &lt;h1&gt;
+                    &lt;small&gt;书籍列表 ----- 显示所有书籍&lt;/small&gt;
+                &lt;/h1&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;row clearfix&quot;&gt;
+        &lt;div class=&quot;col-md-12 column&quot;&gt;
+            &lt;table class=&quot;table table-hover table-striped&quot;&gt;
+                &lt;thead&gt;
+                    &lt;tr&gt;
+                        &lt;th&gt;书籍编号&lt;/th&gt;
+                        &lt;th&gt;书籍名称&lt;/th&gt;
+                        &lt;th&gt;书籍数量&lt;/th&gt;
+                        &lt;th&gt;书籍详情&lt;/th&gt;
+                    &lt;/tr&gt;
+                &lt;/thead&gt;
+                &lt;%--书籍从数据库中查询出来，从这个list中遍历出来 foreach--%&gt;
+                &lt;tbody&gt;
+                    &lt;c:forEach var=&quot;book&quot; items=&quot;${list}&quot;&gt;
+                        &lt;tr&gt;
+                            &lt;td&gt;${book.bookID}&lt;/td&gt;
+                            &lt;td&gt;${book.bookName}&lt;/td&gt;
+                            &lt;td&gt;${book.bookCounts}&lt;/td&gt;
+                            &lt;td&gt;${book.detail}&lt;/td&gt;
+                        &lt;/tr&gt;
+                    &lt;/c:forEach&gt;
+                &lt;/tbody&gt;
+            &lt;/table&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <p>美化一下默认界面index.jsp</p>
+                    <pre><code class="lang-jsp">&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;首页&lt;/title&gt;
+
+    &lt;style&gt;
+      a {
+        text-decoration: none;
+        color: black;
+        font-size: 18px;
+      }
+
+      h3 {
+        width: 180px;
+        height: 38px;
+        margin: 100px auto;
+        text-align: center;
+        line-height: 38px;
+        background-color: aquamarine;
+        border-radius: 5px;
+      }
+    &lt;/style&gt;
+
+  &lt;/head&gt;
+  &lt;body&gt;
+
+  &lt;h3&gt;
+      &lt;a href=&quot;${pageContext.request.contextPath}/book/allBook&quot;&gt;进入书籍展示页面&lt;/a&gt;
+  &lt;/h3&gt;
+
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <h2 id="13-">13、增加添加书籍功能</h2>
+                    <p>在前端页面添加一个按钮，用于添加书籍</p>
+                    <pre><code class="lang-jsp">&lt;div class=&quot;row&quot;&gt;
+    &lt;div class=&quot;col-md-4 column&quot;&gt;
+        &lt;%--点击跳转到增加图书页面， toAddBook--%&gt;
+        &lt;a class=&quot;btn btn-primary&quot; href=&quot;${pageContext.request.contextPath}/book/toAddBook&quot;&gt;新增书籍&lt;/a&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+                    <p>在BookController类中，填写对应接口</p>
+                    <pre><code class="lang-java">//跳转到增加书籍页面
+@RequestMapping(&quot;/toAddBook&quot;)
+public String toAddPaper() {
+    return &quot;addBook&quot;;
+}
+</code></pre>
+                    <p>创建并完成对应的addBook.jsp页面</p>
+                    <p>注意！input标签中的name属性的值，要与Books类中属性的值相对应</p>
+                    <pre><code class="lang-jsp">&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;增加书籍&lt;/title&gt;
+
+    &lt;!--BootStrap美化界面--&gt;
+    &lt;!-- 新 Bootstrap 核心 CSS 文件 --&gt;
+
+    &lt;link href=&quot;https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div class=&quot;container&quot;&gt;
+
+    &lt;div class=&quot;row clearfix&quot;&gt;
+        &lt;div class=&quot;col-md-12 column&quot;&gt;
+            &lt;div class=&quot;page-header&quot;&gt;
+                &lt;h1&gt;
+                    &lt;small&gt;新增书籍&lt;/small&gt;
+                &lt;/h1&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;form action=&quot;${pageContext.request.contextPath}/book/addBook&quot; method=&quot;post&quot;&gt;
+        &lt;div class=&quot;form-group&quot;&gt;
+            &lt;label for=&quot;bkname&quot;&gt;书籍名称：&lt;/label&gt;
+            &lt;input type=&quot;text&quot; name=&quot;bookName&quot; class=&quot;form-control&quot; id=&quot;bkname&quot; required&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;form-group&quot;&gt;
+            &lt;label for=&quot;bkcount&quot;&gt;书籍数量：&lt;/label&gt;
+            &lt;input type=&quot;text&quot; name=&quot;bookCounts&quot; class=&quot;form-control&quot; id=&quot;bkcount&quot; required&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;form-group&quot;&gt;
+            &lt;label for=&quot;bkdetail&quot;&gt;书籍描述：&lt;/label&gt;
+            &lt;input type=&quot;text&quot; name=&quot;detail&quot; class=&quot;form-control&quot; id=&quot;bkdetail&quot; required&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;form-group&quot;&gt;
+            &lt;input type=&quot;submit&quot; class=&quot;form-control&quot; value=&quot;添加&quot;&gt;
+        &lt;/div&gt;
+    &lt;/form&gt;
+
+&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <p>在BookController类中，完成表单提交对应的addBook接口</p>
+                    <p>完成添加操作后，重定向到了查询所有书籍的页面</p>
+                    <pre><code class="lang-java">//添加书籍的请求
+@RequestMapping(&quot;/addBook&quot;)
+public String addBook(Books books) {
+    System.out.println(&quot;addBook=&quot; + books);
+    bookService.addBook(books);
+    return &quot;redirect:/book/allBook&quot;;
+}
+</code></pre>
+                    <h2 id="14-">14、增加修改删除书籍的功能</h2>
+                    <p>首先在allBook.jsp中，添加修改和删除按钮</p>
+                    <pre><code class="lang-jsp">&lt;td&gt;
+                                &lt;a class=&quot;btn btn-primary&quot; href=&quot;${pageContext.request.contextPath}/book/toUpdateBook?id=${book.bookID}&quot;&gt;修改&lt;/a&gt;
+                                &amp;nbsp; | &amp;nbsp;
+                                &lt;a class=&quot;btn btn-primary&quot; href=&quot;${pageContext.request.contextPath}/book/deleteBook/${book.bookID}&quot;&gt;删除&lt;/a&gt;
+                            &lt;/td&gt;
+</code></pre>
+                    <p>在BookController类中，完成修改书籍接口的编写</p>
+                    <pre><code class="lang-java">//跳转到修改书籍页面
+@RequestMapping(&quot;/toUpdateBook&quot;)
+public String toUpdatePaper(int id,Model model) {
+    Books books = bookService.queryBookById(id);
+    model.addAttribute(&quot;QBooks&quot;,books);
+    return &quot;updateBook&quot;;
+}
+
+//修改书籍
+@RequestMapping(&quot;/updateBook&quot;)
+public String updateBook(Books books) {
+    //System.out.println(&quot;updateBook=&gt;&quot; + books);
+    bookService.updateBook(books);
+    return &quot;redirect:/book/allBook&quot;;
+}
+</code></pre>
+                    <p>创建对应的修改书籍页面</p>
+                    <pre><code class="lang-jsp">&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;修改书籍&lt;/title&gt;
+
+  &lt;!--BootStrap美化界面--&gt;
+  &lt;!-- 新 Bootstrap 核心 CSS 文件 --&gt;
+
+  &lt;link href=&quot;https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div class=&quot;container&quot;&gt;
+
+  &lt;div class=&quot;row clearfix&quot;&gt;
+    &lt;div class=&quot;col-md-12 column&quot;&gt;
+      &lt;div class=&quot;page-header&quot;&gt;
+        &lt;h1&gt;
+          &lt;small&gt;修改书籍&lt;/small&gt;
+        &lt;/h1&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;form action=&quot;${pageContext.request.contextPath}/book/updateBook&quot; method=&quot;post&quot;&gt;
+
+    &lt;%--出现的问题，提交sql请求但是失败，由于id未被后台获得，所以sql执行失败--%&gt;
+    &lt;%--通过传递隐藏域来解决--%&gt;
+      &lt;input type=&quot;hidden&quot; name=&quot;bookID&quot; value=&quot;${QBooks.bookID}&quot;&gt;
+
+      &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label for=&quot;bkname&quot;&gt;书籍名称：&lt;/label&gt;
+        &lt;input type=&quot;text&quot; name=&quot;bookName&quot; class=&quot;form-control&quot; id=&quot;bkname&quot; value=&quot;${QBooks.bookName}&quot; required&gt;
+      &lt;/div&gt;
+
+      &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label for=&quot;bkcount&quot;&gt;书籍数量：&lt;/label&gt;
+        &lt;input type=&quot;text&quot; name=&quot;bookCounts&quot; class=&quot;form-control&quot; id=&quot;bkcount&quot; value=&quot;${QBooks.bookCounts}&quot; required&gt;
+      &lt;/div&gt;
+
+      &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label for=&quot;bkdetail&quot;&gt;书籍描述：&lt;/label&gt;
+        &lt;input type=&quot;text&quot; name=&quot;detail&quot; class=&quot;form-control&quot; id=&quot;bkdetail&quot; value=&quot;${QBooks.detail}&quot; required&gt;
+      &lt;/div&gt;
+
+      &lt;div class=&quot;form-group&quot;&gt;
+        &lt;input type=&quot;submit&quot; class=&quot;form-control&quot; value=&quot;修改&quot;&gt;
+      &lt;/div&gt;
+  &lt;/form&gt;
+
+&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <p>在BookController类中，完成删除书籍接口的编写</p>
+                    <pre><code class="lang-java">//删除书籍
+@RequestMapping(&quot;/deleteBook/{bookId}&quot;)
+public String deleteBook(@PathVariable(&quot;bookId&quot;) int id) {
+    bookService.deleteBookById(id);
+    return &quot;redirect:/book/allBook&quot;;
+}
+</code></pre>
+                    <h2 id="15-ajax-">15、Ajax技术</h2>
+                    <p>是一种无需重新加载整个网页的情况下，能够更新部分网页的技术</p>
+                    <p>是一种用于创建更好更快以及交互性更强的Web应用程序的技术</p>
+                    <ul>
+                        <li><p>传统的网页 （不使用ajax），想要更新内容，需要重新加载整个网页</p>
+                        </li>
+                        <li><p>使用ajax技术的网页，通过在后台服务器进行少量的数据交换，就可以实现异步局部更新</p>
+                            <p>​                                                                                               <strong>ajax作用大致原理图</strong></p>
+                        </li>
+                    </ul>
+                    <p><img src="C:\Users\dell\AppData\Roaming\Typora\typora-user-images\image-20230418092301405.png" alt="image-20230418092301405"></p>
+                    <pre><code class="lang-jsp">jQuery.ajax(...)
+    部分参数:
+        url: 请求地址
+        data: 要发送的数据
+        success: 成功之后执行的回调函数(全局)
+        error: 失败之后执行的回调函数(全局)
+</code></pre>
+                    <p>要了解：js</p>
+                    <ul>
+                        <li>基本语法</li>
+                        <li>函数： 闭包</li>
+                        <li>Dom<ul>
+                            <li>id,name,tag</li>
+                            <li>create,remove</li>
+                        </ul>
+                        </li>
+                        <li>Bom<ul>
+                            <li>window</li>
+                            <li>document</li>
+                        </ul>
+                        </li>
+                    </ul>
+                    <p>ES6: import require</p>
+                    <p><strong>模拟，点击输入框，ajax创建一个异步请求的操作</strong></p>
+                    <p>index.jsp</p>
+                    <pre><code class="lang-jsp">&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;$Title$&lt;/title&gt;
+
+    &lt;script src=&quot;${pageContext.request.contextPath}/statics/js/jquery-3.6.4.js&quot;&gt;&lt;/script&gt;
+
+    &lt;script&gt;
+      function a() {
+        $.post({
+          url:&quot;${pageContext.request.contextPath}/a1&quot;,
+          data:{&quot;name&quot;:$(&quot;#username&quot;).val()},
+          success: function (data) {
+              alert(data);
+          }
+        })
+      }
+    &lt;/script&gt;
+
+  &lt;/head&gt;
+  &lt;body&gt;
+
+  &lt;!--失去焦点的时候，发起一个请求到后台--&gt;
+  用户名: &lt;input type=&quot;text&quot; id=&quot;username&quot; onblur=&quot;a()&quot;&gt;
+
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <p>由AjaxController这个实体类，通过java后台，提供一个json对象给前端的ajax使用</p>
+                    <pre><code class="lang-java">package com.yin.controller;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+//作用：在提供json接口时需要的配置操作再也不需要自己配置了
+@RestController
+public class AjaxController {
+
+    @RequestMapping(&quot;/a1&quot;)
+    public void a1(String name, HttpServletResponse response) throws IOException {
+        System.out.println(&quot;a1:param==&gt;&quot; + name);
+        if (&quot;yth&quot;.equals(name)) {
+            response.getWriter().print(&quot;true&quot;);
+        }else {
+            response.getWriter().print(&quot;false&quot;);
+        }
+    }
+
+}
+</code></pre>
+                    <p><strong>Ajax异步加载数据</strong></p>
+                    <p>test2.jsp</p>
+                    <pre><code class="lang-jsp">&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+
+    &lt;script src=&quot;${pageContext.request.contextPath}/statics/js/jquery-3.6.4.js&quot;&gt;&lt;/script&gt;
+
+    &lt;script&gt;
+        $(function () {
+            $(&quot;#btn&quot;).click(function () {
+                //$.post (url, param[可以省略], success)
+                $.post(&quot;${pageContext.request.contextPath}/a2&quot;,function (data) {
+                    //console.log(data);
+                    var html = &quot;&quot;;
+
+                    for (let i = 0; i &lt; data.length; i++) {
+                        html += &quot;&lt;tr&gt;&quot; +
+                            &quot;&lt;td&gt;&quot; + data[i].name + &quot;&lt;/td&gt;&quot; +
+                            &quot;&lt;td&gt;&quot; + data[i].age + &quot;&lt;/td&gt;&quot; +
+                            &quot;&lt;td&gt;&quot; + data[i].sex + &quot;&lt;/td&gt;&quot; +
+                            &quot;&lt;/tr&gt;&quot;
+                    }
+
+                    $(&quot;#content&quot;).html(html);
+                })
+            })
+        });
+    &lt;/script&gt;
+
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;input type=&quot;button&quot; value=&quot;加载数据&quot; id=&quot;btn&quot;&gt;
+&lt;table&gt;
+    &lt;tr&gt;
+        &lt;td&gt;姓名&lt;/td&gt;
+        &lt;td&gt;年龄&lt;/td&gt;
+        &lt;td&gt;性别&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tbody id=&quot;content&quot;&gt;
+        &lt;%--数据: 后台--%&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <p>在AjaxController类中，编写接口a2，提供所需数据即可</p>
+                    <pre><code class="lang-java">package com.yin.controller;
+
+import com.yin.pojo.User;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+//作用：在提供json接口时需要的配置操作再也不需要自己配置了
+@RestController
+public class AjaxController {
+
+    @RequestMapping(&quot;/a2&quot;)
+    public List&lt;User&gt; a2() {
+        ArrayList&lt;User&gt; userList = new ArrayList&lt;&gt;();
+
+        //添加数据
+        userList.add(new User(&quot;yth&quot;,22,&quot;男&quot;));
+        userList.add(new User(&quot;meng&quot;,21,&quot;女&quot;));
+
+        return userList;
+    }
+
+}
+</code></pre>
+
+                </article>
+            </div>
+        </div>
+
+		<!--footer部分-->
+	    <div th:replace="~{/commons/commons::footer_bar}"></div>
+    
+    </div><!--//main-wrapper-->
+    
+
+        
+       
+    <!-- Javascript -->          
+    <script th:src="@{/plugins/popper.min.js}"></script>
+    <script th:src="@{/plugins/bootstrap/js/bootstrap.js/bootstrap.min.js}"></script>
+
+    <!-- Page Specific JS -->
+<!--    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>-->
+
+    <!-- Custom JS -->
+    <script th:src="@{/js/blog.js}"></script>
+    
+
+</body>
+</html> 
+

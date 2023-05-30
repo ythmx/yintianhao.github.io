@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>DevBlog - Bootstrap 5 Blog Template For Developers</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog Template">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
+	<!--显示小图标，目前显不出来，bug！！-->
+<!--    <link rel="shortcut icon" href="favicon.ico">-->
+    
+    <!-- 字体 JS-->
+	<script defer th:src="@{/fontawesome/js/all.min.js}"></script>
+    
+    <!-- 插件 CSS -->
+    <link rel="stylesheet" th:href="@{/plugins/highlight/styles/monokai-sublime.css}">
+    
+    <!-- 主题 CSS -->
+    <link id="theme-style" rel="stylesheet" th:href="@{/css/theme-4.css}">
+    <link rel="stylesheet" th:href="@{/css/github-markdown-dark.css}">
+
+</head> 
+
+<body onload="showMarkdown()">
+    
+    <!--左侧部分-->
+	<div th:replace="~{/commons/commons::header_bar(active='blog-post')}"></div>
+
+    <div class="main-wrapper">
+<!--        // 在这里编辑空的div节点，用于后面展示解析后的内容-->
+        <div id="content">
+        </div>
+
+    </div>
+
+    <!-- Javascript -->          
+    <script th:src="@{/plugins/popper.min.js}"></script>
+    <script th:src="@{/plugins/bootstrap/js/bootstrap.min.js}"></script>
+
+    <!-- Page Specific JS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+
+    <!-- Custom JS -->
+    <script th:src="@{/js/blog.js}"></script>
+
+    <!--    // 在这里对marked框架进行引用-->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!--// 在这里编写AJAX代码，用于实现解析md文件，并显示出来-->
+    <script>
+        import 'github-markdown-css/github-markdown-dark.css'
+        function showMarkdown()
+        {
+            // 获取表单变量
+             var f="/articles/Java/JDBC.md";
+            // 创建XMLHttpRequest对象
+            var xmlhttp;
+            if (window.XMLHttpRequest)
+            {
+                // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+                xmlhttp=new XMLHttpRequest();
+            }
+            else
+            {
+                // IE6, IE5 浏览器执行代码
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+            }
+
+
+            // 得到服务器响应后，对得到的Markdown文档进行解析
+            xmlhttp.onreadystatechange=function()
+            {
+                if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                {
+                    // 这里调用了marked框架中的marked函数实现Markdown2HTML的解析
+                    document.getElementById("content").innerHTML=marked.parse(xmlhttp.responseText);
+                }
+            }
+
+            // 向服务器发送请求，获取你需要的Markdown文档 f.q.value
+            xmlhttp.open("GET",f,true);
+            xmlhttp.send();
+        }
+    </script>
+
+</body>
+</html> 
+

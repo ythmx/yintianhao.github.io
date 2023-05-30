@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>我的博客</title>
+
+  <!-- Meta -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Blog Template">
+  <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
+  <!--显示小图标，目前显不出来，bug！！-->
+  <!--	<link rel="shortcut icon" th:href="@{../templates/favicon.ico}">-->
+
+  <!-- 字体 JS-->
+  <!--../../../../html/assets/fontawesome/js/all.min.js-->
+  <script defer th:src="@{/fontawesome/js/all.js/all.min.js}"></script>
+
+  <!-- 主题 CSS -->
+  <!--../../../../html/assets/css/theme-1.css-->
+  <link id="theme-style" rel="stylesheet" th:href="@{/css/theme-4.css}">
+
+
+</head>
+
+<body>
+
+<!--左侧部分，调用时传递一个active参数，用于高亮显示-->
+<div th:replace="~{/commons/commons::header_bar(active='index')}"></div>
+
+<div class="main-wrapper">
+
+  <section class="cta-section theme-bg-light py-5">
+    <div class="container text-center single-col-max-width">
+      <h2 class="heading">把每一分热情投入敲代码中</h2>
+      <!--			<div class="intro">上班996，生病icu</div>-->
+      <div class="single-form-max-width pt-3 mx-auto">
+        <!--//signup-form-->
+        <!--未实现搜索功能-->
+
+<!--        <form class="signup-form row g-2 g-lg-2 align-items-center">-->
+<!--          <div class="col-12 col-md-9">-->
+<!--            &lt;!&ndash;						<label class="sr-only" for="semail">Your email</label>&ndash;&gt;-->
+<!--            <input type="email" id="semail" name="semail1" class="form-control me-md-1 semail" placeholder="输入关键字">-->
+<!--          </div>-->
+<!--          <div class="col-12 col-md-2">-->
+<!--            <button type="submit" class="btn btn-primary">搜索</button>-->
+<!--          </div>-->
+<!--        </form>-->
+
+      </div><!--//single-form-max-width-->
+    </div><!--//container-->
+  </section>
+
+  <section class="blog-list px-3 py-5 p-md-5">
+    <div class="container single-col-max-width">
+      <div class="item mb-5">
+        <div class="row g-3 g-xl-0">
+          <div class="col-2 col-xl-3">
+            <!--../../../../html/assets/images/blog/blog-post-thumb-1.jpg-->
+            <img class="img-fluid post-thumb " th:src="@{/images/blog/blog-logo-yin2.png}" alt="image">
+          </div>
+          <div class="col">
+            <h3 class="title mb-1"><a class="text-link" th:href="@{/GOF23--cjx}">GOF23--创建型学习笔记</a></h3>
+            <!--这里想办法，把时间动态展示出来-->
+            <div class="meta mb-1"><span class="date">发布于 2 天前</span></div>
+            <div class="intro">学习23种设计模式，对你开发会很有帮助</div>
+            <br />
+            <a class="text-link" th:href="@{/GOF23--cjx}">了解更多 &rarr;</a>
+          </div><!--//col-->
+        </div><!--//row-->
+      </div><!--//item-->
+      <div class="item mb-5">
+        <div class="row g-3 g-xl-0">
+          <div class="col-2 col-xl-3">
+            <!--../../../../html/assets/images/blog/blog-post-thumb-2.jpg-->
+            <img class="img-fluid post-thumb " th:src="@{/images/blog/blog-logo-yin2.png}" alt="image">
+          </div>
+          <div class="col">
+            <h3 class="title mb-1"><a class="text-link" th:href="@{/GOF23--jgx}">GOF23--结构型学习笔记</a></h3>
+            <!--这里想办法，把时间动态展示出来-->
+            <div class="meta mb-1"><span class="date">发布于 2 天前</span></div>
+            <div class="intro">学习23种设计模式，对你开发会很有帮助</div>
+            <br />
+            <a class="text-link" th:href="@{/GOF23--jgx}">了解更多 &rarr;</a>
+          </div><!--//col-->
+        </div><!--//row-->
+      </div><!--//item-->
+
+      <div class="item mb-5">
+        <div class="row g-3 g-xl-0">
+          <div class="col-2 col-xl-3">
+            <!--../../../../html/assets/images/blog/blog-post-thumb-3.jpg-->
+            <img class="img-fluid post-thumb" th:src="@{/images/blog/blog-logo-yin2.png}" alt="image">
+          </div>
+          <div class="col">
+            <h3 class="title mb-1"><a class="text-link" th:href="@{/GOF23--xwx}">GOF23--行为型学习笔记</a></h3>
+            <!--这里想办法，把时间动态展示出来-->
+            <div class="meta mb-1"><span class="date">发布于 2 天前</span></div>
+            <div class="intro">学习23种设计模式，对你开发会很有帮助</div>
+            <br />
+            <a class="text-link" th:href="@{/GOF23--xwx}">了解更多 &rarr;</a>
+          </div><!--//col-->
+        </div><!--//row-->
+      </div><!--//item-->
+
+      <div class="item mb-5">
+        <div class="row g-3 g-xl-0">
+          <div class="col-2 col-xl-3">
+            <!--../../../../html/assets/images/blog/blog-post-thumb-4.jpg-->
+            <img class="img-fluid post-thumb" th:src="@{/images/blog/blog-logo-yin2.png}" alt="image">
+          </div>
+          <div class="col">
+            <h3 class="title mb-1"><a class="text-link" th:href="@{/JavaWeb}">JavaWeb学习笔记</a></h3>
+            <!--这里想办法，把时间动态展示出来-->
+            <div class="meta mb-1"><span class="date">发布于 2 天前</span></div>
+            <div class="intro">学习JavaWeb，是你学完JavaSE后的第二步</div>
+            <br />
+            <a class="text-link" th:href="@{/JavaWeb}">了解更多 &rarr;</a>
+          </div><!--//col-->
+        </div><!--//row-->
+      </div><!--//item-->
+
+
+      <div class="item mb-5">
+        <div class="row g-3 g-xl-0">
+          <div class="col-2 col-xl-3">
+            <!--../../../../html/assets/images/blog/blog-post-thumb-5.jpg-->
+            <img class="img-fluid post-thumb" th:src="@{/images/blog/blog-logo-yin2.png}" alt="image">
+          </div>
+          <div class="col">
+            <h3 class="title mb-1"><a class="text-link" th:href="@{/HTML}">HTML学习笔记</a></h3>
+            <!--这里想办法，把时间动态展示出来-->
+            <div class="meta mb-1"><span class="date">发布于 2 天前</span></div>
+            <div class="intro">学习HTML，是你开始写页面的第一步</div>
+            <br />
+            <a class="text-link" th:href="@{/HTML}">了解更多 &rarr;</a>
+          </div><!--//col-->
+        </div><!--//row-->
+      </div><!--//item-->
+
+      <div class="item">
+        <div class="row g-3 g-xl-0">
+          <div class="col-2 col-xl-3">
+            <!--../../../../html/assets/images/blog/blog-post-thumb-6.jpg-->
+            <img class="img-fluid post-thumb" th:src="@{/images/blog/blog-logo-yin2.png}" alt="image">
+          </div>
+          <div class="col">
+            <h3 class="title mb-1"><a class="text-link" th:href="@{/CSS-1}">CSS学习笔记(其一)</a></h3>
+            <!--这里想办法，把时间动态展示出来-->
+            <div class="meta mb-1"><span class="date">发布于 2 天前</span></div>
+            <div class="intro">学习CSS，是你开始写出漂亮页面的第一步</div>
+            <br />
+            <a class="text-link" th:href="@{/CSS-1}">了解更多 &rarr;</a>
+          </div><!--//col-->
+        </div><!--//row-->
+      </div><!--//item-->
+
+      <nav class="blog-nav nav nav-justified my-5">
+        <a class="nav-link-prev nav-item nav-link rounded-left" th:href="@{/index}">上一页<i class="arrow-prev fas fa-long-arrow-alt-left"></i></a>
+        <a class="nav-link-next nav-item nav-link rounded" th:href="@{/index-3}">下一页<i class="arrow-next fas fa-long-arrow-alt-right"></i></a>
+      </nav>
+
+    </div>
+  </section>
+
+  <!--footer部分-->
+  <div th:replace="~{/commons/commons::footer_bar}"></div>
+
+</div><!--//main-wrapper-->
+
+
+<!-- Javascript -->
+<!--../../../../html/assets/plugins/popper.min.js-->
+<script th:src="@{/plugins/popper.min.js}"></script>
+<!--../../../../html/assets/plugins/bootstrap/js/bootstrap.min.js-->
+<script th:src="@{/plugins/bootstrap/js/bootstrap.min.js}"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>我的博客</title>
+
+	<!-- Meta -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Blog Template">
+	<meta name="author" content="Xiaoying Riley at 3rd Wave Media">
+	<!--显示小图标，目前显不出来，bug！！-->
+<!--	<link rel="shortcut icon" th:href="@{../templates/favicon.ico}">-->
+
+	<!-- 字体 JS-->
+	<!--../../../../html/assets/fontawesome/js/all.min.js-->
+	<script defer th:src="@{/fontawesome/js/all.js/all.min.js}"></script>
+
+	<!-- 主题 CSS -->
+	<!--../../../../html/assets/css/theme-1.css-->
+	<link id="theme-style" rel="stylesheet" th:href="@{/css/theme-4.css}">
+
+
+</head>
+
+<body>
+
+<!--左侧部分，调用时传递一个active参数，用于高亮显示-->
+<div th:replace="~{/commons/commons::header_bar(active='index')}"></div>
+
+<div class="main-wrapper">
+
+	<section class="cta-section theme-bg-light py-5">
+		<div class="container text-center single-col-max-width">
+			<h2 class="heading">把每一分热情投入敲代码中</h2>
+<!--			<div class="intro">上班996，生病icu</div>-->
+			<div class="single-form-max-width pt-3 mx-auto">
+
+				<!--//signup-form-->
+				<!--还未实现搜索功能-->
+<!--				<form class="signup-form row g-2 g-lg-2 align-items-center">-->
+<!--					<div class="col-12 col-md-9">-->
+<!--&lt;!&ndash;						<label class="sr-only" for="semail">Your email</label>&ndash;&gt;-->
+<!--						<input type="email" id="semail" name="semail1" class="form-control me-md-1 semail" placeholder="输入关键字">-->
+<!--					</div>-->
+<!--					<div class="col-12 col-md-2">-->
+<!--						<button type="submit" class="btn btn-primary">搜索</button>-->
+<!--					</div>-->
+<!--				</form>-->
+
+			</div><!--//single-form-max-width-->
+		</div><!--//container-->
+	</section>
+
+	<section class="blog-list px-3 py-5 p-md-5">
+		<div class="container single-col-max-width">
+			<div class="item mb-5">
+				<div class="row g-3 g-xl-0">
+					<div class="col-2 col-xl-3">
+						<!--../../../../html/assets/images/blog/blog-post-thumb-1.jpg-->
+						<img class="img-fluid post-thumb " th:src="@{/images/blog/blog-logo-yin.png}" alt="image">
+					</div>
+					<div class="col">
+						<h3 class="title mb-1"><a class="text-link" th:href="@{/Spring}">Spring框架学习笔记</a></h3>
+						<!--这里想办法，把时间动态展示出来-->
+						<div class="meta mb-1"><span class="date">发布于 2 天前</span></div>
+						<div class="intro">Spring框架，其实很简单，主要说明了两种思想，一种是IoC，另一种是AOP。学习时，着重于去理解为什么会出现这两种新的思想，理解了这两种思想，对于学习Spring的目的也就达到了</div>
+						<br />
+						<a class="text-link" th:href="@{/Spring}">了解更多 &rarr;</a>
+					</div><!--//col-->
+				</div><!--//row-->
+			</div><!--//item-->
+			<div class="item mb-5">
+				<div class="row g-3 g-xl-0">
+					<div class="col-2 col-xl-3">
+						<!--../../../../html/assets/images/blog/blog-post-thumb-2.jpg-->
+						<img class="img-fluid post-thumb " th:src="@{/images/blog/blog-logo-yin.png}" alt="image">
+					</div>
+					<div class="col">
+						<h3 class="title mb-1"><a class="text-link" th:href="@{/SpringMVC}">SpringMVC框架学习笔记</a></h3>
+						<!--这里想办法，把时间动态展示出来-->
+						<div class="meta mb-1"><span class="date">发布于 2 天前</span></div>
+						<div class="intro">SpringMVC框架，其实很简单，主要优化了JavaEE开发中，许多繁琐的步骤。核心思想与JavaEE中学到的一致，要深刻理解MVC三层架构的设计思想，以及SpringMVC的运行原理</div>
+						<br />
+						<a class="text-link" th:href="@{/SpringMVC}">了解更多 &rarr;</a>
+					</div><!--//col-->
+				</div><!--//row-->
+			</div><!--//item-->
+
+			<div class="item mb-5">
+				<div class="row g-3 g-xl-0">
+					<div class="col-2 col-xl-3">
+						<!--../../../../html/assets/images/blog/blog-post-thumb-3.jpg-->
+						<img class="img-fluid post-thumb" th:src="@{/images/blog/blog-logo-yin.png}" alt="image">
+					</div>
+					<div class="col">
+						<h3 class="title mb-1"><a class="text-link" th:href="@{/Vue}">Vue框架学习笔记</a></h3>
+						<!--这里想办法，把时间动态展示出来-->
+						<div class="meta mb-1"><span class="date">发布于 2 天前</span></div>
+						<div class="intro">Vue框架，这是一个前端的框架，如果你想成为一名出色的全栈工程师，学习前端框架那就是必不可缺的一环。但是在主要学习Java的时期，Vue框架只需要简单的进行了解即可，以后再深学</div>
+						<br />
+						<a class="text-link" th:href="@{/Vue}">了解更多 &rarr;</a>
+					</div><!--//col-->
+				</div><!--//row-->
+			</div><!--//item-->
+
+			<div class="item mb-5">
+				<div class="row g-3 g-xl-0">
+					<div class="col-2 col-xl-3">
+						<!--../../../../html/assets/images/blog/blog-post-thumb-4.jpg-->
+						<img class="img-fluid post-thumb" th:src="@{/images/blog/blog-logo-yin.png}" alt="image">
+					</div>
+					<div class="col">
+						<h3 class="title mb-1"><a class="text-link" th:href="@{/SpringBoot1}">SpringBoot框架学习笔记(其一)</a></h3>
+						<!--这里想办法，把时间动态展示出来-->
+						<div class="meta mb-1"><span class="date">发布于 2 天前</span></div>
+						<div class="intro">SpringBoot框架，这是一个很重要的框架，务必学会它！！！</div>
+						<br />
+						<a class="text-link" th:href="@{/SpringBoot1}">了解更多 &rarr;</a>
+					</div><!--//col-->
+				</div><!--//row-->
+			</div><!--//item-->
+
+
+			<div class="item mb-5">
+				<div class="row g-3 g-xl-0">
+					<div class="col-2 col-xl-3">
+						<!--../../../../html/assets/images/blog/blog-post-thumb-5.jpg-->
+						<img class="img-fluid post-thumb" th:src="@{/images/blog/blog-logo-yin.png}" alt="image">
+					</div>
+					<div class="col">
+						<h3 class="title mb-1"><a class="text-link" th:href="@{/SpringBoot2}">SpringBoot框架学习笔记(其二)</a></h3>
+						<!--这里想办法，把时间动态展示出来-->
+						<div class="meta mb-1"><span class="date">发布于 2 天前</span></div>
+						<div class="intro">SpringBoot框架，这是一个很重要的框架，务必学会它！！！</div>
+						<br />
+						<a class="text-link" th:href="@{/SpringBoot2}">了解更多 &rarr;</a>
+					</div><!--//col-->
+				</div><!--//row-->
+			</div><!--//item-->
+
+			<div class="item">
+				<div class="row g-3 g-xl-0">
+					<div class="col-2 col-xl-3">
+						<!--../../../../html/assets/images/blog/blog-post-thumb-6.jpg-->
+						<img class="img-fluid post-thumb" th:src="@{/images/blog/blog-logo-yin.png}" alt="image">
+					</div>
+					<div class="col">
+						<h3 class="title mb-1"><a class="text-link" th:href="@{/JDBC}">JDBC学习笔记</a></h3>
+						<!--这里想办法，把时间动态展示出来-->
+						<div class="meta mb-1"><span class="date">发布于 2 天前</span></div>
+						<div class="intro">刚学了一些JavaEE，想要连接数据库做些东西，那就使用JDBC把</div>
+						<br />
+						<a class="text-link" th:href="@{/JDBC}">了解更多 &rarr;</a>
+					</div><!--//col-->
+				</div><!--//row-->
+			</div><!--//item-->
+
+			<nav class="blog-nav nav nav-justified my-5">
+				<a class="nav-link-prev nav-item nav-link rounded-left" style="display: none" href="#">上一页<i class="arrow-prev fas fa-long-arrow-alt-left"></i></a>
+				<a class="nav-link-next nav-item nav-link rounded" th:href="@{/index-2}">下一页<i class="arrow-next fas fa-long-arrow-alt-right"></i></a>
+			</nav>
+
+		</div>
+	</section>
+
+	<!--footer部分-->
+	<div th:replace="~{/commons/commons::footer_bar}"></div>
+
+</div><!--//main-wrapper-->
+
+
+<!-- Javascript -->
+<!--../../../../html/assets/plugins/popper.min.js-->
+<script th:src="@{/plugins/popper.min.js}"></script>
+<!--../../../../html/assets/plugins/bootstrap/js/bootstrap.min.js-->
+<script th:src="@{/plugins/bootstrap/js/bootstrap.min.js}"></script>
+
+
+</body>
+</html>

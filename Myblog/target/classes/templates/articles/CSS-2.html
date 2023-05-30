@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>CSS</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog Template">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
+	<!--显示小图标，目前显不出来，bug！！-->
+<!--    <link rel="shortcut icon" href="favicon.ico">-->
+    
+    <!-- 字体 JS-->
+	<script defer th:src="@{/fontawesome/js/all.js/all.min.js}"></script>
+    
+    <!-- 插件 CSS -->
+    <link rel="stylesheet" th:href="@{/plugins/highlight/styles/monokai-sublime.css}">
+    
+    <!-- 主题 CSS -->
+    <link id="theme-style" rel="stylesheet" th:href="@{/css/theme-4.css}">
+
+</head> 
+
+<body>
+    
+    <!--左侧部分-->
+	<div th:replace="~{/commons/commons::header_bar(active='blog-post')}"></div>
+    
+    <div class="main-wrapper">
+
+        <div>
+            <div style='width:25%;'>
+                <ul id="tree" class="ztree" style='width:100%'>
+
+                </ul>
+            </div>
+            <div id='readme' style='width:70%;margin-left:20%;'>
+                <article class='markdown-body'>
+                    <h1 id="-">第三天</h1>
+                    <h1 id="-box-model-">一、盒子模型（Box Model）</h1>
+                    <p>所谓盒子模型，就是把HTML页面中的布局元素看作是一个矩形的盒子，也就是一个盛装内容的容器</p>
+                    <p>盒子模型由内容、边框（border）、内边距（padding）和外边距（margin）组成</p>
+                    <p>盒子里面的文字和图片等元素是 内容区域</p>
+                    <p>盒子的厚度 我们称为 盒子的边框</p>
+                    <p><strong>盒子内容与边框的距离是内边距</strong></p>
+                    <p><strong>盒子与盒子之间的距离是外边距</strong></p>
+                    <h1 id="-border-">二、盒子边框（border）</h1>
+                    <pre><code class="lang-html">border : border-width || border-style || border-color
+</code></pre>
+                    <p>border-width    定义边框粗细，单位是px</p>
+                    <p>border-style     边框的样式</p>
+                    <p>border-color     边框颜色</p>
+                    <p>边框的样式：</p>
+                    <p>none：没有边框</p>
+                    <p>solid：边框为单实线</p>
+                    <p>dashed：边框为虚线</p>
+                    <p>dotted：边框为点线</p>
+                    <p>(1)盒子边框写法总结表</p>
+                    <p>很多情况下，我们不需要指定4个边框，我们是可以单独给4个边框分别指定的</p>
+                    <p>上边框：</p>
+                    <p>border-top-style:样式;</p>
+                    <p>border-top-width:宽度;</p>
+                    <p>border-top-color:颜色;</p>
+                    <p>border-top:宽度 样式 颜色;</p>
+                    <p>下边框：</p>
+                    <p>border-bottom-style:样式;</p>
+                    <p>border-bottom-width:宽度;</p>
+                    <p>border-bottom-color:颜色;</p>
+                    <p>border-bottom:宽度 样式 颜色;</p>
+                    <p>左边框：</p>
+                    <p>border-left-style:样式;</p>
+                    <p>border-left-width:宽度;</p>
+                    <p>border-left-color:颜色;</p>
+                    <p>border-left:宽度 样式 颜色;</p>
+                    <p>右边框：</p>
+                    <p>border-right-style:样式;</p>
+                    <p>border-right-width:宽度;</p>
+                    <p>border-right-color:颜色;</p>
+                    <p>border-right:宽度 样式 颜色;</p>
+                    <pre><code class="lang-html">例子
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh-CN&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;css的练习&lt;/title&gt;
+    &lt;style&gt;
+        div {
+            width: 200px;
+            height: 400px;
+            border-top: 2px solid red;
+            border-left: 2px solid pink;
+            border-bottom: 2px solid blue;
+            border-right: 2px solid green;
+        }
+
+        input {
+            border: none;
+            border-bottom: 1px dashed red;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt; &lt;/div&gt;
+    用户名：&lt;input type=&quot;text&quot; /&gt; &lt;br /&gt;
+    密码： &lt;input type=&quot;password&quot; /&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <p>(2)表格的细线边框</p>
+                    <p>通过表格的 cellspacing=&quot;0&quot; ，将单元格与单元格之间的距离设置为0，</p>
+                    <p>但是两个单元格之间的边框会出现重叠，从而使边框变细</p>
+                    <p>通过css属性</p>
+                    <pre><code class="lang-html">table{ border-collapse:collapse; }
+</code></pre>
+                    <p>表示相邻框合并在一起</p>
+                    <h1 id="-padding-">三、内边距（padding）</h1>
+                    <p>(1)内边距</p>
+                    <p>padding属性用于设置内边距，是指边框与内容之间的距离</p>
+                    <p>(2)设置</p>
+                    <p>padding-left          左内边距</p>
+                    <p>padding-right        右内边距</p>
+                    <p>padding-top          上内边距</p>
+                    <p>padding-bottom    下内边距</p>
+                    <p>当我们给盒子指定padding值之后，发生了两件事</p>
+                    <p>成功添加了内边距，盒子变大了</p>
+                    <p>简写的时候，顺序为 上右下左</p>
+                    <pre><code class="lang-html">padding: 12px 10px 0 25px;
+          上   右  下  左
+</code></pre>
+                    <p>(3)导航栏案例</p>
+                    <pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh-CN&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;css的练习&lt;/title&gt;
+    &lt;style&gt;
+        .nav {
+            height: 41px;
+            background-color: #fcfcfc;
+            border-bottom: 1px solid #edeef0;
+            border-top: 3px solid #ff8500;
+        }
+
+        .nav a {
+            height: 41px;
+            display: inline-block;
+            padding: 0 20px;
+            text-decoration: none;
+            line-height: 41px;
+            color: #4c4c4c;
+        }
+
+        .nav a:hover {
+            background-color: #eee;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class=&quot;nav&quot;&gt;
+        &lt;a href=&quot;#&quot;&gt;设为首页&lt;/a&gt;
+        &lt;a href=&quot;#&quot;&gt;手机新浪网&lt;/a&gt;
+        &lt;a href=&quot;#&quot;&gt;移动客户端&lt;/a&gt;
+        &lt;a href=&quot;#&quot;&gt;博客&lt;/a&gt;
+        &lt;a href=&quot;#&quot;&gt;微博&lt;/a&gt;
+        &lt;a href=&quot;#&quot;&gt;关注我&lt;/a&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <p>(4)内盒尺寸计算</p>
+                    <p>盒子的实际大小 = 内容的宽度和高度 + 内边距 + 边框</p>
+                    <p>(5)padding不影响盒子大小的情况</p>
+                    <p>如果没有给一个盒子指定宽度，此时，如果给这个盒子指定padding，则不会撑开盒子</p>
+                    <h1 id="-margin-">四、外边距（margin）</h1>
+                    <p>(1)外边距</p>
+                    <p>margin属性用于设置外边距，margin就是控制盒子和盒子之间的距离</p>
+                    <p>(2)设置</p>
+                    <p>margin-left          左外边距</p>
+                    <p>margin-right        右外边距</p>
+                    <p>margin-top          上外边距</p>
+                    <p>margin-bottom    下外边距</p>
+                    <p>(3)外边距实现盒子居中</p>
+                    <p>可以让一个盒子实现水平居中，需要满足以下两个条件</p>
+                    <p>必须是块级元素</p>
+                    <p>盒子必须指定宽度</p>
+                    <p>然后给左右的外边距都设置为auto，就可以使块级元素水平居中</p>
+                    <p>(4)插入图片和背景图片</p>
+                    <p>（用的多）插入图片：比如产品展示类，移动位置只能靠盒子模型 padding  margin</p>
+                    <p>（用的少）背景图片：我们一般用于小图标背景或者超大背景图片 背景图片只能通过 background-position</p>
+                    <p>(5)清除元素默认的内外边距</p>
+                    <p>为了更加方便灵活地控制网页中的元素，制作网页的时候，我们需要将元素的默认内外边距清除</p>
+                    <pre><code class="lang-html">* {
+    padding:0;  清除内边距
+    margin:0;   清除外边距
+}
+</code></pre>
+                    <p>(6)外边距合并</p>
+                    <p>使用margin定义块元素的垂直外边距时，可能出现外边距的合并</p>
+                    <p>1、相邻块元素垂直外边距的合并</p>
+                    <p>当上下相邻的两个块元素相遇时，如果上面的元素有下外边距margin-bottom</p>
+                    <p>下面的元素有上外边距margin-top，则他们之间的垂直间距不是margin-bottom和margin-top之和</p>
+                    <p><strong>取两个值中的较大者</strong>这种现象被称为相邻块元素垂直外边距的合并</p>
+                    <p>2、嵌套块元素垂直外边距的合并（塌陷）</p>
+                    <p>对于两个嵌套关系的块元素，如果父元素没有上内边距及边框</p>
+                    <p>父元素的上外边距会与子元素的上外边距发生合并</p>
+                    <p>合并后的外边距为两者中的较大者</p>
+                    <p>解决方案：</p>
+                    <p>可以为父元素定义上边框</p>
+                    <p>可以为父元素定义上内边距</p>
+                    <p>可以为父元素添加overflow:hidden</p>
+                    <h1 id="-ps-">五、PS基本操作以及常用快捷键</h1>
+                    <p>文件-打开，可以打开我们要测量的图片</p>
+                    <p>ctrl+r 可以打开标尺 或者 视图-标尺</p>
+                    <p>右击标尺，把里面的单位改成 像素</p>
+                    <p>ctrl+空格键，鼠标可以变成小手，拖动ps视图</p>
+                    <p>用选取 拖动 可以 测量 大小</p>
+                    <p>ctrl+d 可以取消选区 或者旁边空白处点击一下也可以取消选区</p>
+                    <p>ctrl+加号放大，ctrl+减号缩小</p>
+                    <h1 id="-">六、去掉列表默认样式</h1>
+                    <p>因为无序、有序列表的默认样式在不同的浏览器下显示效果不一样，所以直接去掉就行</p>
+                    <pre><code class="lang-html">li { list-style: none; }
+</code></pre>
+                    <h1 id="-">七、综合案例，新闻页面</h1>
+                    <pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh-CN&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;css的练习&lt;/title&gt;
+    &lt;style&gt;
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .box {
+            width: 298px;
+            height: 198px;
+            border: 1px solid gray;
+            margin: 100px auto;
+            background-color: rgba(255, 192, 203, 0.86);
+            padding: 15px;
+        }
+
+        .box h2 {
+            font-size: 18px;
+            border-bottom: 1px solid #ccc;
+            padding: 5ppx 0;
+            text-align: center;
+        }
+
+        .box ul li {
+            height: 30px;
+            border-bottom: 1px dashed #ccc;
+        }
+
+        .box ul li a {
+            text-decoration: none;
+            color: #333;
+            font-size: 12px;
+            line-height: 30px;
+        }
+
+        .box ul li a:hover {
+            text-decoration: underline;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class=&quot;box&quot;&gt;
+        &lt;h2&gt;最新文章/New Articles&lt;/h2&gt;
+
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href=&quot;#&quot;&gt;北京招聘网页设计，平面设计，php&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;#&quot;&gt;体验JavaScript的魅力&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;#&quot;&gt;jQuery世界来临&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;#&quot;&gt;网页设计师的梦想&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;#&quot;&gt;jQuery中的链式编程是什么&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <h1 id="-">第四天</h1>
+                    <h1 id="-"><strong>一、浮动</strong></h1>
+                    <p><strong>1.1CSS布局的三种机制</strong></p>
+                    <p>网页布局的核心--就是用CSS来摆放盒子</p>
+                    <p>CSS提供了3种机制来设置盒子的摆放位置，分别是普通流（标准流）、浮动和定位，其中：</p>
+                    <p>普通流（标准流）</p>
+                    <p>块级元素独占一行，从上向下顺序排列</p>
+                    <p>常用元素：div、hr、p、h1-h6、ul、ol、dl、form、table</p>
+                    <p>行内元素会按照顺序，从左到右顺序排列，碰到父元素边缘则自动换行</p>
+                    <p>常用元素：span、a、i、em等</p>
+                    <p>浮动</p>
+                    <p>让盒子从普通流中浮起来，主要作用让多个块级盒子一行显示</p>
+                    <p>定位</p>
+                    <p>将盒子定在浏览器的某一位置--CSS离不开定位，特别是后面的 js 特效</p>
+                    <p><strong>1.2什么是浮动（float）</strong></p>
+                    <p>元素的浮动是指设置了浮动属性的元素会</p>
+                    <p>脱离标准普通流的控制</p>
+                    <p>移动到指定位置</p>
+                    <p>作用：</p>
+                    <p>让多个盒子(div)水平排列成一行，使得浮动称为布局的重要手段</p>
+                    <p>可以实现盒子的左右对齐等等</p>
+                    <p>浮动最早是用来控制图片，实现文字环绕图片的效果</p>
+                    <p>语法</p>
+                    <pre><code class="lang-html">选择器 { folat: 属性值; }
+</code></pre>
+                    <p>none    元素不浮动</p>
+                    <p>left       元素向左浮动</p>
+                    <p>right     元素向右浮动</p>
+                    <p><strong>1)浮动口诀之  浮</strong></p>
+                    <p>浮动----漂浮在普通流的上面</p>
+                    <pre><code class="lang-html">&lt;style&gt;
+    .one {
+        float: left;
+        width: 200px;
+        height: 200px;
+        background-color: pink;
+    }
+
+    .two {
+        width: 300px;
+        height: 300px;
+        background-color: purple;
+    }
+&lt;/style&gt;
+</code></pre>
+                    <p><strong>2)浮动口诀之  漏</strong></p>
+                    <p>浮动----浮动的盒子，把自己原来的位置漏给下面标准流的盒子，就是不占有原来位置，是脱离标准流的，我们俗称“脱标”</p>
+                    <pre><code class="lang-html">&lt;style&gt;
+    .one {
+        float: left;
+        width: 200px;
+        height: 200px;
+        background-color: pink;
+    }
+
+    .two {
+        width: 300px;
+        height: 300px;
+        background-color: purple;
+    }
+&lt;/style&gt;
+</code></pre>
+                    <p><strong>3)浮动口诀之  特</strong></p>
+                    <p>浮动----特性，float属性会改变元素display属性</p>
+                    <p>任何元素都可以浮动。浮动元素会生成一个块级框，而不论它本身是何种元素。生成的块级框和我们前面的行内块极其相似</p>
+                    <p>案例----div水平排列</p>
+                    <pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh-CN&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;css的练习&lt;/title&gt;
+    &lt;style&gt;
+        .one,
+        .two {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+        }
+
+        .one {
+            float: left;
+        }
+
+        .two {
+            float: left;
+            background-color: purple;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class=&quot;one&quot;&gt;小孟同学！&lt;/div&gt;
+    &lt;div class=&quot;two&quot;&gt;小孟同学！&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <p>注意：</p>
+                    <p>浮动的元素互相贴靠在一起，如果父级宽度装不下这些浮动的盒子，多出的盒子会另起一行对齐</p>
+                    <p><strong>1.3浮动的应用</strong></p>
+                    <p>浮动和标准流的父盒子搭配</p>
+                    <p>我们知道，浮动是脱标的，会影响下面的标准流元素，此时，我们需要给浮动的元素添加一个标准流的父亲，这样，最大化的减少了对其他标准流的影响</p>
+                    <p>总结：一个完整的网页，是 标准流 + 浮动 + 定位 一起完成的</p>
+                    <p>例子--布局案例</p>
+                    <pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh-CN&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;css的练习&lt;/title&gt;
+    &lt;style&gt;
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .box {
+            width: 1226px;
+            height: 615px;
+            background-color: pink;
+            margin: auto;
+        }
+
+        .left {
+            float: left;
+            width: 234px;
+            height: 615px;
+            background-color: purple;
+        }
+
+        .right {
+            float: right;
+            width: 992px;
+            height: 615px;
+            background-color: skyblue;
+        }
+
+        .right li {
+            float: left;
+            width: 234px;
+            height: 300px;
+            background-color: pink;
+            text-align: center;
+            line-height: 300px;
+            margin-left: 14px;
+            margin-bottom: 14px;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class=&quot;box&quot;&gt;
+        &lt;div class=&quot;left&quot;&gt;&lt;/div&gt;
+        &lt;ul class=&quot;right&quot;&gt;
+            &lt;li&gt;1&lt;/li&gt;
+            &lt;li&gt;2&lt;/li&gt;
+            &lt;li&gt;3&lt;/li&gt;
+            &lt;li&gt;4&lt;/li&gt;
+            &lt;li&gt;5&lt;/li&gt;
+            &lt;li&gt;6&lt;/li&gt;
+            &lt;li&gt;7&lt;/li&gt;
+            &lt;li&gt;8&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <p>例子--导航栏案例</p>
+                    <p>注意，实际的导航栏中，我们是用 li 包含链接（li + a）的做法</p>
+                    <pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh-CN&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;css的练习&lt;/title&gt;
+    &lt;style&gt;
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .banner {
+            width: 760px;
+            height: 150px;
+            margin: auto;
+        }
+
+        .banner img {
+            width: 760px;
+            height: 150px;
+        }
+
+        .nav {
+            width: 760px;
+            height: 32px;
+            margin: 0 auto;
+        }
+
+        .nav ul li {
+            float: left;
+            line-height: 32px;
+        }
+
+        .nav ul li a {
+            display: inline-block;
+            width: 126px;
+            height: 32px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .nav ul li a:hover {
+            color: red;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- banner是广告条的意思 --&gt;
+    &lt;div class=&quot;banner&quot;&gt;
+        &lt;img src=&quot;1.jpg&quot; /&gt;
+    &lt;/div&gt;
+    &lt;!-- nav是导航栏的意思 --&gt;
+    &lt;div class=&quot;nav&quot;&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href=&quot;#&quot;&gt;网站首页&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;#&quot;&gt;小孟同学&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;#&quot;&gt;小尹同学&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;#&quot;&gt;开始学习&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;#&quot;&gt;前端学习&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;#&quot;&gt;后端学习&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <h1 id="-"><strong>二、清除浮动</strong></h1>
+                    <p><strong>1.1为什么要清除浮动</strong></p>
+                    <p>因为父级盒子在很多情况下，不方便给高度。如果子盒子浮动就不占有位置，最后父级盒子高度为0，就影响了下面的标准流盒子，从而导致布局出现问题。</p>
+                    <p>总结：</p>
+                    <p>由于浮动元素不再占有原文档流的位置，所以他会对后面的元素排版产生影响</p>
+                    <p>准确地说，并不是清除浮动，而是清除浮动后造成的影响</p>
+                    <p><strong>1.2清除浮动本质</strong></p>
+                    <p>清除浮动主要为了解决父级元素因为子级浮动引起内部高度为 0 的问题</p>
+                    <p>清除浮动之后，父级就会根据浮动的子盒子自动检测高度。父级有了高度，就不会影响下面的标准流</p>
+                    <p><strong>1.3清除浮动的方法</strong></p>
+                    <p>clear属性用于清除浮动</p>
+                    <pre><code class="lang-html">选择器 { clear:属性值; }
+</code></pre>
+                    <p>left        不允许左侧有浮动元素</p>
+                    <p>right      不允许右侧有浮动元素</p>
+                    <p>both      同时清除左右两侧浮动的影响</p>
+                    <p><strong>1）额外标签法</strong></p>
+                    <p>在最后一个浮动元素的末尾添加一个空标签</p>
+                    <pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh-CN&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;css的练习&lt;/title&gt;
+    &lt;style&gt;
+        .father {
+            width: 500px;
+            background-color: red;
+        }
+
+        .one {
+            float: left;
+            width: 150px;
+            height: 150px;
+            background-color: pink;
+        }
+
+        .two {
+            float: left;
+            width: 150px;
+            height: 200px;
+            background-color: skyblue;
+        }
+
+        .below {
+            width: 500px;
+            height: 100px;
+            background-color: black;
+        }
+
+        .clear {
+            clear: both;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class=&quot;father&quot;&gt;
+        &lt;div class=&quot;one&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;two&quot;&gt;&lt;/div&gt;
+        &lt;!-- 清除浮动 --&gt;
+        &lt;div class=&quot;clear&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;below&quot;&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <p>缺点：添加许多无意义的标签，结构化较差</p>
+                    <p><strong>2）父级添加 overflow 属性方法</strong></p>
+                    <p>可以给父级添加：overflow为 hidden | auto | scroll 都可以实现</p>
+                    <pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh-CN&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;css的练习&lt;/title&gt;
+    &lt;style&gt;
+        .father {
+            width: 500px;
+            background-color: red;
+            /* 给父级添加overflow，清除浮动 */
+            overflow: hidden;
+        }
+
+        .one {
+            float: left;
+            width: 150px;
+            height: 150px;
+            background-color: pink;
+        }
+
+        .two {
+            float: left;
+            width: 150px;
+            height: 200px;
+            background-color: skyblue;
+        }
+
+        .below {
+            width: 500px;
+            height: 100px;
+            background-color: black;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class=&quot;father&quot;&gt;
+        &lt;div class=&quot;one&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;two&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;below&quot;&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <p>缺点：内容增多的时候容易造成不会自动换行导致内容被隐藏掉</p>
+                    <p><strong>3）使用 after 伪元素清除浮动（最流行的方法）</strong></p>
+                    <p>after 方式为空元素额外标签的升级版，不需要添加额外的空标签</p>
+                    <pre><code class="lang-html">&lt;head&gt;
+    &lt;style&gt;
+        /* 声明清除浮动的样式 */
+        .clearfix::after {
+            content: &quot;&quot;;
+            display: block;
+            height: 0;
+            visibility: hidden;
+            clear: both;
+        }
+
+        .clearfix {
+            /*ie6,7 专门清除浮动的样式*/
+            *zoom: 1;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+</code></pre>
+                    <pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh-CN&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;css的练习&lt;/title&gt;
+    &lt;style&gt;
+        /* 声明清除浮动的样式 */
+        .clearfix:after {
+            content: &quot;&quot;;
+            display: block;
+            height: 0;
+            visibility: hidden;
+            clear: both;
+        }
+
+        .clearfix {
+            /*ie6,7 专门清除浮动的样式*/
+            *zoom: 1;
+        }
+
+        .father {
+            width: 500px;
+            background-color: red;
+        }
+
+        .one {
+            float: left;
+            width: 150px;
+            height: 150px;
+            background-color: pink;
+        }
+
+        .two {
+            float: left;
+            width: 150px;
+            height: 200px;
+            background-color: skyblue;
+        }
+
+        .below {
+            width: 500px;
+            height: 100px;
+            background-color: black;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class=&quot;father clearfix&quot;&gt;
+        &lt;div class=&quot;one&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;two&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;below&quot;&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <p><strong>4）使用双伪元素清除浮动</strong></p>
+                    <p>使用方法：</p>
+                    <pre><code class="lang-css">.clearfix:before,.clearfix:after {
+    content:&quot;&quot;;
+    display:table;
+}
+
+.clearfix:after {
+    clear:both;
+}
+
+.clearfix {
+    *zoom:1;
+}
+</code></pre>
+                    <h1 id="-ps-"><strong>三、PS切片工具</strong></h1>
+                    <p>1）用切片选中图片</p>
+                    <p>利用切片工具手动导出</p>
+                    <p>图层菜单---新建基于图层的切片</p>
+                    <p>利用标尺  基于参考线的切片</p>
+                    <p>先选个一个整个的切片，切片选择工具--属性面板中有&quot;划分&quot;--可以平等分数平分切图</p>
+                    <p>2）导出切片</p>
+                    <p>文件菜单--存储为web设备所用格式--选择我们要的图片格式--点存储--别忘了选中的切片</p>
+
+                </article>
+            </div>
+        </div>
+
+		<!--footer部分-->
+	    <div th:replace="~{/commons/commons::footer_bar}"></div>
+    
+    </div><!--//main-wrapper-->
+        
+       
+    <!-- Javascript -->          
+    <script th:src="@{/plugins/popper.min.js}"></script>
+    <script th:src="@{/plugins/bootstrap/js/bootstrap.js/bootstrap.min.js}"></script>
+
+    <!-- Page Specific JS -->
+<!--    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>-->
+
+    <!-- Custom JS -->
+    <script th:src="@{/js/blog.js}"></script>
+    
+
+</body>
+</html> 
+

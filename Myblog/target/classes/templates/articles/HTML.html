@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>HTML</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog Template">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
+	<!--显示小图标，目前显不出来，bug！！-->
+<!--    <link rel="shortcut icon" href="favicon.ico">-->
+    
+    <!-- 字体 JS-->
+	<script defer th:src="@{/fontawesome/js/all.js/all.min.js}"></script>
+    
+    <!-- 插件 CSS -->
+    <link rel="stylesheet" th:href="@{/plugins/highlight/styles/monokai-sublime.css}">
+    
+    <!-- 主题 CSS -->
+    <link id="theme-style" rel="stylesheet" th:href="@{/css/theme-4.css}">
+
+</head> 
+
+<body>
+    
+    <!--左侧部分-->
+	<div th:replace="~{/commons/commons::header_bar(active='blog-post')}"></div>
+    
+    <div class="main-wrapper">
+
+        <div>
+            <div style='width:25%;'>
+                <ul id="tree" class="ztree" style='width:100%'>
+
+                </ul>
+            </div>
+            <div id='readme' style='width:70%;margin-left:20%;'>
+                <article class='markdown-body'>
+                    <h1 id="-"><strong>第一天</strong></h1>
+                    <h1 id="-">一、结构，表现，行为</h1>
+                    <p>结构：html（用于对网页元素进行整理和分类）</p>
+                    <p>表现：css（用于设置网页元素的版式、颜色、大小等外观样式）</p>
+                    <p>行为：Javascript（指网页模型的定义及交互的编写）</p>
+                    <h1 id="-">二、标签</h1>
+                    <p>1、图像标签</p>
+                    <pre><code class="lang-html">&lt;img src=&quot;路径名&quot; /&gt;
+</code></pre>
+                    <p>2、HTML的语法骨架格式</p>
+                    <pre><code class="lang-html">&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <pre><code class="lang-html">&lt;html&gt;&lt;/html&gt; //HTML标签，页面中最大的标签
+&lt;head&gt;&lt;/head&gt; //文档的头部，在head标签中我们必须要设置title标签
+&lt;title&gt;&lt;/title&gt; //文档的标题，让页面拥有一个属于自己的网页标题
+&lt;body&gt;&lt;/body&gt; //元素包含文档的所有内容，页面内容基本都是放到body里的
+</code></pre>
+                    <p>3、标签分类</p>
+                    <pre><code class="lang-html">&lt;标签名&gt; 内容 &lt;/标签名&gt; //常规元素（双标签）
+&lt;标签名 /&gt; //空元素（单标签）例如&lt;br /&gt;
+</code></pre>
+                    <p>4、标签关系</p>
+                    <pre><code class="lang-html">//嵌套关系
+&lt;head&gt;
+    &lt;title&gt;&lt;/title&gt;
+&lt;/head&gt;
+
+//并列关系
+&lt;head&gt;&lt;/head&gt;
+&lt;body&gt;&lt;/body&gt;
+</code></pre>
+                    <p>5、常用标签</p>
+                    <pre><code class="lang-html">5.1排版标签
+(1)标题标签
+head 头部，标题  title 文档标题
+标题标签语义：作为标题使用，并且重要性递减
+&lt;h1&gt; 文本 &lt;/h1&gt;
+&lt;h2&gt; 文本 &lt;/h2&gt;
+&lt;h3&gt; 文本 &lt;/h3&gt;
+&lt;h4&gt; 文本 &lt;/h4&gt;
+&lt;h5&gt; 文本 &lt;/h5&gt;
+&lt;h6&gt; 文本 &lt;/h6&gt;
+小结：一行只能放一个标题
+
+(2)段落标签
+可以把HTML文档分割为若干段落
+&lt;p&gt; 文本内容 &lt;/p&gt;
+
+(3)水平线标签
+创建横跨网页水平线的标签
+&lt;hr /&gt;
+在网页中显示默认样式的水平线
+
+(4)换行标签
+如果希望某段文本强制换行显示，就需要使用换行标签
+&lt;br /&gt;
+
+(5)div和span标签
+他们两个都是盒子，用来装我们网页的元素的
+div标签 用来布局的，但是现在一行只能放一个div
+span标签 用来布局的，一行上可以放多个span
+&lt;div&gt; 这是头部 &lt;/div&gt;
+&lt;span&gt; 今日价格 &lt;/span&gt;
+
+5.2文本格式化标签
+(1)文字以粗体方式显示
+&lt;b&gt;&lt;/b&gt;
+&lt;strong&gt;&lt;/strong&gt;
+
+(2)文字以斜体方式显示
+&lt;i&gt;&lt;/i&gt;
+&lt;em&gt;&lt;/em&gt;
+
+(3)文字以加删除线方式显示
+&lt;s&gt;&lt;/s&gt;
+&lt;del&gt;&lt;/del&gt;
+
+(4)文字以加下划线方式显示
+&lt;u&gt;&lt;/u&gt;
+&lt;ins&gt;&lt;/ins&gt;
+
+5.3标签的属性
+使用HTML制作网页时，如果想让HTML标签提供更多的信息，可以使用HTML标签的属性加以设置
+&lt;标签名 属性1=&quot;属性值1&quot; 属性2=&quot;属性值2&quot;&gt; 内容 &lt;/标签名&gt;
+&lt;手机 颜色=&quot;红色&quot; 大小=&quot;5寸&quot;&gt; &lt;/手机&gt;
+
+5.4图像标签img
+如果想在网页中显示图像，就需要使用图像标签
+&lt;img src=&quot;图像URL&quot; /&gt;
+属性
+src 图像的路径
+alt 图像不能显示时的替换文本
+title 鼠标悬停时显示的内容
+width 设置图像的宽度
+height 设置图像的高度
+border 设置图像边框的宽度
+
+5.5链接标签
+在HTML中创建超链接非常简单，只需要用标签把文字包括起来就好
+&lt;a href=&quot;跳转目标&quot; target=&quot;目标窗口的弹出方式&quot;&gt; 文本或图像 &lt;/a&gt;
+href 用于指定链接目标的url地址(必须属性)
+target 用于指定链接页面的打开方式，取值有self和blank两种，self为默认值，blank为在新窗口中打开
+
+5.6注释标签
+&lt;!-- 注释语句 --&gt;  快捷键是 ctrl + / 或者 ctrl + shift + /
+</code></pre>
+                    <h1 id="-vscode-">三、VSCode的使用</h1>
+                    <p>输入！选择第一个，便可以自动生成骨架</p>
+                    <p>单击鼠标右键，选择&quot;Open In Default Browser&quot;即可运行查看效果</p>
+                    <h1 id="-lang">四、页面语言lang</h1>
+                    <pre><code class="lang-html">&lt;！DOCTYPE html&gt; 就是告诉浏览器按照HTML5规范解析页面
+&lt;html lang=&quot;zh-CN&quot;&gt; 指定html的语言种类
+</code></pre>
+                    <h1 id="-">五、字符集</h1>
+                    <pre><code class="lang-html">&lt;meta charset=&quot;UTF-8&quot; /&gt;
+
+字符集是多个字符的集合
+计算机要准确的处理各种字符集文字，需要进行字符编码，以便计算机能够识别和存储各种文字
+</code></pre>
+                    <h1 id="-">六、标签的语义化</h1>
+                    <p>就是指标签的含义</p>
+                    <p>根据标签的语义，在合适的地方给一个最为合理的标签，让结构更加清晰</p>
+                    <p>语义是否良好：当我们去掉CSS之后，网页结构依然组织有序，并且有良好的可读性</p>
+                    <p>遵循的原则：先确定语义的HTML，在选择合适的CSS。所以，我们能接下来学习html标签，要根据语义去记忆</p>
+                    <p>HTML网页中的任何元素的实现都要依靠HTML标签</p>
+                    <h1 id="-">七、路径</h1>
+                    <p>相对路径包含以下三类</p>
+                    <p>相对路径就是从代码所在的这个文件出发，去寻找我们的目标文件，而我们所说的上一级，下一级，同一级。简单说，就是图片位于HTML页面的位置</p>
+                    <pre><code class="lang-html">（1）同一级路径
+只需要输入文件的名称即可，如&lt;img src=&quot;baidu.jpg&quot; /&gt;
+（2）下一级路径
+图像文件位于HTML文件同级文件夹下，如&lt;img src=&quot;images/baidu.jpg&quot; /&gt;
+（3）上一级路径
+在文件名之前加入../如果是上两级就要使用../../以此类推
+&lt;img src=&quot;../baidu.jpg&quot; /&gt;
+</code></pre>
+                    <p>一般不提倡使用绝对路径，不灵活！！！</p>
+                    <h1 id="-">八、锚点定位</h1>
+                    <p>通过创建锚点链接，用户能够快速定位到目标内容</p>
+                    <p>创建锚点链接分为两步</p>
+                    <pre><code class="lang-html">1，使用相应的id名标注跳转目标的位置
+&lt;h3 id=&quot;two&quot;&gt; 第二集 &lt;/h3&gt;
+
+2，使用&lt;a href=&quot;#id名&quot;&gt;连接文本&lt;/a&gt;创建链接文本
+&lt;a href=&quot;#two&quot;&gt;点击跳转到第二集&lt;/a&gt;
+</code></pre>
+                    <h1 id="-base-">九、base标签</h1>
+                    <p>可以让该页面内的所有超链接，均以base中设置的target方式去打开新页面</p>
+                    <pre><code class="lang-html">&lt;head&gt;
+    &lt;!--这里设置为，均通过打开新页面的方式来打开超链接的新页面--&gt;
+    &lt;base target=&quot;_blank&quot;&gt;
+&lt;/head&gt;
+</code></pre>
+                    <h1 id="-">十、预格式化文本(比较少用，不方便整体控制)</h1>
+                    <p>按照我们预先写好的文字格式来显示页面，保留空格和换行</p>
+                    <pre><code class="lang-html">&lt;pre&gt;
+    abcde
+    fghij
+    klmno
+    pqrst
+    uvwxy
+&lt;/pre&gt;
+</code></pre>
+                    <h1 id="-">十一、特殊字符</h1>
+                    <p>空格符    &amp;nbsp；</p>
+                    <p>小于号    &amp;lt；</p>
+                    <p>大于号    &amp;gt；</p>
+                    <h1 id="-"><strong>第二天</strong></h1>
+                    <p>三个表，表格，列表，表单</p>
+                    <p>表格：用来展示数据以及让数据显示整齐规范</p>
+                    <p>列表：用来布局可以让页面布局整齐规范</p>
+                    <p>表单：用来收集用户信息</p>
+                    <h1 id="-">一、创建表格</h1>
+                    <pre><code class="lang-html">&lt;table&gt;
+    &lt;tr&gt;
+        &lt;td&gt;单元格内的文字&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+                    <p>1，table用于定义一个表格标签</p>
+                    <p>2，tr标签用于定义表格中的行，必须嵌套在table标签中</p>
+                    <p>3，td标签用于定义表格中的单元格，必须嵌套在tr标签中</p>
+                    <pre><code class="lang-html">例子
+&lt;table&gt;
+     &lt;tr&gt;
+          &lt;td&gt;姓名&lt;/td&gt;
+          &lt;td&gt;年龄&lt;/td&gt;
+          &lt;td&gt;性别&lt;/td&gt;
+     &lt;/tr&gt;
+     &lt;tr&gt;
+          &lt;td&gt;小明&lt;/td&gt;
+          &lt;td&gt;18&lt;/td&gt;
+          &lt;td&gt;男&lt;/td&gt;
+     &lt;/tr&gt;
+     &lt;tr&gt;
+          &lt;td&gt;张三&lt;/td&gt;
+          &lt;td&gt;18&lt;/td&gt;
+          &lt;td&gt;男&lt;/td&gt;
+     &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+                    <h1 id="-">二、表格属性</h1>
+                    <p>border  设置表格的边框(默认border=&quot;0&quot;无边框)</p>
+                    <p>cellspacing  设置单元格与单元格边框之间的空白间距</p>
+                    <p>cellpadding  设置单元格内容与单元格边框之间的空白间距</p>
+                    <p>align  设置表格在网页中的水平对齐方式(left，center，right)</p>
+                    <p>width  设置表格的宽度</p>
+                    <p>height  设置表格的高度</p>
+                    <h1 id="-th">三、表头单元格标签th</h1>
+                    <p>作用：一般表头单元格位于表格的第一行或第一列，并且文本加粗居中</p>
+                    <p>语法：只需要用th标签代替td标签即可</p>
+                    <pre><code class="lang-html">&lt;table border=&quot;1&quot; width=&quot;500&quot; height=&quot;200&quot; align=&quot;center&quot; cellpadding=&quot;20&quot;&gt;
+        &lt;tr&gt;
+            &lt;th&gt;姓名&lt;/th&gt;
+            &lt;th&gt;年龄&lt;/th&gt;
+            &lt;th&gt;性别&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;小明&lt;/td&gt;
+            &lt;td&gt;18&lt;/td&gt;
+            &lt;td&gt;男&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;张三&lt;/td&gt;
+            &lt;td&gt;18&lt;/td&gt;
+            &lt;td&gt;男&lt;/td&gt;
+        &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+                    <h1 id="-caption">四、表格标题caption</h1>
+                    <pre><code class="lang-html">&lt;table&gt;
+    &lt;caption&gt;我是表格标题&lt;/caption&gt;
+&lt;/table&gt;
+</code></pre>
+                    <p>caption元素定义表格标题，通常这个标题会被居中且显示于表格之上</p>
+                    <p>caption标签必须紧随table标签之后</p>
+                    <pre><code class="lang-html">&lt;table border=&quot;1&quot; width=&quot;500&quot; height=&quot;200&quot; align=&quot;center&quot;&gt;
+        &lt;caption&gt;人口信息表&lt;/caption&gt;
+        &lt;tr&gt;
+            &lt;th&gt;姓名&lt;/th&gt;
+            &lt;th&gt;年龄&lt;/th&gt;
+            &lt;th&gt;性别&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;小明&lt;/td&gt;
+            &lt;td&gt;18&lt;/td&gt;
+            &lt;td&gt;男&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;张三&lt;/td&gt;
+            &lt;td&gt;18&lt;/td&gt;
+            &lt;td&gt;男&lt;/td&gt;
+        &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+                    <h1 id="-">五、合并单元格</h1>
+                    <p>1，合并单元格的两种方式</p>
+                    <p>跨行合并：rowspan=&quot;合并单元格的个数&quot;</p>
+                    <p>跨列合并：colspan=&quot;合并单元格的个数&quot;</p>
+                    <p>合并单元格的顺序按照<strong>先上后下先左后右</strong>的顺序</p>
+                    <p>2，合并单元格的三步曲</p>
+                    <p>先确定是跨行合并还是跨列合并</p>
+                    <p>根据先上后下先左后右的原则找到目标单元格，然后写上合并方式和要合并的单元格的数量</p>
+                    <pre><code class="lang-html">&lt;td colspan=&quot;3&quot;&gt; &lt;/td&gt;
+</code></pre>
+                    <p>删除多余的单元格</p>
+                    <pre><code class="lang-html">例子
+&lt;table border=&quot;1&quot; width=&quot;500&quot; height=&quot;200&quot; align=&quot;center&quot;&gt;
+        &lt;caption&gt; &lt;h3&gt;小说排行榜&lt;/h3&gt; &lt;/caption&gt;
+        &lt;tr&gt;
+            &lt;th&gt;排名&lt;/th&gt;
+            &lt;th&gt;关键词&lt;/th&gt;
+            &lt;th&gt;趋势&lt;/th&gt;
+            &lt;th&gt;今日搜索&lt;/th&gt;
+            &lt;th&gt;最近七日&lt;/th&gt;
+            &lt;th&gt;相关链接&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;1&lt;/td&gt;
+            &lt;td&gt;鬼吹灯&lt;/td&gt;
+            &lt;td&gt;↓&lt;/td&gt;
+            &lt;td&gt;345&lt;/td&gt;
+            &lt;!--跨行合并两行--&gt;
+            &lt;td rowspan=&quot;2&quot;&gt;123&lt;/td&gt;
+            &lt;td&gt;
+                &lt;a href=&quot;#&quot;&gt;贴吧&lt;/a&gt;
+                &lt;a href=&quot;#&quot;&gt;图片&lt;/a&gt;
+                &lt;a href=&quot;#&quot;&gt;百科&lt;/a&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;2&lt;/td&gt;
+            &lt;td&gt;盗墓笔记&lt;/td&gt;
+            &lt;td&gt;↓&lt;/td&gt;
+            &lt;td&gt;124&lt;/td&gt;
+            &lt;!-- &lt;td&gt;675432&lt;/td&gt;   删除多余单元格--&gt;
+            &lt;td&gt;
+                &lt;a href=&quot;#&quot;&gt;贴吧&lt;/a&gt;
+                &lt;a href=&quot;#&quot;&gt;图片&lt;/a&gt;
+                &lt;a href=&quot;#&quot;&gt;百科&lt;/a&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+                    <h1 id="-">六、列表标签</h1>
+                    <p>列表是用来布局的，他的最大的特点就是整齐、整洁、有序，跟表格类似，但是他可组合自由度更高</p>
+                    <p>1，无序列表ul（常用！）</p>
+                    <p>无序列表的各个列表项之间没有顺序级别之分，是并列的</p>
+                    <pre><code class="lang-html">&lt;ul&gt;
+    &lt;li&gt;列表项1&lt;/li&gt;
+    &lt;li&gt;列表项1&lt;/li&gt;
+    &lt;li&gt;列表项1&lt;/li&gt;
+    .......
+&lt;/ul&gt;
+
+例子
+&lt;h2&gt;1.无序列表&lt;/h2&gt;
+    你喜欢的水果？
+&lt;ul&gt;
+        &lt;li&gt;香蕉&lt;/li&gt;
+        &lt;li&gt;苹果&lt;/li&gt;
+        &lt;li&gt;榴莲&lt;/li&gt;
+&lt;/ul&gt;
+
+注意
+1，&lt;ul&gt;&lt;/ul&gt;中只能嵌套&lt;li&gt;&lt;/li&gt;
+2，&lt;li&gt;&lt;/li&gt;之间相当于一个容器，可以容纳所有的元素
+</code></pre>
+                    <p>2，有序列表ol</p>
+                    <p>有序列表即为有排列顺序的列表，其各个列表项按照一定的顺序排列定义</p>
+                    <pre><code class="lang-html">&lt;ol&gt;
+    &lt;li&gt;列表项1&lt;/li&gt;
+    &lt;li&gt;列表项1&lt;/li&gt;
+    &lt;li&gt;列表项1&lt;/li&gt;
+    .......
+&lt;/ol&gt;
+
+例子
+&lt;h2&gt;2.有序列表&lt;/h2&gt;
+    排行榜
+&lt;ol&gt;
+        &lt;li&gt;小孟&lt;/li&gt;
+        &lt;li&gt;小轩&lt;/li&gt;
+        &lt;li&gt;小尹&lt;/li&gt;
+        &lt;li&gt;老屁&lt;/li&gt;
+&lt;/ol&gt;
+</code></pre>
+                    <p>3，自定义列表</p>
+                    <p>定义列表常用于对术语或名词进行解释和描述</p>
+                    <pre><code class="lang-html">&lt;dl&gt;
+    &lt;dt&gt;名词1&lt;/dt&gt;
+    &lt;dd&gt;名词1解释1&lt;/dd&gt;
+    &lt;dd&gt;名词1解释2&lt;/dd&gt;
+    ......
+    &lt;dt&gt;名词2&lt;/dt&gt;
+    &lt;dd&gt;名词2解释1&lt;/dd&gt;
+    &lt;dd&gt;名词2解释2&lt;/dd&gt;
+    ......
+&lt;/dl&gt;
+
+例子
+&lt;h2&gt;3.自定义列表&lt;/h2&gt;
+地区:
+&lt;dl&gt;
+    &lt;dt&gt;北京&lt;/dt&gt;
+    &lt;dd&gt;昌平区&lt;/dd&gt;
+    &lt;dd&gt;海淀区&lt;/dd&gt;
+    &lt;dd&gt;大兴区&lt;/dd&gt;
+
+    &lt;dt&gt;山东&lt;/dt&gt;
+    &lt;dd&gt;威海&lt;/dd&gt;
+    &lt;dd&gt;济南&lt;/dd&gt;
+    &lt;dd&gt;青岛&lt;/dd&gt;
+&lt;/dl&gt;
+</code></pre>
+                    <h1 id="-">七、表单标签</h1>
+                    <p>作用：</p>
+                    <p>表单的目的是为了收集用户的信息，在我们的网页中，我们也需要跟用户进行交互，收集用户资料，此时也需要表单</p>
+                    <p>在HTML中，一个完整的表单通常由表单控件（表单元素）、提示信息和表单域三个部分构成</p>
+                    <p>表单域：相当于一个容器，用来容纳所有的表单控件和提示信息，可以通过他定义处理表单数据所用程序的url地址，以及数据提交到服务器的方法。如果不定义表单域，表单中的数据就无法传送到后台服务器。</p>
+                    <p>1，input控件</p>
+                    <pre><code class="lang-html">&lt;input type=&quot;属性值&quot; value=&quot;你好&quot;&gt;
+</code></pre>
+                    <p>type的属性：</p>
+                    <p>text    单行文本输入框</p>
+                    <p>password    密码输入框</p>
+                    <p>radio    单选按钮</p>
+                    <p>checkbox    复选框</p>
+                    <p>button    普通按钮</p>
+                    <p>submit    提交按钮</p>
+                    <p>reset    重置按钮</p>
+                    <p>image    图像形式的提交按钮</p>
+                    <p>file    文件域</p>
+                    <p>value的含义：</p>
+                    <p>表示input控件中的默认文本值</p>
+                    <p>size的含义：</p>
+                    <p>表示input控件在页面中的显示宽度</p>
+                    <p>maxlength的含义：</p>
+                    <p>表示控件允许输入的最多字符数</p>
+                    <pre><code class="lang-html">例子
+&lt;!-- text表示是个文本框 --&gt;
+用户名： &lt;input type=&quot;text&quot; value=&quot;请输入用户名&quot; /&gt;  &lt;br /&gt;
+&lt;!-- password表示是个密码框 --&gt;
+密码：   &lt;input type=&quot;password&quot; /&gt; &lt;br /&gt;
+
+单选和复选按钮的例子
+性别：
+    男&lt;input type=&quot;radio&quot; name=&quot;sex&quot; /&gt;
+    女&lt;input type=&quot;radio&quot; name=&quot;sex&quot; /&gt; &lt;br /&gt;
+爱好：&lt;br /&gt;
+    &lt;input type=&quot;checkbox&quot; name=&quot;hobby&quot; /&gt; 睡觉 &lt;br /&gt;
+    &lt;input type=&quot;checkbox&quot; name=&quot;hobby&quot; /&gt; 打游戏 &lt;br /&gt;
+    &lt;input type=&quot;checkbox&quot; name=&quot;hobby&quot; /&gt; 看电视剧 &lt;br /&gt;
+    &lt;input type=&quot;checkbox&quot; name=&quot;hobby&quot; /&gt; 看电影 &lt;br /&gt;
+
+提交，重置，图像按钮，文件域等的例子
+&lt;!-- 普通按钮需要value值 --&gt;
+    &lt;input type=&quot;button&quot; value=&quot;获取短信验证码&quot;/&gt;
+    &lt;input type=&quot;submit&quot; /&gt;
+    &lt;input type=&quot;reset&quot; /&gt; &lt;br /&gt;
+&lt;!-- 图片提交按钮里面必须包含src值 --&gt;
+    &lt;input type=&quot;image&quot; src=&quot;1.jpg&quot; /&gt; &lt;br /&gt;
+上传头像：
+&lt;!-- 文件域 --&gt;
+    &lt;input type=&quot;file&quot; /&gt;
+</code></pre>
+                    <p>2，表单的name属性</p>
+                    <p>name的值，用于后端对数据进行处理时使用</p>
+                    <pre><code class="lang-html">&lt;!-- text表示是个文本框 --&gt;
+用户名： &lt;input type=&quot;text&quot; value=&quot;请输入用户名&quot; name=&quot;username&quot; /&gt;  &lt;br /&gt;
+昵称： &lt;input type=&quot;text&quot; value=&quot;请输入昵称&quot; name=&quot;nickname&quot; /&gt;  &lt;br /&gt;
+密码：   &lt;input type=&quot;password&quot; /&gt;
+</code></pre>
+                    <p>3，checked属性</p>
+                    <p>表示默认选中状态，常见于单选按钮和复选按钮</p>
+                    <pre><code class="lang-html">性别：
+男&lt;input type=&quot;radio&quot; name=&quot;sex&quot; checked=&quot;checked&quot;/&gt;
+女&lt;input type=&quot;radio&quot; name=&quot;sex&quot; /&gt; &lt;br /&gt;
+</code></pre>
+                    <h1 id="-label-">八、label标签</h1>
+                    <p>目标：label标签主要目的是为了提高用户的体验，为用户提高最优秀的服务</p>
+                    <p>概念：label标签为input元素定义标注</p>
+                    <p>作用：用于绑定一个表单元素，当点击label标签的时候，被绑定的表单元素就会获得输入焦点</p>
+                    <p>如何绑定元素？</p>
+                    <p>1，第一种用法就是用label直接包括input表单</p>
+                    <pre><code class="lang-html">&lt;label&gt; 用户名： &lt;input type=&quot;radio&quot; name=&quot;usernname&quot; value=&quot;请输入用户名&quot; /&gt; &lt;/label&gt;
+</code></pre>
+                    <p>适合单个表单选择</p>
+                    <p>2，第二种用法就是for属性规定label与哪个表单元素绑定</p>
+                    <pre><code class="lang-html">&lt;label for=&quot;sex&quot;&gt;男&lt;/label&gt;
+&lt;input type=&quot;radio&quot; name=&quot;sex&quot; id=&quot;sex&quot; /&gt;
+</code></pre>
+                    <p>总结：当我们鼠标点击label标签里面的文字时，光标会定位到指定的表单里面</p>
+                    <pre><code class="lang-html">例子
+&lt;h4&gt;label直接包含表单&lt;/h4&gt;
+&lt;label&gt; 用户名： &lt;input type=&quot;text&quot; /&gt; &lt;/label&gt; &lt;br /&gt;
+
+&lt;h4&gt;通过for和id来控制&lt;/h4&gt;
+&lt;label for=&quot;nc&quot;&gt; 昵称：  &lt;/label&gt;
+&lt;input type=&quot;text&quot; id=&quot;nc&quot;/&gt;
+</code></pre>
+                    <h1 id="-textarea-">九、textarea控件（文本域）</h1>
+                    <p>作用：通过textarea控件可以轻松地创建多行文本输入框</p>
+                    <p>常应用于留言板</p>
+                    <pre><code class="lang-html">&lt;textarea cols=&quot;每行中的字符数&quot; rows=&quot;显示的行数&quot;&gt;
+    文本内容
+&lt;/textarea&gt;
+</code></pre>
+                    <h1 id="-select">十、下拉列表select</h1>
+                    <pre><code class="lang-html">&lt;select&gt;
+    &lt;option&gt;选项1&lt;/option&gt;
+    &lt;option&gt;选项1&lt;/option&gt;
+    &lt;option&gt;选项1&lt;/option&gt;
+    &lt;option&gt;选项1&lt;/option&gt;
+    ........
+&lt;/select&gt;
+</code></pre>
+                    <p>注意</p>
+                    <p>1，select标签中至少应包含一对option标签</p>
+                    <p>2，在option标签中定义selected=&quot;selected&quot;时，当前项即为默认选中项</p>
+                    <pre><code class="lang-html">例子
+
+籍贯：
+&lt;select&gt;
+    &lt;option&gt;--请选择省份--&lt;/option&gt;
+    &lt;option&gt;北京&lt;/option&gt;
+    &lt;option&gt;天津&lt;/option&gt;
+    &lt;option selected=&quot;selected&quot;&gt;邯郸&lt;/option&gt;
+    &lt;option&gt;石家庄&lt;/option&gt;
+&lt;/select&gt;
+</code></pre>
+                    <h1 id="-form-">十一、form表单域</h1>
+                    <p>目的：在HTML中，form标签被用于定义表单域，以实现用户信息的收集和传递，form中的所有内容都会被提交给服务器</p>
+                    <pre><code class="lang-html">&lt;form action=&quot;url地址&quot; method=&quot;提交方式&quot; name=&quot;表单名称&quot;&gt;
+    各种表单控件
+&lt;/form&gt;
+</code></pre>
+                    <p>action    用于指定接收并处理表单数据的服务器程序的url地址</p>
+                    <p>method    用于设置表单数据的提交方式，其取值为get或post</p>
+                    <p>name    用于指定表单的名称，以区分同一个页面中的多个表单</p>
+                    <pre><code class="lang-html">例子
+&lt;form action=&quot;&quot; method=&quot;post&quot;&gt;
+    用户名： &lt;input type=&quot;text&quot; name=&quot;username&quot;/&gt; &lt;br /&gt;
+    密码：  &lt;input type=&quot;password&quot; name=&quot;pwd&quot;/&gt; &lt;br /&gt;
+    &lt;input type=&quot;submit&quot; /&gt;
+    &lt;input type=&quot;reset&quot; /&gt;
+&lt;/form&gt;
+</code></pre>
+                    <h1 id="-">十二、综合案例（注册表格）</h1>
+                    <pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh-CN&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;练习页面&lt;/title&gt;
+    &lt;style&gt;
+        tr {
+            height: 40px;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;table width=&quot;600&quot; align=&quot;center&quot;&gt;
+        &lt;caption&gt; &lt;h4 style=&quot;color: pink;&quot;&gt;青春不常在，抓紧谈恋爱&lt;/h4&gt; &lt;/caption&gt;
+        &lt;!-- 第一行 --&gt;
+        &lt;tr&gt;
+            &lt;td&gt;性别&lt;/td&gt;
+            &lt;td&gt;
+                &lt;input type=&quot;radio&quot; name=&quot;sex&quot; checked=&quot;checked&quot;/&gt; 男
+                &lt;input type=&quot;radio&quot; name=&quot;sex&quot;/&gt; 女
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;!-- 第二行 --&gt;
+        &lt;tr&gt;
+            &lt;td&gt;生日&lt;/td&gt;
+            &lt;td&gt;
+                &lt;!-- 年 --&gt;
+                &lt;select&gt;
+                    &lt;option&gt;--请选择年--&lt;/option&gt;
+                    &lt;option&gt;1995&lt;/option&gt;
+                    &lt;option&gt;1996&lt;/option&gt;
+                    &lt;option&gt;1997&lt;/option&gt;
+                    &lt;option&gt;1998&lt;/option&gt;
+                &lt;/select&gt;
+
+                &lt;!-- 月 --&gt;
+                &lt;select&gt;
+                    &lt;option&gt;--请选择月--&lt;/option&gt;
+                    &lt;option&gt;9&lt;/option&gt;
+                    &lt;option&gt;10&lt;/option&gt;
+                &lt;/select&gt;
+
+                &lt;!-- 日 --&gt;
+                &lt;select&gt;
+                    &lt;option&gt;--请选择日--&lt;/option&gt;
+                    &lt;option&gt;1&lt;/option&gt;
+                    &lt;option&gt;2&lt;/option&gt;
+                    &lt;option&gt;3&lt;/option&gt;
+                    &lt;option&gt;4&lt;/option&gt;
+                &lt;/select&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;!-- 第三行 --&gt;
+        &lt;tr&gt;
+            &lt;td&gt;所在地区&lt;/td&gt;
+            &lt;td&gt;
+                &lt;input type=&quot;text&quot; value=&quot;邯郸&quot; style=&quot;color: gray;&quot;/&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;!-- 第四行 --&gt;
+        &lt;tr&gt;
+            &lt;td&gt;婚姻状况&lt;/td&gt;
+            &lt;td&gt;
+                &lt;input type=&quot;radio&quot; name=&quot;marry&quot; checked=&quot;checked&quot;/&gt;未婚
+                &lt;input type=&quot;radio&quot; name=&quot;marry&quot;/&gt;离婚
+                &lt;input type=&quot;radio&quot; name=&quot;marry&quot;/&gt;丧偶
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;!-- 第五行 --&gt;
+        &lt;tr&gt;
+            &lt;td&gt;学历&lt;/td&gt;
+            &lt;td&gt;
+                &lt;input type=&quot;text&quot; value=&quot;大学本科&quot; style=&quot;color: gray;&quot;/&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;!-- 第六行 --&gt;
+        &lt;tr&gt;
+            &lt;td&gt;月薪&lt;/td&gt;
+            &lt;td&gt;
+                &lt;input type=&quot;text&quot; value=&quot;5000-10000&quot; style=&quot;color: gray;&quot;/&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;!-- 第七行 --&gt;
+        &lt;tr&gt;
+            &lt;td&gt;手机号&lt;/td&gt;
+            &lt;td&gt;
+                &lt;input type=&quot;text&quot; value=&quot;&quot;/&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;!-- 第八行 --&gt;
+        &lt;tr&gt;
+            &lt;td&gt;昵称&lt;/td&gt;
+            &lt;td&gt;
+                &lt;input type=&quot;text&quot; value=&quot;小孟同学&quot; style=&quot;color: gray;&quot;/&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;!-- 第九行 --&gt;
+        &lt;tr&gt;
+            &lt;td&gt;喜欢类型&lt;/td&gt;
+            &lt;td&gt;
+                &lt;input type=&quot;checkbox&quot; name=&quot;love&quot;/&gt; 妩媚
+                &lt;input type=&quot;checkbox&quot; name=&quot;love&quot;/&gt; 柔美
+                &lt;input type=&quot;checkbox&quot; name=&quot;love&quot;/&gt; 可爱
+                &lt;input type=&quot;checkbox&quot; name=&quot;love&quot;/&gt; 小鲜肉
+                &lt;input type=&quot;checkbox&quot; name=&quot;love&quot;/&gt; 型男
+                &lt;input type=&quot;checkbox&quot; name=&quot;love&quot;/&gt; 气质
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;!-- 第十行 --&gt;
+        &lt;tr&gt;
+            &lt;td&gt;自我介绍&lt;/td&gt;
+            &lt;td&gt;
+                &lt;textarea&gt;
+                    我是......
+                &lt;/textarea&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;!-- 第十一行 --&gt;
+        &lt;tr&gt;
+            &lt;!-- 美观，令左侧单元格为空 --&gt;
+            &lt;td&gt;&lt;/td&gt;
+            &lt;td&gt;
+                &lt;form&gt;
+                    &lt;input type=&quot;submit&quot; /&gt;
+                &lt;/form&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+         &lt;!-- 第十二行 --&gt;
+         &lt;tr&gt;
+            &lt;!-- 美观，令左侧单元格为空 --&gt;
+            &lt;td&gt;&lt;/td&gt;
+            &lt;td&gt;
+                &lt;input type=&quot;checkbox&quot; name=&quot;agree&quot; checked=&quot;checked&quot; /&gt; 我同意注册条款和会员加入标准
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;!-- 第十三行 --&gt;
+        &lt;tr&gt;
+            &lt;!-- 美观，令左侧单元格为空 --&gt;
+            &lt;td&gt;&lt;/td&gt;
+            &lt;td&gt;
+                &lt;h3&gt;我承诺&lt;/h3&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;年满18、单身&lt;/li&gt;
+                    &lt;li&gt;抱着严肃的态度&lt;/li&gt;
+                    &lt;li&gt;真诚寻找另一半&lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+
+    &lt;/table&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <h1 id="-">十三、查文档</h1>
+                    <p>W3C：<a href="http://www.w3school.com.cn/">http://www.w3school.com.cn/</a></p>
+                    <p>MDN:  <a href="https://developer.mozilla.org/zh-CN/">https://developer.mozilla.org/zh-CN/</a></p>
+
+                </article>
+            </div>
+        </div>
+
+		<!--footer部分-->
+	    <div th:replace="~{/commons/commons::footer_bar}"></div>
+    
+    </div><!--//main-wrapper-->
+        
+       
+    <!-- Javascript -->          
+    <script th:src="@{/plugins/popper.min.js}"></script>
+    <script th:src="@{/plugins/bootstrap/js/bootstrap.js/bootstrap.min.js}"></script>
+
+    <!-- Page Specific JS -->
+<!--    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>-->
+
+    <!-- Custom JS -->
+    <script th:src="@{/js/blog.js}"></script>
+    
+
+</body>
+</html> 
+

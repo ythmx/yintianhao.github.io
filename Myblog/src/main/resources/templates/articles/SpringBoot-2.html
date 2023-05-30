@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>SpringBoot</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog Template">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
+	<!--显示小图标，目前显不出来，bug！！-->
+<!--    <link rel="shortcut icon" href="favicon.ico">-->
+    
+    <!-- 字体 JS-->
+	<script defer th:src="@{/fontawesome/js/all.js/all.min.js}"></script>
+    
+    <!-- 插件 CSS -->
+    <link rel="stylesheet" th:href="@{/plugins/highlight/styles/monokai-sublime.css}">
+    
+    <!-- 主题 CSS -->
+    <link id="theme-style" rel="stylesheet" th:href="@{/css/theme-4.css}">
+
+</head> 
+
+<body>
+    
+    <!--左侧部分-->
+	<div th:replace="~{/commons/commons::header_bar(active='blog-post')}"></div>
+    
+    <div class="main-wrapper">
+
+        <div>
+            <div style='width:25%;'>
+                <ul id="tree" class="ztree" style='width:100%'>
+
+                </ul>
+            </div>
+            <div id='readme' style='width:70%;margin-left:20%;'>
+                <article class='markdown-body'>
+                    <h1 id="1-jdbc-">1、整合JDBC使用</h1>
+                    <p>首先，在pom.xml文件中，导入相对应的依赖</p>
+                    <pre><code class="lang-xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-jdbc&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+                    <p>在application.yml中，配置所需要的配置，连接的是mybatis数据库</p>
+                    <p>Mysql 8.0+版本，用这个driver-class-name</p>
+                    <pre><code class="lang-yaml">spring:
+  datasource:
+    username: root
+    password: 101266
+    url: jdbc:mysql://localhost:3306/mybatis?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=GMT%2B8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+</code></pre>
+                    <p>创建controller包，在包下创建JDBCController这个实体类</p>
+                    <p>springboot封装好了JdbcTemplate类，里边有所有jdbc用到的方法，只需要调用即可</p>
+                    <pre><code class="lang-java">@RestController
+public class JDBCController {
+    @Autowired
+    JdbcTemplate jdbcTemplate;
+
+    //查询数据库的所有信息
+    //没有实体类，数据库中的东西，怎么获取? Map
+    @GetMapping(&quot;/userList&quot;)
+    public List&lt;Map&lt;String, Object&gt;&gt; userList() {
+        String sql = &quot;select * from user&quot;;
+        List&lt;Map&lt;String, Object&gt;&gt; maps = jdbcTemplate.queryForList(sql);
+        return maps;
+    }
+
+    //往数据库中插入数据
+    @GetMapping(&quot;/addUser&quot;)
+    public String addUser() {
+        String sql = &quot;insert into mybatis.user(id,name,pwd) values(4,&#39;小孟儿&#39;,&#39;123456&#39;)&quot;;
+        jdbcTemplate.update(sql);
+        return &quot;update ok!&quot;;
+    }
+
+    //修改数据库中的数据
+    @GetMapping(&quot;/updateUser/{id}&quot;)
+    public String updateUser(@PathVariable(&quot;id&quot;) int id) {
+        //这是一个预编译sql语句
+        String sql = &quot;update mybatis.user set name = ? where id =&quot; + id;
+        Object[] objects = new Object[1];
+        objects[0] = &quot;yth&quot;;
+        jdbcTemplate.update(sql,objects);
+        return &quot;update ok!&quot;;
+    }
+
+    //删除数据库中的数据
+    @GetMapping(&quot;/deleteUser/{id}&quot;)
+    public String deleteUser(@PathVariable(&quot;id&quot;) int id) {
+        String sql = &quot;delete from mybatis.user where id =&quot; + id;
+        jdbcTemplate.update(sql);
+        return &quot;update ok!&quot;;
+    }
+
+}
+</code></pre>
+                    <h1 id="2-mybatis-">2、整合Mybatis框架</h1>
+                    <p>Druid（德鲁伊）简介</p>
+                    <p>是阿里巴巴开源平台上一个数据库连接池实现，结合了C3P0、DBCP等DB池的优点，同时加入了日志监控</p>
+                    <p>在pom.xml中配置依赖</p>
+                    <pre><code class="lang-xml">&lt;!--Druid--&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;com.alibaba&lt;/groupId&gt;
+    &lt;artifactId&gt;druid&lt;/artifactId&gt;
+    &lt;version&gt;1.1.21&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+                    <p>在application.yml中进行类型配置</p>
+                    <pre><code class="lang-yaml">spring:
+  datasource:
+    username: root
+    password: 101266
+    url: jdbc:mysql://localhost:3306/mybatis?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=GMT%2B8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+</code></pre>
+                    <p>M：数据和业务（持久层dao、mapper） </p>
+                    <p>C：交接（业务层service）</p>
+                    <p>V：HTML（视图层controller、servlet）</p>
+                    <p>在pom.xml中，导入响应的依赖</p>
+                    <pre><code class="lang-xml">&lt;!--mybatis，整合用--&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt;
+    &lt;version&gt;2.1.1&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+                    <p>在application.yaml文件中，进行响应的配置</p>
+                    <pre><code class="lang-yaml">spring:
+  datasource:
+    username: root
+    password: 101266
+    url: jdbc:mysql://localhost:3306/mybatis?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=GMT%2B8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+# 整合 mybatis
+mybatis:
+  type-aliases-package: com.yth.pojo
+  mapper-locations: classpath:mybatis/mapper/*.xml
+</code></pre>
+                    <p>创建mapper包，创建UserMapper接口</p>
+                    <pre><code class="lang-java">//这个注解，表示了这是一个mybatis的mapper类
+@Mapper
+@Repository
+public interface UserMapper {
+    //查询所有User
+    List&lt;User&gt; queryUserList();
+    //通过id查询User
+    User queryUserById(int id);
+    //添加user
+    int addUser(User user);
+    //删除user
+    int deleteUser(int id);
+    //修改user
+    int updateUser(User user);
+}
+</code></pre>
+                    <p>在resources下创建mybatis包，创建mapper包，创建UserMapper.xml</p>
+                    <p>注意，xml的名要与mapper包下接口名保持一致</p>
+                    <pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;!DOCTYPE mapper
+        PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
+        &quot;https://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
+&lt;mapper namespace=&quot;com.yth.mapper.UserMapper&quot;&gt;
+
+    &lt;select id=&quot;queryUserList&quot; resultType=&quot;User&quot;&gt;
+        select * from user
+    &lt;/select&gt;
+
+    &lt;select id=&quot;queryUserById&quot; resultType=&quot;User&quot;&gt;
+        select * from user where id = #{id}
+    &lt;/select&gt;
+
+    &lt;insert id=&quot;addUser&quot; parameterType=&quot;User&quot;&gt;
+        insert into user(id,name,pwd) values(#{id},#{name},#{pwd})
+    &lt;/insert&gt;
+
+    &lt;update id=&quot;updateUser&quot; parameterType=&quot;User&quot;&gt;
+        update user set name = #{name},pwd = #{pwd}
+        where id = #{id}
+    &lt;/update&gt;
+
+    &lt;delete id=&quot;deleteUser&quot; parameterType=&quot;int&quot;&gt;
+        delete from user where id = #{id}
+    &lt;/delete&gt;
+
+&lt;/mapper&gt;
+</code></pre>
+                    <p>最后创建UserController类编写对应接口进行调用即可</p>
+                    <pre><code class="lang-java">@RestController
+public class UserController {
+    @Autowired
+    private UserMapper userMapper;
+
+    @GetMapping(&quot;/queryUserList&quot;)
+    public List&lt;User&gt; queryUserList() {
+        List&lt;User&gt; users = userMapper.queryUserList();
+        return users;
+    }
+
+}
+</code></pre>
+                    <p>总结：</p>
+                    <ul>
+                        <li>导入包</li>
+                        <li>配置文件</li>
+                        <li>mybatis配置</li>
+                        <li>编写sql</li>
+                        <li>service层调用dao层</li>
+                        <li>controller层调用service层</li>
+                    </ul>
+
+                </article>
+            </div>
+        </div>
+
+		<!--footer部分-->
+	    <div th:replace="~{/commons/commons::footer_bar}"></div>
+    
+    </div><!--//main-wrapper-->
+    
+
+        
+       
+    <!-- Javascript -->          
+    <script th:src="@{/plugins/popper.min.js}"></script>
+    <script th:src="@{/plugins/bootstrap/js/bootstrap.js/bootstrap.min.js}"></script>
+
+    <!-- Page Specific JS -->
+<!--    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>-->
+
+    <!-- Custom JS -->
+    <script th:src="@{/js/blog.js}"></script>
+    
+
+</body>
+</html> 
+

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>文章</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog Template">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
+	<!--显示小图标，目前显不出来，bug！！-->
+<!--    <link rel="shortcut icon" href="favicon.ico">-->
+    
+    <!-- 字体 JS-->
+	<script defer th:src="@{/fontawesome/js/all.js/all.min.js}"></script>
+    
+    <!-- 插件 CSS -->
+    <link rel="stylesheet" th:href="@{/plugins/highlight/styles/monokai-sublime.css}">
+    
+    <!-- 主题 CSS -->
+    <link id="theme-style" rel="stylesheet" th:href="@{/css/theme-4.css}">
+    
+
+</head> 
+
+<body>
+    
+    <!--左侧部分-->
+	<div th:replace="~{/commons/commons::header_bar(active='blog-post')}"></div>
+    
+    <div class="main-wrapper">
+	    
+	    <article class="blog-post px-3 py-5 p-md-5">
+		    <div class="container single-col-max-width">
+			    <header class="blog-post-header">
+				    <h2 class="title mb-2">这里展示了写该博客时，遇到的一个大问题!!!</h2>
+			    </header>
+
+			    <div class="blog-post-body">
+
+				    <h3 class="mt-5 mb-3">代码部分展示</h3>
+					<p>可以利用这个思想，将md转为html显示，弄了好久才成功！(test.html使用的就是这种方式，利用路径获取md文件，然后将其内容在页面中显示)</p>
+					<pre>
+					    <code>
+							在script里写
+function showMarkdown()
+{
+    // 获取表单变量
+    var f=form;
+    // 创建XMLHttpRequest对象
+    var xmlhttp;
+    if (window.XMLHttpRequest)
+    {
+        // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+        xmlhttp=new XMLHttpRequest();
+    }
+    else
+    {
+        // IE6, IE5 浏览器执行代码
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+
+    // 得到服务器响应后，对得到的Markdown文档进行解析
+    xmlhttp.onreadystatechange=function()
+    {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+            // 这里调用了marked框架中的marked函数实现Markdown2HTML的解析
+            document.getElementById("content").innerHTML=marked(xmlhttp.responseText);
+        }
+    }
+
+
+    // 向服务器发送请求，获取你需要的Markdown文档
+    xmlhttp.open("GET",f.q.value,true);
+    xmlhttp.send();
+    }
+}
+					    </code>
+				    </pre>
+
+			    </div>
+
+
+
+
+		    </div><!--//container-->
+	    </article>
+
+		<!--footer部分-->
+	    <div th:replace="~{/commons/commons::footer_bar}"></div>
+    
+    </div><!--//main-wrapper-->
+    
+
+        
+       
+    <!-- Javascript -->          
+    <script th:src="@{/plugins/popper.min.js}"></script>
+    <script th:src="@{/plugins/bootstrap/js/bootstrap.js/bootstrap.min.js}"></script>
+
+    <!-- Page Specific JS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+
+    <!-- Custom JS -->
+    <script th:src="@{/js/blog.js}"></script>
+    
+
+</body>
+</html> 
+

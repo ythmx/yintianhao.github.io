@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>我的介绍</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog Template">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
+	<!--显示小图标，目前显不出来，bug！！-->
+<!--    <link rel="shortcut icon" href="favicon.ico">-->
+    
+    <!-- 字体 JS-->
+	<script defer th:src="@{/fontawesome/js/all.js/all.min.js}"></script>
+    
+    <!-- 主题 CSS -->
+    <link id="theme-style" rel="stylesheet" th:href="@{/css/theme-4.css}">
+    
+
+</head> 
+
+<body>
+    
+    <!--左侧部分-->
+	<div th:replace="~{/commons/commons::header_bar(active='about')}"></div>
+    
+    <div class="main-wrapper">
+	    	    
+	    <article class="about-section py-5">
+		    <div class="container">
+			    <h2 class="title mb-3">关于我</h2>
+				<!--个人介绍-->
+			    <p>
+					我叫尹天豪，一名大四学生，参加过23考研，考的是2、2、408，虽然考了331分（个人感觉很不错的分数），但是很遗憾擦边进复试被刷。
+					然后在四月多，找到了一家公司实习，每天度过996的充实的程序员的生活，本人比较热爱写代码，喜欢自己创造东西的过程。
+					目前也很迷茫自己的前途，在公司学习了Java的几个常用框架技术之后，为了方便自己查询自己的学习笔记，所以便尝试着搭建了一个博客。
+					本人技术平平，属于菜狗一枚，本科毕业于河北农业大学。
+				</p>
+			    <figure><img class="img-fluid" th:src="@{/images/aboutMe.jpg}" alt="image"></figure>
+			    <h5 class="mt-5">关于博客</h5>
+			    <p>
+					这是我第一次写博客，里面大该会放置一些我从零开始学习Java的笔记，以及我学习的时候，总结的一些算法相关的知识。
+					由于这是本人第一次写，可能有很多bug哈哈
+				</p>
+				<h5 class="mt-5">我的技能and经验</h5>
+				<p>
+					技能:<br />
+					JavaSE、JavaEE、Mysql、Maven、Mybatis、Spring、SpringMVC、SpringBoot
+					经验(写过如下项目):<br />
+					员工管理系统、商城后台管理系统、俄罗斯方块、超级玛丽、平衡球(Unity3D)、图书管理系统、人脸检测<br />
+					<h5 class="mt-5">我的QQ:1078606458</h5>
+				</p>
+				<h5 class="mt-5">感慨</h5>
+				<p>
+					上班真TM累!!!(附上转运锦鲤)
+				</p>
+
+			    <figure><a href="#"><img class="img-fluid" th:src="@{/images/good_fish.jpg}" alt="image"></a></figure>
+		    </div>
+	    </article><!--//about-section-->
+
+		<!--footer部分-->
+		<div th:replace="~{/commons/commons::footer_bar}"></div>
+    
+    </div><!--//main-wrapper-->
+    
+       
+    <!-- Javascript -->          
+    <script th:src="@{/plugins/popper.min.js}"></script>
+    <script th:src="@{/plugins/bootstrap/js/bootstrap.js/bootstrap.min.js}"></script>
+    
+
+</body>
+</html> 
+

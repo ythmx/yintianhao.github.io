@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Vue</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog Template">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
+	<!--显示小图标，目前显不出来，bug！！-->
+<!--    <link rel="shortcut icon" href="favicon.ico">-->
+    
+    <!-- 字体 JS-->
+	<script defer th:src="@{/fontawesome/js/all.js/all.min.js}"></script>
+    
+    <!-- 插件 CSS -->
+    <link rel="stylesheet" th:href="@{/plugins/highlight/styles/monokai-sublime.css}">
+    
+    <!-- 主题 CSS -->
+    <link id="theme-style" rel="stylesheet" th:href="@{/css/theme-4.css}">
+
+</head> 
+
+<body>
+    
+    <!--左侧部分-->
+	<div th:replace="~{/commons/commons::header_bar(active='blog-post')}"></div>
+    
+    <div class="main-wrapper">
+
+        <div>
+            <div style='width:25%;'>
+                <ul id="tree" class="ztree" style='width:100%'>
+
+                </ul>
+            </div>
+            <div id='readme' style='width:70%;margin-left:20%;'>
+                <article class='markdown-body'>
+                    <h1 id="1-vue-js-">1、Vue.js介绍</h1>
+                    <p>是一套用于构建用户界面的渐进式框架（只关心视图层），所谓渐进式就是逐步实现新特性的思想，如实现模块化开发、路由、状态管理等新特性。Vue就是为了处理DOM的</p>
+                    <p>视图：给用户看，刷新后台给的数据</p>
+                    <p><strong>JavaScript</strong></p>
+                    <p>一门弱类型脚本语言，其源代码在发往客户端运行之前不需要经过编译，而是将文本格式的字符代码发送给浏览器由浏览器解释运行</p>
+                    <p>（Native原生JS开发）原生JS开发，就是按照ECMAScript标准的开发方式，简称是ES</p>
+                    <p>（TypeScript微软的标准）是一种由微软开发的自由和开源的编程语言</p>
+                    <h1 id="2-vue-">2、第一个Vue程序</h1>
+                    <p><strong>MVVM模式</strong></p>
+                    <ul>
+                        <li>Model：模型层，在这里表示JavaScript对象</li>
+                        <li>View：视图层，在这里表示DOM（HTML操作的对象）</li>
+                        <li>View Model：连接视图和数据的中间件，Vue.js就是MVVM中的View Model层的实现者</li>
+                    </ul>
+                    <p>MVVM的核心是View Model层，负责转换Model中的数据对象来让数据变得更容易管理和使用</p>
+                    <p>MVVM和MVC一样，主要目的是为了分离模型层和视图层</p>
+                    <p><img src="C:\Users\dell\AppData\Roaming\Typora\typora-user-images\image-20230417091017214.png" alt="image-20230417091017214"></p>
+                    <p>配置CDN</p>
+                    <pre><code class="lang-javascript">&lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+                    <p>第一个Vue程序</p>
+                    <pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+
+&lt;/head&gt;
+&lt;body&gt;
+&lt;!--view层 模板--&gt;
+&lt;div id=&quot;app&quot;&gt;
+    {{message}}
+&lt;/div&gt;
+
+&lt;!--    导入Vue.js--&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+    var vm = new Vue({
+        el: &quot;#app&quot;,
+        //Model : 数据
+        data:{
+            message: &quot;hello,vue!&quot;
+        }
+    });
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <h1 id="3-vue-">3、Vue基本语法</h1>
+                    <p>现在，数据和DOM已经被建立了关联，所有东西都是响应式的，我们在控制台操作对象属性，界面可以实时更新</p>
+                    <p>我们还可以使用v-bind来绑定元素特性</p>
+                    <pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+
+&lt;/head&gt;
+&lt;body&gt;
+&lt;!--view层 模板--&gt;
+&lt;div id=&quot;app&quot;&gt;
+    &lt;span v-bind:title=&quot;message&quot;&gt;
+        鼠标悬停几秒钟，查看此处动态绑定的提示信息
+    &lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!--    导入Vue.js--&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+    var vm = new Vue({
+        el: &quot;#app&quot;,
+        //Model : 数据
+        data:{
+            message: &quot;hello,vue!&quot;
+        }
+    });
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <p>这种v-bind等被称为指令，指令带有前缀v-，以表示他们是Vue提供的特殊特性，他们会在渲染的DOM上应用特殊的响应式行为</p>
+                    <p>该指令的意思是，将这个元素节点的title特性和Vue实例的message属性保持一致</p>
+                    <p>v-if，判断</p>
+                    <pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+
+&lt;/head&gt;
+&lt;body&gt;
+&lt;!--view层 模板--&gt;
+&lt;div id=&quot;app&quot;&gt;
+
+    &lt;h1 v-if=&quot;ok&quot;&gt;Yes&lt;/h1&gt;
+    &lt;h1 v-else&gt;No&lt;/h1&gt;
+
+&lt;/div&gt;
+
+&lt;!--    导入Vue.js--&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+    var vm = new Vue({
+        el: &quot;#app&quot;,
+        //Model : 数据
+        data:{
+            ok: false
+        }
+    });
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <p>v-for，循环</p>
+                    <pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;title&gt;Title&lt;/title&gt;
+
+&lt;/head&gt;
+&lt;body&gt;
+&lt;!--view层 模板--&gt;
+&lt;div id=&quot;app&quot;&gt;
+
+  &lt;li v-for=&quot;item in items&quot;&gt;
+    {{item.message}}
+  &lt;/li&gt;
+
+&lt;/div&gt;
+
+&lt;!--    导入Vue.js--&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+  var vm = new Vue({
+    el: &quot;#app&quot;,
+    //Model : 数据
+    data: {
+      items: [
+          {message: &quot;我是小孟儿&quot;},
+          {message: &quot;我是小尹儿&quot;}
+      ]
+    }
+  });
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <h1 id="4-vue-">4、Vue绑定事件</h1>
+                    <p>通过在Vue的methods中定义方法，然后通过v-on进行事件的绑定</p>
+                    <p>这里的click是Vue的事件，可以绑定到Vue中的methods中的方法事件</p>
+                    <pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;title&gt;Title&lt;/title&gt;
+
+&lt;/head&gt;
+&lt;body&gt;
+&lt;!--view层 模板--&gt;
+&lt;div id=&quot;app&quot;&gt;
+  &lt;!--使用了v-on绑定了click事件，并指定了名为 sayHi 的方法--&gt;
+  &lt;button v-on:click=&quot;sayHi&quot;&gt;click me&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;!--    导入Vue.js--&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+  var vm = new Vue({
+    el: &quot;#app&quot;,
+    //Model : 数据
+    data: {
+      message: &quot;我是小孟儿&quot;
+    },
+    methods: { //方法必须定义在Vue 的 Methods对象中
+        sayHi: function () {
+            alert(this.message);
+        }
+    }
+  });
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <h1 id="5-vue-">5、Vue双向绑定</h1>
+                    <p>Vue.js是一个MVVM框架，即数据双向绑定，即当数据发生变化的时候，视图也就发生变化，当视图发生变化的时候，数据也会跟着同步变化。</p>
+                    <p>可以用v-model指令，在表单元素上创建双向数据绑定。它会根据控件类型自动选取正确的方法来更新元素。</p>
+                    <pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;title&gt;Title&lt;/title&gt;
+
+&lt;/head&gt;
+&lt;body&gt;
+&lt;!--view层 模板--&gt;
+&lt;div id=&quot;app&quot;&gt;
+   输入的文本: &lt;input type=&quot;text&quot; v-model=&quot;message&quot;&gt; {{message}}
+
+    &lt;br /&gt;
+    &lt;br /&gt;
+    &lt;br /&gt;
+
+   性别: &lt;input type=&quot;radio&quot; name=&quot;sex&quot; v-model=&quot;checked&quot; value=&quot;男&quot;&gt; 男
+        &lt;input type=&quot;radio&quot; name=&quot;sex&quot; v-model=&quot;checked&quot; value=&quot;女&quot;&gt; 女
+    &lt;br /&gt;
+   选择的性别是: {{checked}}
+    &lt;br /&gt;
+    &lt;br /&gt;
+   下拉框:
+    &lt;select v-model=&quot;selected&quot;&gt;
+        &lt;option&gt;A&lt;/option&gt;
+        &lt;option&gt;B&lt;/option&gt;
+        &lt;option&gt;C&lt;/option&gt;
+    &lt;/select&gt;
+
+&lt;/div&gt;
+
+&lt;!--    导入Vue.js--&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+  var vm = new Vue({
+    el: &quot;#app&quot;,
+    //Model : 数据
+    data: {
+      message: &quot;我是小孟儿&quot;,
+      checked: &quot;&quot;,
+      selected: &quot;A&quot;
+    }
+  });
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <h1 id="6-vue-">6、Vue组件</h1>
+                    <p>注意：实际开发中，不会用以下方式开发组件，而是会使用 Vue-cli 创建 .vue 模板文件的方式开发</p>
+                    <p>组件是可复用的 Vue 实例，说白了就是一组可以重复使用的模板。通常一个应用会以一棵嵌套的组件树的形式来组织</p>
+                    <pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;title&gt;Title&lt;/title&gt;
+
+&lt;/head&gt;
+&lt;body&gt;
+&lt;!--view层 模板--&gt;
+&lt;div id=&quot;app&quot;&gt;
+    &lt;!--组件--&gt;
+    &lt;yth v-for=&quot;item in items&quot; v-bind:yin=&quot;item&quot;&gt;&lt;/yth&gt;
+&lt;/div&gt;
+
+&lt;!--    导入Vue.js--&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+
+  //定义一个Vue组件component
+  Vue.component(&quot;yth&quot;,{
+    //用于接收传递给组件中的值（就是利用组件为中间商，获得了vm中的items中的数据）
+    props: [&#39;yin&#39;],
+    template: &quot;&lt;li&gt;{{yin}}&lt;/li&gt;&gt;&quot;
+  });
+
+  var vm = new Vue({
+    el: &quot;#app&quot;,
+    //Model : 数据
+    data: {
+      items: [&quot;Java&quot;,&quot;Linux&quot;,&quot;PHP&quot;]
+    }
+  });
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <h1 id="7-axios-">7、Axios异步通信</h1>
+                    <p>Axios是一个开源的可以用在浏览器端和 NodeJS 的异步通信框架，它的主要作用就是实现AJAX异步通信</p>
+                    <p>由于Vue是一个视图层框架，并且不包含AJAX的通信功能，所以为了解决通信问题，要使用Axios</p>
+                    <p>因为开发的接口大部分都是采用JSON格式，所以先创建data.json文件，并写如下数据</p>
+                    <pre><code class="lang-json">{
+  &quot;name&quot;:&quot;狂神说java&quot;,
+  &quot;url&quot;: &quot;http://baidu.com&quot;,
+  &quot;page&quot;: &quot;1&quot;,
+  &quot;isNonProfit&quot;:&quot;true&quot;,
+  &quot;address&quot;: {
+    &quot;street&quot;: &quot;含光门&quot;,
+    &quot;city&quot;:&quot;陕西西安&quot;,
+    &quot;country&quot;: &quot;中国&quot;
+  },
+  &quot;links&quot;: [
+    {
+      &quot;name&quot;: &quot;B站&quot;,
+      &quot;url&quot;: &quot;https://www.bilibili.com/&quot;
+    },
+    {
+      &quot;name&quot;: &quot;4399&quot;,
+      &quot;url&quot;: &quot;https://www.4399.com/&quot;
+    },
+    {
+      &quot;name&quot;: &quot;百度&quot;,
+      &quot;url&quot;: &quot;https://www.baidu.com/&quot;
+    }
+  ]
+}
+</code></pre>
+                    <pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+
+    &lt;!--解决闪烁问题--&gt;
+    &lt;style&gt;
+        [v-clock] {
+            display: none;
+        }
+    &lt;/style&gt;
+
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div id=&quot;vue&quot; v-clock&gt;
+    &lt;div&gt;{{info.name}}&lt;/div&gt;
+    &lt;a v-bind:href=&quot;info.url&quot;&gt;百度&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;!--引入 JS 文件--&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://unpkg.com/axios/dist/axios.min.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+    var vm = new Vue({
+      el: &quot;#vue&quot;,
+      data() {
+        return {
+            //请求的返回参数格式，必须和json字符串一样
+            info: {
+                name: null,
+                addredd: {
+                    street: null,
+                    city: null,
+                    country: null
+                },
+                url: null
+            }
+        }
+      },
+      mounted() { //钩子函数 链式编程 ES6新特性
+          axios.get(&#39;../data.json&#39;).then(response=&gt;(this.info = response.data));
+      }
+    });
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <h1 id="8-">8、计算属性</h1>
+                    <p>是一个能够将计算结果缓存起来的属性，可以想象为缓存</p>
+                    <p>计算属性的主要特性就是为了将不经常变化的计算结果进行缓存，以节约我们的系统开销</p>
+                    <pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div id=&quot;app&quot;&gt;
+  &lt;p&gt;{{currentTime()}}&lt;/p&gt;
+
+  &lt;p&gt;{{currentTime1}}&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!--引入 JS 文件--&gt;
+&lt;script src=&quot;https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+  var vm = new Vue({
+    el: &quot;#app&quot;,
+    data: {
+      message: &quot;hello,menger&quot;
+    },
+    methods: {
+      currentTime: function () {
+        return Date.now(); //返回一个时间戳
+      }
+    },
+    computed: { //计算属性
+      currentTime1: function () {
+        return Date.now();
+      }
+    }
+
+  });
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <h1 id="9-vue-elementui">9、Vue + ElementUI</h1>
+                    <p><strong>1.首先通过vue-cli创建一个myvue项目</strong> </p>
+                    <p>vue init webpack myvue</p>
+                    <p><strong>2.安装依赖，我们需要vue-router、element-ui、sass-loader和node-sass四个插件</strong></p>
+                    <ul>
+                        <li>进入工程目录</li>
+                    </ul>
+                    <p>cd myvue</p>
+                    <ul>
+                        <li>安装 vue-router</li>
+                    </ul>
+                    <p>npm install vue-router --save-dev</p>
+                    <ul>
+                        <li>安装 element-ui -s</li>
+                    </ul>
+                    <p>npm i element-ui -s</p>
+                    <ul>
+                        <li>安装依赖</li>
+                    </ul>
+                    <p>npm install</p>
+                    <ul>
+                        <li>安装SASS加载器</li>
+                    </ul>
+                    <p>cnpm install sass-loader node-sass --save-dev</p>
+                    <ul>
+                        <li>启动测试</li>
+                    </ul>
+                    <p>npm run dev</p>
+
+                </article>
+            </div>
+        </div>
+
+		<!--footer部分-->
+	    <div th:replace="~{/commons/commons::footer_bar}"></div>
+    
+    </div><!--//main-wrapper-->
+    
+
+        
+       
+    <!-- Javascript -->          
+    <script th:src="@{/plugins/popper.min.js}"></script>
+    <script th:src="@{/plugins/bootstrap/js/bootstrap.js/bootstrap.min.js}"></script>
+
+    <!-- Page Specific JS -->
+<!--    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>-->
+
+    <!-- Custom JS -->
+    <script th:src="@{/js/blog.js}"></script>
+    
+
+</body>
+</html> 
+

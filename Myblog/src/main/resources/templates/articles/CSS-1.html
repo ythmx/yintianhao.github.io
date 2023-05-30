@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>CSS</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog Template">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
+	<!--显示小图标，目前显不出来，bug！！-->
+<!--    <link rel="shortcut icon" href="favicon.ico">-->
+    
+    <!-- 字体 JS-->
+	<script defer th:src="@{/fontawesome/js/all.js/all.min.js}"></script>
+    
+    <!-- 插件 CSS -->
+    <link rel="stylesheet" th:href="@{/plugins/highlight/styles/monokai-sublime.css}">
+    
+    <!-- 主题 CSS -->
+    <link id="theme-style" rel="stylesheet" th:href="@{/css/theme-4.css}">
+
+</head> 
+
+<body>
+    
+    <!--左侧部分-->
+	<div th:replace="~{/commons/commons::header_bar(active='blog-post')}"></div>
+    
+    <div class="main-wrapper">
+
+        <div>
+            <div style='width:25%;'>
+                <ul id="tree" class="ztree" style='width:100%'>
+
+                </ul>
+            </div>
+            <div id='readme' style='width:70%;margin-left:20%;'>
+                <article class='markdown-body'>
+                    <h1 id="-"><strong>第一天</strong></h1>
+                    <h1 id="-css-">一、引入CSS样式表</h1>
+                    <p>1，行内式（内联样式）</p>
+                    <p>是通过标签的style属性来设置元素的样式</p>
+                    <pre><code class="lang-html">&lt;标签名 style=&quot;属性1:属性值1; 属性2:属性值2;&quot;&gt; 内容 &lt;/标签名&gt;
+</code></pre>
+                    <p>实际上任何HTML标签都拥有style属性，用来设置行内式</p>
+                    <pre><code class="lang-html">例子
+&lt;h1 style=&quot;color: pink; font-size: 18px;&quot;&gt;世纪佳缘，我在这里等你&lt;/h1&gt;
+</code></pre>
+                    <p>2，内部样式表（内嵌样式表）</p>
+                    <p>是将CSS代码集中写在HTML文档的head头部标签中，并且用style标签定义</p>
+                    <pre><code class="lang-html">&lt;head&gt;
+    &lt;style type=&quot;text/CSS&quot;&gt;
+        选择器(就是选择的标签) {
+            属性1: 属性值1;
+            属性2: 属性值2;
+            属性3: 属性值3;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;style&gt;
+    div{
+        color: red;
+        font-size: 12px;
+    }
+&lt;/style&gt;
+
+&lt;style&gt;
+    tr {
+        height: 40px;
+    }
+&lt;/style&gt;
+</code></pre>
+                    <p>只能控制当前的页面，缺点是没有彻底分离</p>
+                    <p>3，外部样式表（外链式）</p>
+                    <p>将所有的样式放在一个或多个以.css为扩展名的外部样式表中，</p>
+                    <p>通过link标签将外部样式表文件链接到HTML文档中</p>
+                    <pre><code class="lang-html">&lt;head&gt;
+    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;css文件路径&quot; &gt;
+&lt;/head&gt;
+</code></pre>
+                    <p>rel  定义当前文档与被连接文档之间的关系，在这里需要指定为&quot;stylesheet&quot;，表示被链接的文档是一个样式表文件</p>
+                    <p>type  定义所链接文档的类型，在这里指定为&quot;text/css&quot;，表示链接的外部文档为CSS样式表</p>
+                    <p>href  定义所链接外部样式表文件的URL</p>
+                    <h1 id="-css-">二、CSS选择器</h1>
+                    <p>选择器的作用：找到特定的HTML页面元素（元素=标签）</p>
+                    <p>选择标签用的，把我们想要的标签选择出来</p>
+                    <p>选择器分为基础选择器和复合选择器</p>
+                    <p><strong>基础选择器</strong></p>
+                    <p>(1) 标签选择器</p>
+                    <p>指用HTML标签名称作为选择器，按标签名称分类，为页面中某一类标签指定统一的CSS样式</p>
+                    <pre><code class="lang-css">标签名 {属性1:属性值1; 属性2:属性值2;}
+</code></pre>
+                    <p>可以把一类标签全部选择出来</p>
+                    <p>(2)类选择器</p>
+                    <p>类选择器使用&quot;.&quot;（英文点号）进行标识，后面紧跟类名</p>
+                    <pre><code class="lang-html">类名选择器
+.类名 {
+    属性1:属性值1;
+    属性2:属性值2;
+    属性3:属性值3;
+}
+
+标签
+&lt;p class=&#39;类名&#39;&gt;&lt;/p&gt;
+
+例子
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh-CN&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;css的练习&lt;/title&gt;
+    &lt;style&gt;
+        .red {
+            color: red;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;div&gt;1111&lt;/div&gt;
+    &lt;div&gt;2222&lt;/div&gt;
+    &lt;div&gt;3333&lt;/div&gt;
+    &lt;div&gt;4444&lt;/div&gt;
+    &lt;div class=&quot;red&quot;&gt;5555&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+
+例子：谷歌的图标
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh-CN&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;css的练习&lt;/title&gt;
+    &lt;style&gt;
+        .blue {
+            font-size: 100px;
+            color: blue;
+        }
+
+        .red {
+            font-size: 100px;
+            color: red;
+        }
+
+        .orange {
+            font-size: 100px;
+            color: orange;
+        }
+
+        .green {
+            font-size: 100px;
+            color: green;
+        }
+
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;span class=&quot;blue&quot;&gt;G&lt;/span&gt;
+    &lt;span class=&quot;red&quot;&gt;o&lt;/span&gt;
+    &lt;span class=&quot;orange&quot;&gt;o&lt;/span&gt;
+    &lt;span class=&quot;blue&quot;&gt;g&lt;/span&gt;
+    &lt;span class=&quot;green&quot;&gt;l&lt;/span&gt;
+    &lt;span class=&quot;red&quot;&gt;e&lt;/span&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <p>(3)类选择器特殊用法-多类名</p>
+                    <p>我们可以给标签指定多个类名，从而达到更多的选择目的</p>
+                    <pre><code class="lang-html">例子：谷歌图标
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh-CN&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;css的练习&lt;/title&gt;
+    &lt;style&gt;
+        .font100 {
+            font-size: 100px;
+        }
+
+        .blue {
+            color: blue;
+        }
+
+        .red {
+            color: red;
+        }
+
+        .orange {
+            color: orange;
+        }
+
+        .green {
+            color: green;
+        }
+
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- 一个标签内部只能有一个class --&gt;
+    &lt;span class=&quot;blue font100&quot;&gt;G&lt;/span&gt;
+    &lt;span class=&quot;red font100&quot;&gt;o&lt;/span&gt;
+    &lt;span class=&quot;orange font100&quot;&gt;o&lt;/span&gt;
+    &lt;span class=&quot;blue font100&quot;&gt;g&lt;/span&gt;
+    &lt;span class=&quot;green font100&quot;&gt;l&lt;/span&gt;
+    &lt;span class=&quot;red font100&quot;&gt;e&lt;/span&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <p>(4)id选择器</p>
+                    <p>id选择器使用#进行标识，后面紧跟id名</p>
+                    <pre><code class="lang-html">id选择器
+#id名 {属性1:属性值1; 属性2:属性值2;}
+
+标签
+&lt;p id=&quot;id名&quot;&gt;&lt;/p&gt;
+</code></pre>
+                    <p>元素的id值是唯一的，只能对应文档中某一个具体的元素</p>
+                    <p><strong>id选择器和类选择器区别</strong></p>
+                    <p>类选择器好比人的名字，是可以多次重复使用的</p>
+                    <p>id选择器好比人的身份证号码，是全国唯一的，不得重复，只能使用一次</p>
+                    <p>他们之间最大的不同在于使用次数上</p>
+                    <p>(5)通配符选择器</p>
+                    <p>用*号表示，就是选择所有的标签，他是所有选择器中作用范围最广的，能匹配页面中所有的元素</p>
+                    <pre><code class="lang-css">* {属性1:属性值1; 属性2:属性值2;}
+
+* {
+  margin: 0;   /*定义外边距*/
+  padding: 0;  /*定义内边距*/
+}
+</code></pre>
+                    <p>会匹配页面所有的元素，降低页面响应速度</p>
+                    <h1 id="-css-">三、CSS字体样式属性调试工具</h1>
+                    <p>1，font字体</p>
+                    <p>(1)font-size：大小</p>
+                    <p>用于设置字号大小</p>
+                    <pre><code class="lang-css">p {
+  font-size:20px;
+}
+</code></pre>
+                    <p>(2)font-family：字体</p>
+                    <p>用于设置哪一种字体</p>
+                    <pre><code class="lang-css">p {
+  font-family:&quot;微软雅黑&quot;, &quot;宋体&quot;;
+}
+</code></pre>
+                    <p>可以同时指定多个字体，中间以逗号隔开，表示如果浏览器不支持第一个字体，则会尝试下一个，直到找到合适的字体</p>
+                    <p>(3)Unicode字体</p>
+                    <p>在css中设置字体名称，直接写中文是可以的，但是在文件编码不匹配时会产生乱码的错误</p>
+                    <p>使用Unicode写中文字体名称，浏览器是可以正确的解析的</p>
+                    <pre><code class="lang-css">font-family: &quot;\5FAE\8F6F\96C5\9ED1&quot;; 表示设置字体为&quot;微软雅黑&quot;
+</code></pre>
+                    <p>(4)font-weight：字体粗细</p>
+                    <p>使用b和strong标签是文本加粗</p>
+                    <p>normal  默认值（不加粗的）</p>
+                    <p>bold  定义粗体（加粗的）</p>
+                    <p>100-900  400等同于normal，而700等同于bold</p>
+                    <p>平常更加提倡使用数字来表示加粗和不加粗</p>
+                    <pre><code class="lang-html">例子
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh-CN&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;css的练习&lt;/title&gt;
+    &lt;style&gt;
+
+        body {
+            font-size: 16px;
+        }
+
+        .title {
+            /* 字体大小 */
+            font-size: 20px;
+            /* 设置字体 */
+            font-family: &quot;微软雅黑&quot;;
+            /* 字体加粗 */
+            /*font-weight: 700; 与下一行代码等价*/
+            font-weight: bold;
+        }
+
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;p class=&quot;title&quot;&gt;俺来也！！！&lt;/p&gt;
+    &lt;p&gt;俺来也！！！&lt;/p&gt;
+    &lt;p&gt;俺来也！！！&lt;/p&gt;
+    &lt;p&gt;俺来也！！！&lt;/p&gt;
+    &lt;p&gt;俺来也！！！&lt;/p&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <p>(5)font-style：字体风格</p>
+                    <p>normal  默认值</p>
+                    <p>italic  浏览器会显示斜体的字体样式</p>
+                    <p>2，font的综合设置字体样式</p>
+                    <pre><code class="lang-css">选择器 { font: font-style font-weight font-size/line-height font-family; }
+</code></pre>
+                    <p>使用font属性时，必须按照上面语法格式中的顺序书写，不能更换顺序，各个属性以空格隔开</p>
+                    <p>其中font-size和font-family必须保留，其他属性如果不想设置，就可以省略</p>
+                    <p>3，CSS外观属性</p>
+                    <p>(1)color：文本颜色</p>
+                    <p>用于定义文本的颜色</p>
+                    <p>可以用预定义的颜色值，十六进制，RGB代码进行表示</p>
+                    <p>十六进制表示时，必须带#</p>
+                    <pre><code class="lang-css">.title {
+    color: #0365A4;
+}
+</code></pre>
+                    <p>(2)text-align：文本水平对齐方式</p>
+                    <p>用于设置文本内容的水平对齐，相当于html中的align对齐属性</p>
+                    <p>left  左对齐</p>
+                    <p>right  右对齐</p>
+                    <p>center  居中对齐</p>
+                    <p>注意：是让盒子里面的内容水平居中，而不是让盒子居中对齐</p>
+                    <p>(3)line-height：行间距</p>
+                    <p>用于设置行与行之间的距离，即字符的垂直间距</p>
+                    <pre><code class="lang-css">.title {
+    line-height: 24px;
+}
+</code></pre>
+                    <p>(4)text-indent：首行缩进</p>
+                    <p>用于设置首行文本的缩进，建议使用em作为设置单位，1em就是一个字的宽度，如果是汉字，1em就是一个汉字的宽度</p>
+                    <pre><code class="lang-css">p {
+    /*行间距*/
+    line-height: 25px;
+    /*首行缩进2个字*/
+    text-indent: 2em;
+}
+</code></pre>
+                    <p>(5)text-decoration 文本的装饰</p>
+                    <p>none    默认，定义标准的文本，取消下划线</p>
+                    <p>underline    定义文本下的一条线，下划线也是我们链接自带的</p>
+                    <p>overline    定义文本上的一条线</p>
+                    <p>line-through    定义穿过文本的一条线</p>
+                    <h1 id="-"><strong>第二天</strong></h1>
+                    <h1 id="-css-">一、CSS复合选择器</h1>
+                    <p>CSS选择器分为基础选择器和复合选择器，但是基础选择器不能满足我们实际开发中，快速高效的选择标签</p>
+                    <p>复合选择器是由两个或多个基础选择器，通过不同的方式组合而成的</p>
+                    <p>(1)后代选择器（重点）</p>
+                    <p>又称为包含选择器</p>
+                    <p>用来选择元素或元素组的子孙后代</p>
+                    <p>写法就是把外层标签写在前面，内层标签写在后面，中间用空格分隔，先写父亲爷爷，再写儿子孙子</p>
+                    <pre><code class="lang-html">父级 子级{ 属性:属性值;属性:属性值; }
+
+例子
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh-CN&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;css的练习&lt;/title&gt;
+    &lt;style&gt;
+        /* 父级 子级 */
+        .nav a {
+            color: pink;
+        }
+
+        .yin ul li {
+            color: red;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class=&quot;nav&quot;&gt;
+        &lt;a href=&quot;#&quot;&gt;内部链接&lt;/a&gt;
+        &lt;a href=&quot;#&quot;&gt;内部链接&lt;/a&gt;
+        &lt;a href=&quot;#&quot;&gt;内部链接&lt;/a&gt;
+    &lt;/div&gt;
+
+    &lt;a href=&quot;#&quot;&gt;外部链接&lt;/a&gt;
+    &lt;a href=&quot;#&quot;&gt;外部链接&lt;/a&gt;
+    &lt;a href=&quot;#&quot;&gt;外部链接&lt;/a&gt;
+
+    &lt;ul&gt;
+        &lt;li&gt;一个人&lt;/li&gt;
+        &lt;li&gt;一个人&lt;/li&gt;
+        &lt;li&gt;一个人&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;div class=&quot;yin&quot;&gt;
+        &lt;ul&gt;
+            &lt;li&gt;两个人&lt;/li&gt;
+            &lt;li&gt;两个人&lt;/li&gt;
+            &lt;li&gt;两个人&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <p>(2)子元素选择器</p>
+                    <p>子元素选择器只能选择作为某元素子元素（亲儿子）的元素</p>
+                    <p>这里的子是指亲儿子不包含孙子，重孙子之类的</p>
+                    <pre><code class="lang-html">例子
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh-CN&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;css的练习&lt;/title&gt;
+    &lt;style&gt;
+        /* 子元素选择器 */
+        div&gt;p&gt;strong {
+            color: pink;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class=&quot;&quot;&gt;
+        &lt;strong&gt;儿子&lt;/strong&gt;
+        &lt;strong&gt;儿子&lt;/strong&gt;
+        &lt;strong&gt;儿子&lt;/strong&gt;
+    &lt;/div&gt;
+
+    &lt;div&gt;
+        &lt;p&gt;
+            &lt;strong&gt;孙子&lt;/strong&gt;
+            &lt;strong&gt;孙子&lt;/strong&gt;
+            &lt;strong&gt;孙子&lt;/strong&gt;
+        &lt;/p&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <p>(3)交集选择器</p>
+                    <p>由两个选择器构成，找到的标签必须满足：既有标签一的特点，也有标签二的特点</p>
+                    <pre><code class="lang-html">例子
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh-CN&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;css的练习&lt;/title&gt;
+    &lt;style&gt;
+        p.red {
+            color: red;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;p class=&quot;red&quot;&gt;红色&lt;/p&gt;
+    &lt;p class=&quot;red&quot;&gt;红色&lt;/p&gt;
+    &lt;p class=&quot;red&quot;&gt;红色&lt;/p&gt;
+    &lt;div&gt;红色&lt;/div&gt;
+    &lt;div&gt;红色&lt;/div&gt;
+    &lt;div&gt;红色&lt;/div&gt;
+    &lt;p&gt;蓝色&lt;/p&gt;
+    &lt;p&gt;蓝色&lt;/p&gt;
+    &lt;p&gt;蓝色&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <p>(4)并集选择器（重点）</p>
+                    <p>如果某些选择器定义的相同样式，就可以利用并集选择器，可以让代码更简洁</p>
+                    <p>并集选择器通常用于集体声明，逗号隔开</p>
+                    <pre><code class="lang-html">例子
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh-CN&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;css的练习&lt;/title&gt;
+    &lt;style&gt;
+        /* 分开写
+        p {
+            color: red;
+        }
+
+        span {
+            color: red;
+        } */
+        /* 合起来写，并集选择器 */
+        p, span {
+            color: red;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;p&gt;红色&lt;/p&gt;
+    &lt;p&gt;红色&lt;/p&gt;
+    &lt;p&gt;红色&lt;/p&gt;
+    &lt;div&gt;红色&lt;/div&gt;
+    &lt;div&gt;红色&lt;/div&gt;
+    &lt;div&gt;红色&lt;/div&gt;
+    &lt;span&gt;红色&lt;/span&gt;
+    &lt;span&gt;红色&lt;/span&gt;
+    &lt;h1&gt;红色&lt;/h1&gt;
+    &lt;h1&gt;红色&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <p>(5)链接伪类选择器</p>
+                    <p>伪类选择器：</p>
+                    <p>为了和我们刚才学的类选择器相区别</p>
+                    <p>类选择器是一个点，比如.demo{}</p>
+                    <p>伪类用两个点即冒号，比如:link{}</p>
+                    <p>作用：</p>
+                    <p>用于向某些选择器添加特殊的效果，比如给链接添加特殊效果，比如可以选择第一个，第n个元素</p>
+                    <p>四种常见状态：</p>
+                    <p>a:link  未访问的链接</p>
+                    <p>a:visited  已访问的链接</p>
+                    <p>a:hover  鼠标移动到链接上</p>
+                    <p>a:active  选定的链接</p>
+                    <p>注意：写的时候，顺序尽量不要颠倒，按照lvha的顺序来写（love hate 记忆方法）</p>
+                    <pre><code class="lang-html">例子
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh-CN&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;css的练习&lt;/title&gt;
+    &lt;style&gt;
+        /* 未访问过 */
+       a:link {
+        color: pink;
+        /*去除链接的下划线*/
+        text-decoration: none;
+       }
+
+       /* 已经访问过 */
+       a:visited {
+        color: orange;
+       }
+
+       /* 鼠标移动到链接上的状态 */
+       a:hover {
+        color: red;
+       }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;a href=&quot;http://www.xiaomi.com&quot;&gt;小米手机&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <h1 id="-">二、标签显示模式</h1>
+                    <p>定义：就是标签以什么方式进行显示，例如div标签独占一行，span一行可以放很多个</p>
+                    <p>HTML标签一般分为块标签和行内标签两种类型，他们也称块元素和行内元素</p>
+                    <p>(1)块级元素（block-level）</p>
+                    <p>常见的块级元素有<h1>-<h6>、<p>、<div>、<ul>、<ol>、<li>等，其中<div>标签是最典型的块元素</p>
+                    <p>特点：（重要！！！）</p>
+                    <p>自己独占一行</p>
+                    <p>高度、宽度、外，内边距都可以控制</p>
+                    <p>宽度默认是容器的100%</p>
+                    <p>是一个容器及盒子，里面可以放行内或者块级元素</p>
+                    <p>（p里面不能包含div，段落里面尽量不要放块级元素）</p>
+                    <p>(2)行内元素（inline-level）</p>
+                    <p>常见的行内元素有<a>、<strong>、<b>、<em>、<i>、<del>、<s>、<ins>、<u>、<span>等，其中<span>标签最典型的行内元素</p>
+                    <p>特点：</p>
+                    <p>一行可以显示多个</p>
+                    <p>高、宽直接设置是无效的</p>
+                    <p>默认宽度就是它本身内容的宽度</p>
+                    <p>行内元素只能容纳文本或其他行内元素</p>
+                    <p>(3)行内块元素（inline-block）</p>
+                    <p>在行内元素中有几个特殊的标签<img>、<input>、<td>可以对它们设置高度和对齐属性</p>
+                    <p>特点：</p>
+                    <p>一行上显示多个</p>
+                    <p>可以设置高度、行高、外边距和内边距</p>
+                    <p>(4)标签显示模式的转换</p>
+                    <p>块转行内：display:inline;</p>
+                    <p>行内转块：display:block;</p>
+                    <p>块、行内元素转换为行内块：display:inline-block;</p>
+                    <pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh-CN&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;css的练习&lt;/title&gt;
+    &lt;style&gt;
+       span {
+        /* 把行内元素转换为块级元素 */
+        display: block;
+        width: 100px;
+        height: 100px;
+        background-color: pink;
+       }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;span&gt;行内&lt;/span&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <h1 id="-line-height-">三、行高（line-height）</h1>
+                    <p>(1)行高测量</p>
+                    <p>一行文字是由以下四条线组成的</p>
+                    <p>顶线</p>
+                    <p>中线</p>
+                    <p>基线</p>
+                    <p>底线</p>
+                    <p>其中，基线和基线的距离为行高（实际上，中文的量取就是上一行和这一行底线之间的距离）</p>
+                    <p>(2)单行文本垂直居中</p>
+                    <p>只需要让<strong>文字的行高等于盒子的高度</strong>就可以实现</p>
+                    <p>行高和高度的三种关系：</p>
+                    <p>如果 行高=高度，文字会垂直居中</p>
+                    <p>如果 行高&gt;高度，文字会偏下</p>
+                    <p>如果 行高&lt;高度，文字会偏上</p>
+                    <pre><code class="lang-html">例子
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh-CN&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;css的练习&lt;/title&gt;
+    &lt;style&gt;
+       a {
+        display: inline-block;
+        width: 100px;
+        height: 30px;
+        background-color: pink;
+        text-align: center;
+        text-decoration: none;
+        color: white;
+        line-height: 30px;
+       }
+
+       a:hover {
+        background-color: orange;
+        color: yellow;
+       }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;a href=&quot;#&quot;&gt;新闻&lt;/a&gt;
+    &lt;a href=&quot;#&quot;&gt;体育&lt;/a&gt;
+    &lt;a href=&quot;#&quot;&gt;汽车&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <h1 id="-css-">四、CSS背景</h1>
+                    <p>(1)背景颜色（color）</p>
+                    <pre><code class="lang-html">background-color: pink;
+</code></pre>
+                    <p>(2)背景图片（image）</p>
+                    <p>url里不提倡加引号</p>
+                    <pre><code class="lang-html">background-image: url(1.jpg);
+</code></pre>
+                    <p>(3)背景平铺（repeat）</p>
+                    <pre><code class="lang-html">background-repeat: repeat|no-repeat|repeat-x|repeat-y
+</code></pre>
+                    <p>repeat  平铺</p>
+                    <p>no-repeat  不平铺</p>
+                    <p>repeat-x  在横向上平铺</p>
+                    <p>repeat-y  在纵向上平铺</p>
+                    <p>(4)背景位置（position）</p>
+                    <pre><code class="lang-html">background-position: length||length
+background-position: position||position
+/*上下左右水平居中*/
+background-position: center center;
+</code></pre>
+                    <p>length  长度值</p>
+                    <p>position  top | center | bottom | left | right等方位名词</p>
+                    <p>注意：</p>
+                    <p>必须先指定background-image属性</p>
+                    <p>position后面是x坐标和y坐标</p>
+                    <p>如果只指定了一个方位名词，另一个默认居中</p>
+                    <p>如果只指定了一个数值，那么该数值用于x坐标</p>
+                    <pre><code class="lang-html">例子
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh-CN&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;css的练习&lt;/title&gt;
+    &lt;style&gt;
+        body {
+            /* 一般做超大图片的方法都是这样，水平居中，垂直靠上 */
+            background-image: url(mssj.png);
+            background-position: center top;
+            background-repeat: no-repeat;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <p>(5)背景附着</p>
+                    <p>背景附着就是解释背景是滚动的还是固定的</p>
+                    <pre><code class="lang-html">background-attachment: scroll | fixed
+</code></pre>
+                    <p>scroll    背景图像是随对象内容滚动</p>
+                    <p>fixed    背景图像固定</p>
+                    <p>(6)背景透明（CSS3）</p>
+                    <pre><code class="lang-html">background: rgba(0, 0, 0, 0.3);
+</code></pre>
+                    <p>最后一个参数是alpha透明度，取值范围在0-1之间</p>
+                    <p>我们习惯把0.3的0省去  background: rgba(0, 0, 0, .3);</p>
+                    <p>背景半透明是指盒子背景半透明，盒子里面的内容不受影响</p>
+                    <p>因为是CSS3，所以低于ie9的版本是不支持的</p>
+                    <h1 id="-css-">五、CSS的三大特性</h1>
+                    <p>(1)CSS层叠性</p>
+                    <p>所谓层叠性就是指多种CSS样式的叠加</p>
+                    <p>是浏览器处理冲突的一个能力，如果一个属性通过两个相同选择器设置到同一个元素上，那么这个时候一个性值就会将另一个属性层叠掉。</p>
+                    <p>就近原则（长江后浪推前浪，前浪死在沙滩上）</p>
+                    <p>(2)CSS继承性</p>
+                    <p>子标签会继承父标签的某些样式，想要设置一个可继承的属性，只需要将他应用于父元素即可（子承父业）</p>
+                    <p>子元素可以继承父元素的样式（text-，font-，line-这些元素开头的可以继承，以及color属性）</p>
+                    <p>(3)CSS优先级</p>
+                    <p>定义CSS样式时，经常出现两个或者更多规则应用在同一元素上，此时，</p>
+                    <p>选择器相同，则执行层叠性</p>
+                    <p>选择器不同，就会出现优先级的问题</p>
+                    <p><strong>权重计算公式</strong></p>
+                    <p>标签选择器                         计算权重公式</p>
+                    <p>继承或者*                            0，0，0，0</p>
+                    <p>每个元素（标签选择器）    0，0，0，1</p>
+                    <p>每个类，伪类                      0，0，1，0</p>
+                    <p>每个ID                                 0，1，0，0</p>
+                    <p>每个行内样式 style=&quot;&quot;         1，0，0，0</p>
+                    <p>每个!important  重要的            无穷大</p>
+                    <p><strong>权重叠加</strong></p>
+                    <p>就是一个简单的加法</p>
+                    <p>div ul li ----&gt;  0，0，0，3</p>
+                    <p>.nav ul li ----&gt;  0，0，1，2</p>
+                    <p>a:hover  ----&gt;  0，0，1，1</p>
+                    <p>.nav a  ----&gt;  0，0，1，1</p>
+
+                </article>
+            </div>
+        </div>
+
+		<!--footer部分-->
+	    <div th:replace="~{/commons/commons::footer_bar}"></div>
+    
+    </div><!--//main-wrapper-->
+        
+       
+    <!-- Javascript -->          
+    <script th:src="@{/plugins/popper.min.js}"></script>
+    <script th:src="@{/plugins/bootstrap/js/bootstrap.js/bootstrap.min.js}"></script>
+
+    <!-- Page Specific JS -->
+<!--    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>-->
+
+    <!-- Custom JS -->
+    <script th:src="@{/js/blog.js}"></script>
+    
+
+</body>
+</html> 
+

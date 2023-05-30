@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>CSS</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog Template">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
+	<!--显示小图标，目前显不出来，bug！！-->
+<!--    <link rel="shortcut icon" href="favicon.ico">-->
+    
+    <!-- 字体 JS-->
+	<script defer th:src="@{/fontawesome/js/all.js/all.min.js}"></script>
+    
+    <!-- 插件 CSS -->
+    <link rel="stylesheet" th:href="@{/plugins/highlight/styles/monokai-sublime.css}">
+    
+    <!-- 主题 CSS -->
+    <link id="theme-style" rel="stylesheet" th:href="@{/css/theme-4.css}">
+
+</head> 
+
+<body>
+    
+    <!--左侧部分-->
+	<div th:replace="~{/commons/commons::header_bar(active='blog-post')}"></div>
+    
+    <div class="main-wrapper">
+
+        <div>
+            <div style='width:25%;'>
+                <ul id="tree" class="ztree" style='width:100%'>
+
+                </ul>
+            </div>
+            <div id='readme' style='width:70%;margin-left:20%;'>
+                <article class='markdown-body'>
+                    <h1 id="-"><strong>制作学成在线网站</strong></h1>
+                    <h1 id="html-">html部分</h1>
+                    <pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;学成在线&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot; /&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- 头部模块开始 --&gt;
+    &lt;div class=&quot;header w&quot;&gt;
+        &lt;!-- logo盒子 --&gt;
+        &lt;div class=&quot;logo&quot;&gt;
+            &lt;img src=&quot;images/logo.png&quot; /&gt;
+        &lt;/div&gt;
+        &lt;!-- nav盒子 --&gt;
+        &lt;div class=&quot;nav&quot;&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href=&quot;#&quot;&gt;首页&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;#&quot;&gt;课程&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&quot;#&quot;&gt;职业规划&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+        &lt;!-- search盒子 --&gt;
+        &lt;div class=&quot;search&quot;&gt;
+            &lt;input type=&quot;text&quot; value=&quot;输入关键词&quot;/&gt;
+            &lt;button&gt;&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;!-- user盒子 --&gt;
+        &lt;div class=&quot;user&quot;&gt;
+            &lt;img src=&quot;images/user.jpg&quot;&gt;
+            小孟同学
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!-- 头部模块结束 --&gt;
+
+    &lt;!-- banner模块开始 --&gt;
+    &lt;div class=&quot;banner&quot;&gt;
+        &lt;div class=&quot;w&quot;&gt;
+            &lt;!-- 左侧导航栏 --&gt;
+            &lt;div class=&quot;subnav&quot;&gt;
+                &lt;ul&gt;
+                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;前端开发 &lt;span&gt;&gt;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;后端开发 &lt;span&gt;&gt;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;移动开发 &lt;span&gt;&gt;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;人工智能 &lt;span&gt;&gt;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;商业预测 &lt;span&gt;&gt;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;云计算&amp;大数据 &lt;span&gt;&gt;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;运维&amp;测试 &lt;span&gt;&gt;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;UI设计 &lt;span&gt;&gt;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href=&quot;#&quot;&gt;产品 &lt;span&gt;&gt;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/div&gt;
+            &lt;!-- 右侧课程表 --&gt;
+            &lt;div class=&quot;course&quot;&gt;
+                &lt;div class=&quot;course-hd&quot;&gt;我的课程表&lt;/div&gt;
+                &lt;div class=&quot;course-bd&quot;&gt;
+                    &lt;ul&gt;
+                        &lt;li&gt;
+                            &lt;h4&gt;继续学习 JavaSE课程&lt;/h4&gt;
+                            &lt;p&gt;正在学习-变量&lt;/p&gt;
+                        &lt;/li&gt;
+                        &lt;li&gt;
+                            &lt;h4&gt;继续学习 web前端课程&lt;/h4&gt;
+                            &lt;p&gt;正在学习-html标签&lt;/p&gt;
+                        &lt;/li&gt;
+                        &lt;li&gt;
+                            &lt;h4&gt;继续学习 JavaEE课程&lt;/h4&gt;
+                            &lt;p&gt;正在学习-函数&lt;/p&gt;
+                        &lt;/li&gt;
+                    &lt;/ul&gt;
+                    &lt;a href=&quot;#&quot; class=&quot;all&quot;&gt;全部课程&lt;/a&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!-- banner模块结束 --&gt;
+
+    &lt;!-- 精品推荐模块开始 --&gt;
+    &lt;div class=&quot;goods w&quot;&gt;
+        &lt;h3&gt;精品推荐&lt;/h3&gt;
+        &lt;div class=&quot;goods-item&quot;&gt;
+            |  &lt;a href=&quot;#&quot;&gt;jQuery&lt;/a&gt;
+            |  &lt;a href=&quot;#&quot;&gt;Spark&lt;/a&gt;
+            |  &lt;a href=&quot;#&quot;&gt;MySQL&lt;/a&gt;
+            |  &lt;a href=&quot;#&quot;&gt;JavaWeb&lt;/a&gt;
+            |  &lt;a href=&quot;#&quot;&gt;SpringBoot&lt;/a&gt;
+            |  &lt;a href=&quot;#&quot;&gt;Vue&lt;/a&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;mod&quot;&gt;
+            修改兴趣
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!-- 精品推荐模块结束 --&gt;
+
+    &lt;!-- 内容模块1开始 --&gt;
+    &lt;div class=&quot;box w&quot;&gt;
+        &lt;div class=&quot;box-hd&quot;&gt;
+            &lt;h3&gt;精品推荐&lt;/h3&gt;
+            &lt;a href=&quot;#&quot;&gt;查看全部&lt;/a&gt;
+        &lt;/div&gt;
+        &lt;!-- 此地方需要清除浮动 --&gt;
+        &lt;div class=&quot;box-bd clearfix&quot;&gt;
+            &lt;ul&gt;
+                &lt;li&gt;
+                    &lt;img src=&quot;images/pic1.png&quot;&gt;
+                    &lt;h4&gt;Think PHP 5.0 博客系统实战项目演练&lt;/h4&gt;
+                    &lt;p&gt;&lt;span&gt;高级&lt;/span&gt; 1125人在学习&lt;/p&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                    &lt;img src=&quot;images/pic2.png&quot;&gt;
+                    &lt;h4&gt;Think PHP 5.0 博客系统实战项目演练&lt;/h4&gt;
+                    &lt;p&gt;&lt;span&gt;高级&lt;/span&gt; 1125人在学习&lt;/p&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                    &lt;img src=&quot;images/pic3.png&quot;&gt;
+                    &lt;h4&gt;Think PHP 5.0 博客系统实战项目演练&lt;/h4&gt;
+                    &lt;p&gt;&lt;span&gt;高级&lt;/span&gt; 1125人在学习&lt;/p&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                    &lt;img src=&quot;images/pic4.png&quot;&gt;
+                    &lt;h4&gt;Think PHP 5.0 博客系统实战项目演练&lt;/h4&gt;
+                    &lt;p&gt;&lt;span&gt;高级&lt;/span&gt; 1125人在学习&lt;/p&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                    &lt;img src=&quot;images/pic5.png&quot;&gt;
+                    &lt;h4&gt;Think PHP 5.0 博客系统实战项目演练&lt;/h4&gt;
+                    &lt;p&gt;&lt;span&gt;高级&lt;/span&gt; 1125人在学习&lt;/p&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                    &lt;img src=&quot;images/pic1.png&quot;&gt;
+                    &lt;h4&gt;Think PHP 5.0 博客系统实战项目演练&lt;/h4&gt;
+                    &lt;p&gt;&lt;span&gt;高级&lt;/span&gt; 1125人在学习&lt;/p&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                    &lt;img src=&quot;images/pic2.png&quot;&gt;
+                    &lt;h4&gt;Think PHP 5.0 博客系统实战项目演练&lt;/h4&gt;
+                    &lt;p&gt;&lt;span&gt;高级&lt;/span&gt; 1125人在学习&lt;/p&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                    &lt;img src=&quot;images/pic3.png&quot;&gt;
+                    &lt;h4&gt;Think PHP 5.0 博客系统实战项目演练&lt;/h4&gt;
+                    &lt;p&gt;&lt;span&gt;高级&lt;/span&gt; 1125人在学习&lt;/p&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                    &lt;img src=&quot;images/pic4.png&quot;&gt;
+                    &lt;h4&gt;Think PHP 5.0 博客系统实战项目演练&lt;/h4&gt;
+                    &lt;p&gt;&lt;span&gt;高级&lt;/span&gt; 1125人在学习&lt;/p&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                    &lt;img src=&quot;images/pic5.png&quot;&gt;
+                    &lt;h4&gt;Think PHP 5.0 博客系统实战项目演练&lt;/h4&gt;
+                    &lt;p&gt;&lt;span&gt;高级&lt;/span&gt; 1125人在学习&lt;/p&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!-- 内容模块1结束 --&gt;
+
+    &lt;!-- 内容模块2开始 --&gt;
+    &lt;div class=&quot;box w&quot;&gt;
+        &lt;div class=&quot;box-hd&quot;&gt;
+            &lt;h3&gt;精品推荐&lt;/h3&gt;
+            &lt;a href=&quot;#&quot;&gt;查看全部&lt;/a&gt;
+        &lt;/div&gt;
+        &lt;!-- 此地方需要清除浮动 --&gt;
+        &lt;div class=&quot;box-bd clearfix&quot;&gt;
+            &lt;ul&gt;
+                &lt;li&gt;
+                    &lt;img src=&quot;images/pic1.png&quot;&gt;
+                    &lt;h4&gt;Think PHP 5.0 博客系统实战项目演练&lt;/h4&gt;
+                    &lt;p&gt;&lt;span&gt;高级&lt;/span&gt; 1125人在学习&lt;/p&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                    &lt;img src=&quot;images/pic2.png&quot;&gt;
+                    &lt;h4&gt;Think PHP 5.0 博客系统实战项目演练&lt;/h4&gt;
+                    &lt;p&gt;&lt;span&gt;高级&lt;/span&gt; 1125人在学习&lt;/p&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                    &lt;img src=&quot;images/pic3.png&quot;&gt;
+                    &lt;h4&gt;Think PHP 5.0 博客系统实战项目演练&lt;/h4&gt;
+                    &lt;p&gt;&lt;span&gt;高级&lt;/span&gt; 1125人在学习&lt;/p&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                    &lt;img src=&quot;images/pic4.png&quot;&gt;
+                    &lt;h4&gt;Think PHP 5.0 博客系统实战项目演练&lt;/h4&gt;
+                    &lt;p&gt;&lt;span&gt;高级&lt;/span&gt; 1125人在学习&lt;/p&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                    &lt;img src=&quot;images/pic5.png&quot;&gt;
+                    &lt;h4&gt;Think PHP 5.0 博客系统实战项目演练&lt;/h4&gt;
+                    &lt;p&gt;&lt;span&gt;高级&lt;/span&gt; 1125人在学习&lt;/p&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!-- 内容模块2结束 --&gt;
+
+    &lt;!-- 底部模块开始 --&gt;
+    &lt;div class=&quot;footer&quot;&gt;
+        &lt;div class=&quot;w&quot;&gt;
+            &lt;!-- 左侧 --&gt;
+            &lt;div class=&quot;copyright&quot;&gt;
+                &lt;img src=&quot;images/logo.png&quot;&gt;
+                &lt;p&gt;学成在线致力于普及中国最好的教育它与中国一流大学和机构合作提供在线课程。&lt;br /&gt;
+                    2017年XTCG Inc.保留所有权利。
+                &lt;/p&gt;
+                &lt;a href=&quot;#&quot; class=&quot;app&quot;&gt;下载APP&lt;/a&gt;
+            &lt;/div&gt;
+            &lt;!-- 右侧，使用自定义列表 --&gt;
+            &lt;div class=&quot;links&quot;&gt;
+                &lt;dl&gt;
+                    &lt;dt&gt;关于学成网&lt;/dt&gt;
+                    &lt;dd&gt;&lt;a href=&quot;#&quot;&gt;关于&lt;/a&gt;&lt;/dd&gt;
+                    &lt;dd&gt;&lt;a href=&quot;#&quot;&gt;管理团队&lt;/a&gt;&lt;/dd&gt;
+                    &lt;dd&gt;&lt;a href=&quot;#&quot;&gt;工作机会&lt;/a&gt;&lt;/dd&gt;
+                    &lt;dd&gt;&lt;a href=&quot;#&quot;&gt;客户服务&lt;/a&gt;&lt;/dd&gt;
+                    &lt;dd&gt;&lt;a href=&quot;#&quot;&gt;帮助&lt;/a&gt;&lt;/dd&gt;
+                &lt;/dl&gt;
+                &lt;dl&gt;
+                    &lt;dt&gt;新手指南&lt;/dt&gt;
+                    &lt;dd&gt;&lt;a href=&quot;#&quot;&gt;如何注册&lt;/a&gt;&lt;/dd&gt;
+                    &lt;dd&gt;&lt;a href=&quot;#&quot;&gt;如何选课&lt;/a&gt;&lt;/dd&gt;
+                    &lt;dd&gt;&lt;a href=&quot;#&quot;&gt;如何拿到毕业证&lt;/a&gt;&lt;/dd&gt;
+                    &lt;dd&gt;&lt;a href=&quot;#&quot;&gt;学分是什么&lt;/a&gt;&lt;/dd&gt;
+                    &lt;dd&gt;&lt;a href=&quot;#&quot;&gt;考试未通过怎么办&lt;/a&gt;&lt;/dd&gt;
+                &lt;/dl&gt;
+                &lt;dl&gt;
+                    &lt;dt&gt;合作伙伴&lt;/dt&gt;
+                    &lt;dd&gt;&lt;a href=&quot;#&quot;&gt;合作机构&lt;/a&gt;&lt;/dd&gt;
+                    &lt;dd&gt;&lt;a href=&quot;#&quot;&gt;合作导师&lt;/a&gt;&lt;/dd&gt;
+                &lt;/dl&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!-- 底部模块结束 --&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <h1 id="css-">CSS部分</h1>
+                    <pre><code class="lang-css">/* 清除元素默认的内外边距 */
+* {
+    padding: 0;
+    margin: 0;
+}
+
+/* 网页整体背景色 */
+body {
+    background-color: #f3f5f7;
+}
+
+/* 清除浮动 */
+.clearfix:before,
+.clearfix:after {
+    content: &quot;&quot;;
+    display: table;
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix {
+    *zoom: 1;
+}
+
+/* 清除a标签中链接的下划线 */
+a {
+    text-decoration: none;
+}
+
+/* 清除button自带边框 */
+button {
+    border: none;
+}
+
+/* 清除无序列表前的黑点 */
+li {
+    list-style: none;
+}
+
+/* 版心 宽1200 水平居中 */
+.w {
+    width: 1200px;
+    margin: auto;
+}
+
+/* 头部开始 */
+/* 头部样式 */
+.header {
+    height: 42px;
+    margin: 30px auto;
+}
+
+.logo {
+    float: left;
+}
+
+.nav {
+    float: left;
+    margin-left: 60px;
+}
+
+.nav ul li {
+    float: left;
+}
+
+.nav ul li a {
+    display: block;
+    height: 40px;
+    padding: 0 20px;
+    margin-right: 20px;
+    line-height: 40px;
+    color: #050505;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+/* 鼠标经过链接时出现下边框 */
+.nav ul li a:hover {
+    border-bottom: 2px solid #00a4ff;
+}
+
+.search {
+    float: left;
+    margin-left: 70px;
+}
+
+.search input {
+    float: left;
+    width: 340px;
+    height: 40px;
+    border: 1px solid #00a4ff;
+    border-right: 0;
+    padding-left: 20px;
+    color: #bfbfbf;
+}
+
+.search button {
+    float: left;
+    width: 50px;
+    height: 42px;
+    background: url(images/btn.png);
+}
+
+.user {
+    float: left;
+    height: 42px;
+    line-height: 42px;
+    margin-left: 30px;
+    font-size: 16px;
+    color: #666;
+}
+/* 头部结束 */
+
+/* banner 开始 */
+.banner {
+    height: 420px;
+    background: #1c036c url(images/banner2.png) no-repeat top center;
+}
+
+.subnav {
+    float: left;
+    width: 150px;
+    height: 420px;
+    padding: 0 20px;
+    /* 背景半透明 */
+    background: rgba(0, 0, 0, .3);
+}
+
+.subnav ul li {
+    height: 45px;
+    line-height: 45px;
+}
+
+.subnav ul li a {
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.subnav ul li a:hover {
+    color: #00b4ff;
+}
+
+.subnav ul li a span {
+    float: right;
+}
+
+.course {
+    float: right;
+    width: 228px;
+    height: 300px;
+    margin-top: 50px;
+    background-color: #fff;
+}
+
+.course-hd {
+    height: 48px;
+    line-height: 48px;
+    background-color: #9bceea;
+    font-size: 18px;
+    text-align: center;
+    color: #fff;
+    /* 文字加粗 */
+    font-weight: bold;
+}
+
+.course-bd {
+    padding: 0 15px;
+}
+
+.course-bd ul {
+    padding: 10px;
+}
+
+.course-bd ul li {
+    height: 50px;
+    border-bottom: 1px solid #ccc;
+    margin-top: 10px;
+}
+
+.course-bd ul li h4 {
+    font-size: 14px;
+    color: #4e4e4e;
+}
+
+.course-bd ul li p {
+    font-size: 12px;
+    color: #a5a5a5;
+}
+
+.all {
+    display: block;
+    height: 38px;
+    border: 1px solid #00a4ff;
+    margin-top: 5px;
+    text-align: center;
+    line-height: 38px;
+    font-size: 16px;
+    color: #00a4ff;
+}
+
+.all:hover {
+    background-color: #00a4ff;
+    color: #fff;
+}
+/* banner 结束 */
+
+/* 精品推荐开始 */
+.goods {
+    height: 60px;
+    /* 利用行高可以继承的特性 */
+    line-height: 60px;
+    background-color: #fff;
+    margin-top: 10px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
+}
+
+.goods h3 {
+    float: left;
+    margin: 0 30px;
+    font-size: 16px;
+    color: #00a4ff;
+}
+
+.goods-item {
+    float: left;
+    color: #bfbfbf;
+}
+
+.goods-item a {
+    margin: 0 30px;
+    font-size: 16px;
+    color: #050505;
+}
+
+.mod {
+    float: right;
+    margin-right: 30px;
+    font-size: 14px;
+    color: #00a4ff;
+}
+/* 精品推荐结束 */
+
+/* 内容模块开始 */
+.box {
+    margin-top: 15px;
+}
+
+.box-hd {
+    height: 60px;
+    line-height: 60px;
+}
+
+.box-hd h3 {
+    float: left;
+    font-size: 20px;
+    color: #494949;
+    font-weight: normal;
+}
+
+.box-hd a {
+    float: right;
+    margin-right: 30px;
+    font-size: 12px;
+    color: #a5a5a5;
+}
+
+.box-bd {
+    /* 这个盒子不要给高度，因为放多少行是不确定的 */
+    /* 如果不加15px，那么子盒子每个都有右边距15px，浮动后就会超出父盒子大小从而掉落 */
+    width: 1215px;
+}
+
+.box-bd ul li{
+    float: left;
+    width: 228px;
+    height: 270px;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    background-color: #fff;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, .3);
+}
+
+.box-bd ul li img {
+    width: 100%;
+}
+
+.box-bd ul li h4 {
+    margin: 20px;
+    font-size: 14px;
+    color: #050505;
+    font-weight: normal;
+}
+
+.box-bd ul li p {
+    margin: 0 20px;
+    font-size: 12px;
+    color: #999;
+}
+
+.box-bd ul li p span {
+    color: orange;
+}
+/* 内容模块结束 */
+
+/* 底部模块开始 */
+.footer {
+    height: 385px;
+    padding-top: 30px;
+    background-color: #fff;
+}
+
+.copyright {
+    float: left;
+}
+
+.copyright p {
+    font-size: 12px;
+    color: #666;
+    /* 上右下左 */
+    margin: 20px 0 15px 0;
+}
+
+.app {
+    display: block;
+    width: 118px;
+    height: 34px;
+    line-height: 34px;
+    border: 1px solid #00a4ff;
+    text-align: center;
+    font-size: 16px;
+    color: #00a4ff;
+}
+
+.links {
+    float: right;
+}
+
+.links dl {
+    float: left;
+    margin-left: 100px;
+}
+
+.links dt {
+    height: 35px;
+    font-size: 16px;
+    color: #333;
+}
+
+.links dd a {
+    font-size: 12px;
+    color: #333;
+}
+/* 底部模块结束 */
+</code></pre>
+
+                </article>
+            </div>
+        </div>
+
+		<!--footer部分-->
+	    <div th:replace="~{/commons/commons::footer_bar}"></div>
+    
+    </div><!--//main-wrapper-->
+        
+       
+    <!-- Javascript -->          
+    <script th:src="@{/plugins/popper.min.js}"></script>
+    <script th:src="@{/plugins/bootstrap/js/bootstrap.js/bootstrap.min.js}"></script>
+
+    <!-- Page Specific JS -->
+<!--    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>-->
+
+    <!-- Custom JS -->
+    <script th:src="@{/js/blog.js}"></script>
+    
+
+</body>
+</html> 
+

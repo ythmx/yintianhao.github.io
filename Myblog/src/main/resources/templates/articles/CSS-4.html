@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>CSS</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog Template">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
+	<!--显示小图标，目前显不出来，bug！！-->
+<!--    <link rel="shortcut icon" href="favicon.ico">-->
+    
+    <!-- 字体 JS-->
+	<script defer th:src="@{/fontawesome/js/all.js/all.min.js}"></script>
+    
+    <!-- 插件 CSS -->
+    <link rel="stylesheet" th:href="@{/plugins/highlight/styles/monokai-sublime.css}">
+    
+    <!-- 主题 CSS -->
+    <link id="theme-style" rel="stylesheet" th:href="@{/css/theme-4.css}">
+
+</head> 
+
+<body>
+    
+    <!--左侧部分-->
+	<div th:replace="~{/commons/commons::header_bar(active='blog-post')}"></div>
+    
+    <div class="main-wrapper">
+
+        <div>
+            <div style='width:25%;'>
+                <ul id="tree" class="ztree" style='width:100%'>
+
+                </ul>
+            </div>
+            <div id='readme' style='width:70%;margin-left:20%;'>
+                <article class='markdown-body'>
+                    <h1 id="-">第六天</h1>
+                    <p><strong>定位（position）</strong></p>
+                    <h1 id="-css-"><strong>一、CSS布局的三种机制</strong></h1>
+                    <p>标准流（普通流）</p>
+                    <p>浮动</p>
+                    <p>定位</p>
+                    <h1 id="-"><strong>二、为什么使用定位</strong></h1>
+                    <p>定位：将盒子定在某一个位置，自由的漂浮在其他盒子的上面</p>
+                    <p>有三种布局机制的上下顺序</p>
+                    <p>标准流在最底层（海底）</p>
+                    <p>浮动的盒子在中间层（海面）</p>
+                    <p>定位的盒子在最上层（天空）</p>
+                    <h1 id="-"><strong>三、定位详解</strong></h1>
+                    <p>定位 = 定位模式 + 边偏移</p>
+                    <p><strong>1、边偏移</strong></p>
+                    <p>我们定位的盒子，是通过边偏移来移动位置的</p>
+                    <p>在CSS中，通过top、left、right、bottom属性定义元素的边偏移</p>
+                    <p>定位的盒子有了边偏移才有价值，一般情况下，凡是有定位地方必定有边偏移</p>
+                    <p><strong>2、定位模式（定位的分类）</strong></p>
+                    <p>在CSS中，通过position属性定义元素的定位模式</p>
+                    <pre><code class="lang-html">选择器 { position: 属性值; }
+</code></pre>
+                    <p>定位模式是有不同分类的，在不同情况下，使用不同的定位模式</p>
+                    <p>static         静态定位</p>
+                    <p>relative      相对定位</p>
+                    <p>absolute    绝对定位</p>
+                    <p>fixed          固定定位</p>
+                    <p><strong>1）静态定位</strong></p>
+                    <p>静态定位是元素的默认定位方式，无定位的意思，他是在不要定位的时候使用</p>
+                    <p>静态定位是按照标准流特性摆放位置，它没有边偏移</p>
+                    <p><strong>2）相对定位</strong></p>
+                    <p>相对定位是元素相对于他原来在标准流中的位置来说的（自恋型）</p>
+                    <p>特点：</p>
+                    <p>原来在标准流的区域继续占有，后面的盒子仍然以标准流的方式对待它</p>
+                    <p><strong>3）绝对定位</strong></p>
+                    <p>绝对定位是元素以带有定位的父级元素来移动位置（拼爹型）</p>
+                    <p>特点：</p>
+                    <p>完全脱标----完全不占有位置</p>
+                    <p>父元素没有定位，则以浏览器为准定位</p>
+                    <p>如果父级有定位，绝对定位盒子以父级为准定位</p>
+                    <p><strong>定位口诀----子绝父相</strong></p>
+                    <p>子级是绝对定位，父级要用相对定位</p>
+                    <p>因为父级要占有位置，所以必须用相对定位，子级需要任意摆放，所以用绝对定位</p>
+                    <p><strong>4）固定定位</strong></p>
+                    <p>固定定位是绝对定位的一种特殊形式（认死理型）如果说绝对定位是一个矩形 那么 固定定位就类似于正方形</p>
+                    <p>特点：</p>
+                    <p>完全脱标----完全不占位置</p>
+                    <p>只认浏览器的可视窗口----浏览器可视窗口 + 边偏移属性  来设置元素的位置</p>
+                    <p>（跟父元素没有任何关系、不随滚动条滚动）</p>
+                    <p>例子：图片始终固定在可视区域的右下角</p>
+                    <pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh-CN&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;css的练习&lt;/title&gt;
+    &lt;style&gt;
+        body {
+            height: 1500px;
+        }
+
+        .up img {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class=&quot;up&quot;&gt;
+        &lt;img src=&quot;mssj.png&quot; width=&quot;150px&quot; height=&quot;&quot;&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <h1 id="-"><strong>四、定位的扩展</strong></h1>
+                    <p><strong>1、绝对定位的盒子居中</strong></p>
+                    <p>在使用绝对定位时，不能用 margin : auto; 实现水平居中</p>
+                    <p>可使用以下方法：</p>
+                    <p>left : 50%;  让盒子的左侧移动到父级元素的水平中心位置</p>
+                    <p>margin-left : -100px;  让盒子向左移动自身宽度的一半（这里盒子宽度为200px，所以是-100px）</p>
+                    <p><strong>2、堆叠顺序（z-index）</strong></p>
+                    <p>在使用定位布局时，可能会出现盒子重叠的情况</p>
+                    <p>加了定位的盒子，默认后来者居上，后面的盒子会压住前面的盒子</p>
+                    <p>应用 z-index 层叠等级属性，可以调整盒子的堆叠顺序</p>
+                    <p>特点：</p>
+                    <p>属性值：正整数、负整数或0，默认值是0，数值越大，盒子越靠上</p>
+                    <p>如果属性值相同，则按照书写顺序，后来者居上</p>
+                    <p>数字后面不能加单位</p>
+                    <p>z-index 只能应用于相对定位、绝对定位和固定定位的元素，其他标准流、浮动和静态定位无效</p>
+                    <p><strong>3、定位改变display属性</strong></p>
+                    <p>可以改变display的方法有以下几种：</p>
+                    <p>可以用 inline-block 转换为行内块</p>
+                    <p>可以用浮动 float 默认转换为行内块</p>
+                    <p>绝对定位和固定定位也和浮动类似，默认转换为行内块</p>
+                    <p>一个行内的盒子，如果加了浮动、固定定位和绝对定位，不用转换，就可以直接给这个盒子设置宽度和高度</p>
+                    <h1 id="-"><strong>五、案例</strong></h1>
+                    <p>圆角矩形设置四个角</p>
+                    <p>圆角矩形可以为4个角分别设置圆度，但是是有顺序的</p>
+                    <pre><code class="lang-html">border-top-left-radius:20px;
+border-top-right-radius:20px;
+border-bottom-right-radius:20px;
+border-bottom-left-radius:20px;
+
+如果四个角数值相同
+border-radius: 15px;
+
+数值不同，可以简写（顺时针顺序）
+border-radius: 左上角 右上角 右下角 左下角;
+</code></pre>
+                    <p>轮播图案例</p>
+                    <pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh-CN&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;css的练习&lt;/title&gt;
+    &lt;style&gt;
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .taobao {
+            position: relative;
+            width: 520px;
+            height: 280px;
+            background-color: pink;
+            margin: 100px auto;
+        }
+
+        .arrow-l {
+            position: absolute;
+            width: 20px;
+            height: 30px;
+            left: 0;
+            top: 50%;
+            margin-top: -15px;
+            background: rgba(0, 0, 0, .2);
+            text-decoration: none;
+            color: #fff;
+            /* text-align: center; */
+            line-height: 30px;
+            /* 右上角 */
+            border-top-right-radius: 20px;
+            /* 右下角 */
+            border-bottom-right-radius: 20px;
+        }
+
+        .arrow-l:hover,
+        .arrow-r:hover {
+            color: skyblue;
+            background: rgba(0, 0, 0, .4);
+        }
+
+        .arrow-r {
+            position: absolute;
+            width: 20px;
+            height: 30px;
+            right: 0;
+            top: 50%;
+            margin-top: -15px;
+            background: rgba(0, 0, 0, .2);
+            text-decoration: none;
+            color: #fff;
+            text-align: right;
+            line-height: 30px;
+            /* 左上角 */
+            border-top-left-radius: 20px;
+            /* 左下角 */
+            border-bottom-left-radius: 20px;
+        }
+
+        .circle {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            margin-left: -35px;
+            width: 70px;
+            height: 13px;
+            background-color: rgba(255, 255, 255, .3);
+            border-radius: 7px;
+        }
+
+        .circle li {
+            float: left;
+            width: 8px;
+            height: 8px;
+            background-color: #fff;
+            border-radius: 50%;
+            margin: 3px;
+        }
+        /* 注意优先级的问题 */
+        .circle .current {
+            background-color: #ff5000;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class=&quot;taobao&quot;&gt;
+        &lt;!-- 左按钮 --&gt;
+        &lt;a href=&quot;#&quot; class=&quot;arrow-l&quot;&gt;&amp;lt;&lt;/a&gt;
+        &lt;!-- 图片 --&gt;
+        &lt;img src=&quot;2.jpg&quot; width=&quot;520px&quot; height=&quot;280px&quot;&gt;
+        &lt;!-- 右按钮 --&gt;
+        &lt;a href=&quot;#&quot; class=&quot;arrow-r&quot;&gt;&amp;gt;&lt;/a&gt;
+        &lt;!-- 小圆点 --&gt;
+        &lt;ul class=&quot;circle&quot;&gt;
+            &lt;li&gt;&lt;/li&gt;
+            &lt;li class=&quot;current&quot;&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <h1 id="-"><strong>六、网页布局总结</strong></h1>
+                    <p>一个完整的网页，有标准流、浮动、定位一起完成布局的</p>
+                    <p>1）标准流</p>
+                    <p>可以让盒子上下排列 或者 左右排列</p>
+                    <p>2）浮动</p>
+                    <p>可以让多个块级元素一行显示 或者 左右对齐盒子  浮动的盒子就是按照顺序左右排列</p>
+                    <p>3）定位</p>
+                    <p>有层叠的概念，就是可以让多个盒子 前后 叠压来显示，每个盒子需要测量数值</p>
+                    <h1 id="-">第七天</h1>
+                    <p><strong>CSS高级技巧</strong></p>
+                    <h1 id="-"><strong>一、元素的显示与隐藏</strong></h1>
+                    <p>目的：让一个元素在页面中消失或者显示出来</p>
+                    <p><strong>1、display 显示</strong></p>
+                    <pre><code class="lang-html">display: none;隐藏对象
+display: block;除了转换为块级元素之外，同时还有显示元素的意思
+</code></pre>
+                    <p>特点：隐藏之后，不在保留位置</p>
+                    <p><strong>2、visibility 可见性</strong></p>
+                    <p>设置或检索是否显示对象</p>
+                    <pre><code class="lang-html">visibility: visible; 对象可见
+visibility: hidden; 对象隐藏
+</code></pre>
+                    <p>特点：隐藏之后，继续保留原有位置</p>
+                    <p><strong>3、overflow 溢出</strong></p>
+                    <p>检索或设置当对象的内容超过其指定高度及宽度时如果管理内容</p>
+                    <p>属性值            描述</p>
+                    <p>visible            不剪切内容也不添加滚动条</p>
+                    <p>hidden           不显示超过对象尺寸的内容，超出的部分隐藏掉</p>
+                    <p>scroll             不管超出内容否，总是显示滚动条</p>
+                    <p>auto               超出自动显示滚动条，不超出不显示滚动条</p>
+                    <h1 id="-css-"><strong>二、CSS用户界面样式</strong></h1>
+                    <p><strong>1、鼠标样式 cursor</strong></p>
+                    <p>设置或检索在对象上移动的鼠标指针采用何种系统预定义的光标形状</p>
+                    <p>属性值                描述</p>
+                    <p>default                小白（默认）</p>
+                    <p>pointer                小手</p>
+                    <p>move                  移动</p>
+                    <p>text                     文本</p>
+                    <p>not-allowed        禁止</p>
+                    <p><strong>2、轮廓线 outline</strong></p>
+                    <p>是绘制于元素周围的一条线，位于边框边缘的外围，可起到突出元素的作用</p>
+                    <pre><code class="lang-html">outline : outline-color || outline-style || outline-width
+</code></pre>
+                    <p>我们平时都是去掉的，最直接的写法</p>
+                    <pre><code class="lang-html">&lt;input type=&quot;text&quot; style=&quot;outline: 0;&quot; /&gt;
+</code></pre>
+                    <p><strong>3、防止拖拽文本域 resize</strong></p>
+                    <p>实际开发中，我们文本域的右下角是不可以拖拽的：</p>
+                    <pre><code class="lang-html">&lt;textarea style=&quot;resize: none;&quot;&gt;&lt;/textarea&gt;
+</code></pre>
+                    <h1 id="-vertical-align-"><strong>三、vertical-align 垂直对齐</strong></h1>
+                    <p><strong>1、图片、表单和文字对齐</strong></p>
+                    <p>只针对于行内元素或者行内块元素</p>
+                    <pre><code class="lang-html">vertical-align : baseline | top | middle | bottom
+</code></pre>
+                    <p>设置或检索对象内容的垂直对齐方式</p>
+                    <p>不影响块级元素中的内容对齐，它只针对行内元素或者行内块元素</p>
+                    <p>特别是行内块元素，通常用来控制图片/表单与文字的对齐</p>
+                    <pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh-CN&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;css的练习&lt;/title&gt;
+    &lt;style&gt;
+        /* 图片与文字中线对齐 */
+        .one {
+            vertical-align: middle;
+        }
+        /* 图片与文字顶线对齐 */
+        .two {
+            vertical-align: top;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;img src=&quot;2.jpg&quot; class=&quot;one&quot; width=&quot;200px&quot; height=&quot;200px&quot;&gt; 小孟同学！
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;img src=&quot;2.jpg&quot; class=&quot;two&quot; width=&quot;200px&quot; height=&quot;200px&quot;&gt; 小孟同学！
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <p><strong>2、去除图片底侧空白缝隙</strong></p>
+                    <p>原因：图片的底线和父级盒子的底线对齐</p>
+                    <p>解决方法：</p>
+                    <p>给img vertical-align:middle | top | bottom等等，让图片不要和基线对齐</p>
+                    <p>给img添加 display: block;转换为块级元素</p>
+                    <h1 id="-"><strong>四、溢出的文字省略号显示</strong></h1>
+                    <p><strong>1、white-space</strong></p>
+                    <p>设置或检索对象内文本显示方式，通常我们使用于强制一行显示内容</p>
+                    <pre><code class="lang-html">white-space:normal; 默认处理方式
+white-space:nowrap; 强制在同一行内显示所有文本，直到文本结束或者遭遇br标签对象才换行
+</code></pre>
+                    <p><strong>2、text-overflow 文字溢出</strong></p>
+                    <p>设置或检索是否使用一个省略标记（...）标示对象内文本的溢出</p>
+                    <pre><code class="lang-html">text-overflow: clip; 不显示省略标记
+text-overflow: ellipsis; 当对象内文本溢出时显示省略标记
+</code></pre>
+                    <p>注意：一定要强制一行内显示，再和overflow属性搭配使用</p>
+                    <p>总结</p>
+                    <pre><code class="lang-html">&lt;style&gt;
+    div {
+        /* 先强制一行内显示文本 */
+        white-space: nowrap;
+        /* 超出的部分隐藏 */
+        overflow: hidden;
+        /* 文字用省略号替代超出部分 */
+        text-overflow: ellipsis;
+    }
+&lt;/style&gt;
+</code></pre>
+                    <h1 id="-css-sprite-"><strong>五、CSS精灵技术（sprite）</strong></h1>
+                    <p><strong>1、为什么需要精灵技术</strong></p>
+                    <p>为了有效地减少服务器接受和发送请求的次数，提高页面的加载速度</p>
+                    <p><strong>2、精灵技术讲解</strong></p>
+                    <p>CSS精灵其实是将网页中的一些背景图像整合到一张大图中（精灵图），然而，各个网页元素通常只需要精灵图中不同位置的某个小图</p>
+                    <p>我们需要使用CSS的</p>
+                    <p>background-image</p>
+                    <p>background-repeat</p>
+                    <p>background-position 属性进行背景定位（关键）</p>
+                    <pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh-CN&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;css的练习&lt;/title&gt;
+    &lt;style&gt;
+        .icon1 {
+            width: 23px;
+            height: 23px;
+            background: url(index.png) no-repeat;
+            background-position: 0 -107px;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class=&quot;icon1&quot;&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    <p>总结：</p>
+                    <p>精确测量，每个小背景图片的大小和位置</p>
+                    <p>给盒子指定小背景图片时，背景定位基本都是负值</p>
+                    <h1 id="-"><strong>六、滑动门</strong></h1>
+                    <p>为了使各种特殊形状的背景能够自适应元素中文本内容的多少，出现了CSS滑动门技术。使各种特殊形状的背景能够自由拉伸滑动，以适应元素内部的文本内容，可用性更强</p>
+                    <p><strong>核心技术</strong></p>
+                    <p>核心技术就是利用CSS精灵（主要是背景位置）和盒子 padding 撑开宽度，以便能适应不同字数的导航栏</p>
+                    <p>一般的经典布局都是这样的</p>
+                    <pre><code class="lang-html">&lt;li&gt;
+    &lt;a href=&quot;#&quot;&gt;
+        &lt;span&gt;导航栏内容&lt;/span&gt;
+    &lt;/a&gt;
+&lt;/li&gt;
+</code></pre>
+
+                </article>
+            </div>
+        </div>
+
+		<!--footer部分-->
+	    <div th:replace="~{/commons/commons::footer_bar}"></div>
+    
+    </div><!--//main-wrapper-->
+        
+       
+    <!-- Javascript -->          
+    <script th:src="@{/plugins/popper.min.js}"></script>
+    <script th:src="@{/plugins/bootstrap/js/bootstrap.js/bootstrap.min.js}"></script>
+
+    <!-- Page Specific JS -->
+<!--    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>-->
+
+    <!-- Custom JS -->
+    <script th:src="@{/js/blog.js}"></script>
+    
+
+</body>
+</html> 
+

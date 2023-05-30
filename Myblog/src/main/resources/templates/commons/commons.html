@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!--左侧部分-->
+<header class="header text-center" th:fragment="header_bar">
+    <h1 class="blog-name pt-lg-4 mb-0"><a class="no-text-decoration" th:href="@{/}">尹天豪-博客</a></h1>
+
+    <nav class="navbar navbar-expand-lg navbar-dark" >
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div id="navigation" class="collapse navbar-collapse flex-column" >
+            <div class="profile-section pt-3 pt-lg-0">
+                <!--../../../../html/assets/images/profile.png-->
+                <img class="profile-image mb-3 rounded-circle mx-auto" th:src="@{/images/profile.png}" alt="image" >
+
+                <div class="bio mb-3">你好，我是尹天豪，欢迎你访问我的博客，希望我的文章能帮助到你<br><a th:href="@{/about}">了解更多关于我的信息</a></div><!--//bio-->
+                <ul class="social-list list-inline py-3 mx-auto">
+                    <li class="list-inline-item"><a href="#"><i class="fab fa-fw"></i></a></li>
+                    <li class="list-inline-item"><a href="#"><i class="fab fa-fw"></i></a></li>
+                    <li class="list-inline-item"><a href="#"><i class="fab fa-fw"></i></a></li>
+                    <li class="list-inline-item"><a href="#"><i class="fab fa-fw"></i></a></li>
+                    <li class="list-inline-item"><a href="#"><i class="fab fa-fw"></i></a></li>
+                </ul><!--//social-list-->
+                <hr>
+            </div><!--//profile-section-->
+
+            <ul class="navbar-nav flex-column text-start">
+                <li class="nav-item">
+                    <a th:class="${active=='index'?'nav-link active':'nav-link'}" th:href="@{/index}"><i class="fas fa-home fa-fw me-2"></i> <font size="5">主&nbsp;&nbsp;页</font></a>
+                </li>
+                <li class="nav-item">
+                    <a th:class="${active=='blog-post'?'nav-link active':'nav-link'}" th:href="@{/blog-post}"><i class="fas fa-bookmark fa-fw me-2"></i><font size="5">文&nbsp;&nbsp;章</font></a>
+                </li>
+                <li class="nav-item">
+                    <a th:class="${active=='about'?'nav-link active':'nav-link'}" th:href="@{/about}"><i class="fas fa-user fa-fw me-2"></i><font size="5">作&nbsp;&nbsp;者</font></a>
+                </li>
+            </ul>
+
+            <div class="my-2 my-md-3">
+                <!--这里写一个页面，介绍我的联系方式-->
+                <a class="btn btn-primary" th:href="@{/contact}" target="_blank">鼓励一下</a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!--footer部分-->
+<footer class="footer text-center py-2 theme-bg-dark" th:fragment="footer_bar">
+    <small class="copyright"><a target="_blank" href="#" title="加油，打工人">上班时间996，生病进入icu</a></small>
+
+</footer>
+
+
+</html>
